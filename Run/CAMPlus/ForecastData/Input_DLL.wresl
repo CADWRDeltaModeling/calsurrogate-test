@@ -1,0 +1,427 @@
+!This file defines all the input data to used in the CAM Forecast DLL
+
+!define IYPOS1 {select PA_Start from PA_switch where factor = 1}
+define IYPOS1 {value wateryear}
+define IYPOS2 {value IYPOS1 + 1}
+define IYPOS {case first {
+                condition wateryear == IYPOS1
+                value IYPOS1}
+              case second {
+                condition always
+                value IYPOS2}}  
+define IMPOS {case OCT_DEC {
+                condition month <= DEC
+                value month + 9}
+              case Rest {
+                condition always
+                value month - 3}}
+define IYEAR {value wateryear}
+/*define IYEAR {case first {
+                condition wateryear == IYPOS1
+                select FirstRandYear from RandomYearTable where PA_Sequence = 1}
+              case second {
+                condition always
+                select SecondRandYear from RandomYearTable where PA_Sequence = 1}}  */
+define IM {case OCT_DEC {
+             condition month <= DEC
+             value month + 9}
+           case Rest {
+             condition always
+             value month - 3}}
+define IFREQOD_1 {select IFREQOD from CAM_Freq_Exceedence where Cat = 1}
+define IFREQ1_1 {select IFREQ1 from CAM_Freq_Exceedence where Cat = 1}
+define IFREQ2_1 {select IFREQ2 from CAM_Freq_Exceedence where Cat = 1}
+define IFREQ3_1 {select IFREQ3 from CAM_Freq_Exceedence where Cat = 1}
+define IFREQ4_1 {select IFREQ4 from CAM_Freq_Exceedence where Cat = 1}
+define IFREQ5_1 {select IFREQ5 from CAM_Freq_Exceedence where Cat = 1}
+
+define IFREQOD_2 {select IFREQOD from CAM_Freq_Exceedence where Cat = 2}
+define IFREQ1_2 {select IFREQ1 from CAM_Freq_Exceedence where Cat = 2}
+define IFREQ2_2 {select IFREQ2 from CAM_Freq_Exceedence where Cat = 2}
+define IFREQ3_2 {select IFREQ3 from CAM_Freq_Exceedence where Cat = 2}
+define IFREQ4_2 {select IFREQ4 from CAM_Freq_Exceedence where Cat = 2}
+define IFREQ5_2 {select IFREQ5 from CAM_Freq_Exceedence where Cat = 2}
+
+define IFREQOD_3 {select IFREQOD from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ1_3 {select IFREQ1 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ2_3 {select IFREQ2 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ3_3 {select IFREQ3 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ4_3 {select IFREQ4 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ5_3 {select IFREQ5 from CAM_Freq_Exceedence where Cat = 3}
+
+define IFREQOD_4 {select IFREQOD from CAM_Freq_Exceedence where Cat = 4}
+define IFREQ1_4 {select IFREQ1 from CAM_Freq_Exceedence where Cat = 4}
+define IFREQ2_4 {select IFREQ2 from CAM_Freq_Exceedence where Cat = 4}
+define IFREQ3_4 {select IFREQ3 from CAM_Freq_Exceedence where Cat = 4}
+define IFREQ4_4 {select IFREQ4 from CAM_Freq_Exceedence where Cat = 4}
+define IFREQ5_4 {select IFREQ5 from CAM_Freq_Exceedence where Cat = 4}
+
+define IFREQODSJR_75 {select IFREQOD from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ1SJR_75 {select IFREQ1 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ2SJR_75 {select IFREQ2 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ3SJR_75 {select IFREQ3 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ4SJR_75 {select IFREQ4 from CAM_Freq_Exceedence where Cat = 3}
+define IFREQ5SJR_75 {select IFREQ5 from CAM_Freq_Exceedence where Cat = 3}
+
+define UNIMP_OROV {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(FTO)
+define UNIMP_FOLS {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(AMF)
+define UNIMP_YUBA {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(YRS)
+define UNIMP_SHAS {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(SIS)
+define UNIMP_SRBB {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(SBB)
+define UNIMP_TRIN {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_WH {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_ST {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_TU {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_ME {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_SJ {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+									
+define PPT_OROV {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_FOLS {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_YUBA {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_SHAS {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_TR {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_WH {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_ST {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_TU {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_ME {timeseries kind 'PRECIP' units 'INCHES'}
+define PPT_SJ {timeseries kind 'PRECIP' units 'INCHES'}
+
+define TOR {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TFO {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TYU {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TSH {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TTR {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TWH {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TST {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TTU {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TME {timeseries kind 'Temperature' units 'Fahrenhe'}
+define TSJ {timeseries kind 'Temperature' units 'Fahrenhe'}
+
+define VPDOR {timeseries kind 'VPD' units 'kPa'}
+define VPDFO {timeseries kind 'VPD' units 'kPa'}
+define VPDYU {timeseries kind 'VPD' units 'kPa'}
+define VPDSH {timeseries kind 'VPD' units 'kPa'}
+define VPDTR {timeseries kind 'VPD' units 'kPa'}
+define VPDWH {timeseries kind 'VPD' units 'kPa'}
+define VPDST {timeseries kind 'VPD' units 'kPa'}
+define VPDTU {timeseries kind 'VPD' units 'kPa'}
+define VPDME {timeseries kind 'VPD' units 'kPa'}
+define VPDSJ {timeseries kind 'VPD' units 'kPa'}
+
+define QOR_1_1 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 13}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(-8-month)}}  
+define QOR_1_2 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 14}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(-7-month)}}  
+define QOR_1_3 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 15}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(-6-month)}}  
+define QOR_1_4 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 16}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(-5-month)}}
+define QOR_1_5 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 17}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(prevMAY)}} 
+define QOR_1_6 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 18}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(prevJUN)}}
+define QOR_1_7 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 19}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(prevJUL)}}
+define QOR_1_8 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 20}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(prevAUG)}}
+define QOR_1_9 {/*case first {
+                   condition wateryear == 1922
+                   select QOR from CAM_HistoricUnimp_Precip where month = 21}*/
+                 case second {
+                   condition always
+                   value UNIMP_OROV(prevSEP)}}
+define QOR_1_10 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_OROV(prevOCT)}}
+define QOR_1_11 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_OROV(prevNOV)}}
+define QOR_1_12 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_OROV(prevDEC)}}                    
+
+define QFO_1_1 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 13}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(-8-month)}}  
+define QFO_1_2 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 14}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(-7-month)}}  
+define QFO_1_3 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 15}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(-6-month)}}  
+define QFO_1_4 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 16}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(-5-month)}}
+define QFO_1_5 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 17}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(prevMAY)}} 
+define QFO_1_6 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 18}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(prevJUN)}}
+define QFO_1_7 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 19}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(prevJUL)}}
+define QFO_1_8 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 20}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(prevAUG)}}
+define QFO_1_9 {/*case first {
+                   condition wateryear == 1922
+                   select QFO from CAM_HistoricUnimp_Precip where month = 21}*/
+                 case second {
+                   condition always
+                   value UNIMP_FOLS(prevSEP)}}
+define QFO_1_10 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_FOLS(prevOCT)}}
+define QFO_1_11 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_FOLS(prevNOV)}}
+define QFO_1_12 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_FOLS(prevDEC)}}                    
+
+define QYU_1_1 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 13}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(-8-month)}}  
+define QYU_1_2 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 14}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(-7-month)}}  
+define QYU_1_3 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 15}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(-6-month)}}  
+define QYU_1_4 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 16}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(-5-month)}}
+define QYU_1_5 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 17}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(prevMAY)}} 
+define QYU_1_6 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 18}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(prevJUN)}}
+define QYU_1_7 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 19}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(prevJUL)}}
+define QYU_1_8 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 20}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(prevAUG)}}
+define QYU_1_9 {/*case first {
+                   condition wateryear == 1922
+                   select QYU from CAM_HistoricUnimp_Precip where month = 21}*/
+                 case second {
+                   condition always
+                   value UNIMP_YUBA(prevSEP)}}
+define QYU_1_10 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_YUBA(prevOCT)}}
+define QYU_1_11 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_YUBA(prevNOV)}}
+define QYU_1_12 {case first {
+                    condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                  case second {
+                    condition always
+                    value UNIMP_YUBA(prevDEC)}}     
+                                        
+define QSH_1_1 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 13}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(-8-month)}}  
+define QSH_1_2 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 14}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(-7-month)}} 
+define QSH_1_3 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 15}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(-6-month)}}  
+define QSH_1_4 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 16}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(-5-month)}}
+define QSH_1_5 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 17}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(prevMAY)}} 
+define QSH_1_6 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 18}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(prevJUN)}}
+define QSH_1_7 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 19}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(prevJUL)}}
+define QSH_1_8 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 20}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(prevAUG)}}
+define QSH_1_9 {case first {
+                   condition wateryear == 1922
+                   select QSH from CAM_HistoricUnimp_Precip where month = 21}
+                 case second {
+                   condition always
+                   value UNIMP_SHAS(prevSEP)}}
+define QSH_1_10 {case first{
+					condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                 case second{
+                 	condition always 
+                 	value UNIMP_SHAS(prevOCT)}}
+define QSH_1_11 {case first{
+					condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                 case second{
+                 	condition always 
+                 	value UNIMP_SHAS(prevNOV)}}
+define QSH_1_12 {case first{
+					condition wateryear == 1922 .and. month<=Dec
+                    value 0.0}
+                 case second{
+                 	condition always 
+                 	value UNIMP_SHAS(prevDEC)}}                    
+
+define QBD_1_1 {value UNIMP_SRBB(-8-month)}  
+define QBD_1_2 {value UNIMP_SRBB(-7-month)}  
+define QBD_1_3 {value UNIMP_SRBB(-6-month)}  
+define QBD_1_4 {value UNIMP_SRBB(-5-month)}
+define QBD_1_5 {value UNIMP_SRBB(prevMAY)} 
+define QBD_1_6 {value UNIMP_SRBB(prevJUN)}
+define QBD_1_7 {value UNIMP_SRBB(prevJUL)}
+define QBD_1_8 {value UNIMP_SRBB(prevAUG)}
+define QBD_1_9 {value UNIMP_SRBB(prevSEP)}
+define QBD_1_10 {value UNIMP_SRBB(prevOCT)}
+define QBD_1_11 {value UNIMP_SRBB(prevNOV)}
+define QBD_1_12 {value UNIMP_SRBB(prevDEC)}                
+
+define UNIMP_OROV_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(FTO)
+define UNIMP_FOLS_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(AMF)
+define UNIMP_YUBA_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(YRS)
+define UNIMP_SHAS_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(SIS)
+define UNIMP_SRBB_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}	!CDEC(SBB)
+define UNIMP_TRIN_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_WH_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_ST_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_TU_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_ME_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}
+define UNIMP_SJ_CC {timeseries kind 'FLOW-UNIMPAIRED' units 'TAF'}    
+                 	

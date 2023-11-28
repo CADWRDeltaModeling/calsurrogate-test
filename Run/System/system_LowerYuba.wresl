@@ -1,0 +1,41 @@
+
+! THIS FILE CONTAINS THE NAMES OF ALL INCLUDE FILES FOR THE SYSTEM DESCRIPTION
+
+
+
+/*
+These files are for the Yuba River Region/Sub-Model
+*/
+!*******ARCS*******
+
+INCLUDE 'SystemTables_LowerYuba\arcs-Inflows.wresl'
+INCLUDE 'SystemTables_UpperYuba\arcs-Inflows.wresl' ! Needed to calculate Smartville unimpaired flow                    
+INCLUDE 'SystemTables_LowerYuba\arcs-Channels.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-Diversions.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-Deliveries.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-GWpumping.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-MinFlows.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-PreOperations.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-Reservoirs.wresl'
+INCLUDE 'SystemTables_LowerYuba\arcs-Returns.wresl'
+INCLUDE 'systemtables_LowerYuba\arcs-WUFactors.wresl'  
+INCLUDE 'SystemTables_LowerYuba\FlowLossFactors.wresl'
+INCLUDE 'SystemTables_LowerYuba\Rpf_RufO_RufW.wresl'                
+INCLUDE 'SystemTables_LowerYuba\arcs-Contracts.wresl'
+
+!****CONSTRAINTS****
+
+INCLUDE 'SystemTables_LowerYuba\constraints-Connectivity.wresl'              
+INCLUDE 'SystemTables_LowerYuba\constraints-Contracts.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-Deliveries.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-GWpumping.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-MinFlows.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-PreOperations.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-Reservoirs.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-Returns.wresl'
+INCLUDE 'SystemTables_LowerYuba\constraints-Runoff.wresl'
+INCLUDE 'systemtables_LowerYuba\constraints-WUFactors.wresl'
+INCLUDE 'systemtables_LowerYuba\weight-table.wresl'
+
+
+

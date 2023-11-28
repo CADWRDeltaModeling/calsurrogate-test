@@ -1,0 +1,2 @@
+1922/5/31 cycle 25 (gw_first): Infeasible.
+1922/5/31 cycle 25 (gw_first): Linear relaxation not feasible.
