@@ -210,7 +210,7 @@ define EM_a0_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 0, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 0, int(ann_type), (month-4), wateryear)}
   case control{                  
 	condition month >= Apr .and. month <= Aug 
     value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
@@ -219,7 +219,7 @@ define EM_a0_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 0, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 0, int(ann_type), (month-4), wateryear)}
   case other {
     condition  always
     value 999999.}
@@ -234,7 +234,7 @@ define EM_a1_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 1, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 1, int(ann_type), (month-4), wateryear)}
   case control{
     condition month >= Apr .and. month <= Aug
     value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
@@ -243,7 +243,7 @@ define EM_a1_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 1, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 1, int(ann_type), (month-4), wateryear)}
   case other {
     condition  always
     value 999999.}
@@ -258,7 +258,7 @@ define EM_a2_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 2, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 2, int(ann_type), (month-4), wateryear)}
   case control{
     condition month >= Apr .and. month <= Aug
     value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
@@ -267,7 +267,7 @@ define EM_a2_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 2, int(ann_type), (month-3), wateryear)}
+                    EM_EC_std_sv, int(EM), 2, int(ann_type), (month-4), wateryear)}
   case other {
     condition  always
     value 999999.}
