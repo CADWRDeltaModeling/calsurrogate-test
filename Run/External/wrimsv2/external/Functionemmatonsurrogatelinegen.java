@@ -12,7 +12,7 @@ import calsim.surrogate.DisaggregateMonthsSpline;
 import calsim.surrogate.Surrogate;
 import calsim.surrogate.SurrogateMonth;
 import calsim.surrogate.TensorWrapper;
-import calsim.surrogate.examples.SalinitySurrogateManager;
+import calsim.surrogate.SalinitySurrogateManager;
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
 

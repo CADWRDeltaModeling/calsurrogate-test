@@ -16,7 +16,7 @@ import calsim.surrogate.Surrogate;
 import calsim.surrogate.SurrogateMonth;
 import calsim.surrogate.TensorWrapper;
 import calsim.surrogate.examples.EmmatonExampleTensorFlowANN;
-import calsim.surrogate.examples.SalinitySurrogateManager;
+import calsim.surrogate.SalinitySurrogateManager;
 
 public class Functionemmatonsurrogateec extends ExternalFunction{
 	private final boolean DEBUG = false;
