@@ -1,0 +1,76 @@
+
+! Definitions of current/lagged calendar year and month
+! The current calendar year is calyear 
+! The current calendar month is calmonth
+! The suffixes _prev and _prev2 refer to the past two months
+! Year boundaries are respected. The impetus for these definitions is to avoid 
+! complex conditional combinations involving year, month and lag
+
+
+define calyear {
+  case targetMonthFallsLastYear {
+    condition month == oct .or. month == nov .or. month == dec
+    value  wateryear - 1}
+  case otherwise {
+    condition always
+    value  wateryear }
+}
+
+define calyear_prev {
+  case targetMonthFallsLastYear {
+    condition month == oct .or. month == nov .or. month == dec .or. month == jan
+    value  wateryear - 1}
+  case otherwise {
+    condition always
+    value  wateryear }
+}
+
+define calyear_prev2 {
+  case targetMonthFallsLastYear {
+    condition month == oct .or. month == nov .or. month == dec .or. month == jan .or. month == feb
+    value  wateryear - 1}
+  case otherwise {
+    condition always
+    value  wateryear }
+}
+
+define calyear_prev3 {
+  case targetMonthFallsLastYear {
+    condition month == oct .or. month == nov .or. month == dec .or. month == jan .or. month == feb .or. month == mar
+    value  wateryear - 1}
+  case otherwise {
+    condition always
+    value  wateryear }
+}
+
+define calmonth {
+  case modFormulaIsZero {
+    condition mod(month+9,12) == 0
+    value  12
+    }
+  case otherwise {
+    condition always
+    value  mod(month+9,12) }
+}
+
+define calmonth_prev {
+  case modFormulaIsZero {
+    condition mod(month+8,12) == 0
+    value  12
+    }
+  case otherwise {
+    condition always
+    value  mod(month+8,12) }
+}
+
+define calmonth_prev2 {
+  case modFormulaIsZero {
+    condition mod(month+7,12) == 0
+    value  12
+    }
+  case otherwise {
+    condition always
+    value  mod(month+7,12) }
+}
+
+

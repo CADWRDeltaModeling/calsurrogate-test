@@ -7,8 +7,9 @@ include 'NBA\NBA.wresl'
 include 'riovista\riovista.wresl'
 
 ! Contains files for implementation of Artifical Neural Network's for salinity control.
+include 'Ann\AnnCalendar.wresl' 
 include 'Ann\gmodel-null.wresl'
-include 'Ann\Ann_wyt_D1641.wresl'
+include 'Ann\Ann_wyt_D1641.wresl'          ! Definitions of calendar year/month including lags
 include 'Ann\AnnCommon2.wresl'
 
 !These files establish the standards and parameters for each station:

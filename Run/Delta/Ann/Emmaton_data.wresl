@@ -22,24 +22,13 @@ Modified values are in salinity_std_emt_new.table.
 
 ! calculate previous month's value of salinity
 define EM_EC_Month_sv {
-  case lastWaterYear {
-    condition  month <= Jan
       value  emmatonsurrogateec(Sac_Tot(-1:-5),
                EXP_tot(-1:-5),
                DXC(-1:-5),
                net_DICU(-1:-5),
                C_SJR070(-1:-5),
                SMSCG_OP(-1:-5),
-               int(EM), 0, 0, (8+month), (wateryear-1))}
-  case others {
-    condition always
-      value  emmatonsurrogateec(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
-               int(EM), 0, 0, (month-4), wateryear)}
+               int(EM), 0, 0, calmonth_prev, calyear_prev)
 }
 
 define EM_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
@@ -200,21 +189,36 @@ define EM_EC_STD {std kind 'SALINITY' units 'UMHOS/CM'}
 goal EMECstandout {EM_EC_std = EM_EC_std_sv}
 
 !*************************************************************************************************************
-!get slope and intercept for constraint exp<=m*sac+b
-define EM_a0_sv {
+!get parameters for constraint
+
+! linearization around these nominal values (later move to shared location)
+define Sac_nominal{
   case controlfirstcycle{
-    condition month >= Apr .and. month <= Aug .and. cyclenum == cn_GW_INITIAL
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot(-1),
-                    EXP_tot(-1:-4), EXP_tot(-1),
-                    C_SJR070(-1:-4), SJR_ann_est,
-                    DXC(-1:-4), DXC_est,
-                    net_DICU(-1:-4), net_delta_cu,
-                    SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 0, int(ann_type), (month-4), wateryear)}
+    condition cyclenum == cn_GW_INITIAL
+    value Sac_Tot(-1)
+  }
+  case control{
+  	condition always
+  	value Sac_Tot[-1]
+  }
+}
+define Exp_nominal{
+  case controlfirstcycle{
+    condition cyclenum == cn_GW_INITIAL
+    value Exp_Tot(-1)
+  }
+  case controlafterfirst{
+  	condition always
+  	value Exp_Tot[-1]
+  }
+}
+
+
+define EM_a0_sv {
   case control{                  
 	condition month >= Apr .and. month <= Aug 
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
-                    EXP_tot(-1:-4), EXP_tot[-1],
+    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), EXP_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
@@ -226,43 +230,25 @@ define EM_a0_sv {
 }
 
 define EM_a1_sv {
-  case controlfirstcycle{
-    condition month >= Apr .and. month <= Aug .and. cyclenum == cn_GW_INITIAL
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot(-1),
-                    EXP_tot(-1:-4), EXP_tot(-1),
-                    C_SJR070(-1:-4), SJR_ann_est,
-                    DXC(-1:-4), DXC_est,
-                    net_DICU(-1:-4), net_delta_cu,
-                    SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 1, int(ann_type), (month-4), wateryear)}
   case control{
-    condition month >= Apr .and. month <= Aug
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
-                    EXP_tot(-1:-4), EXP_tot[-1],
+    condition month >= Apr .and. month <= Aug 
+    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), Exp_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
                     EM_EC_std_sv, int(EM), 1, int(ann_type), (month-4), wateryear)}
-  case other {
+  case other{
     condition  always
     value 999999.}
 }
 
 define EM_a2_sv {
-  case controlfirstcycle{
-    condition month >= Apr .and. month <= Aug .and. cyclenum == cn_GW_INITIAL
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot(-1),
-                    EXP_tot(-1:-4), EXP_tot(-1),
-                    C_SJR070(-1:-4), SJR_ann_est,
-                    DXC(-1:-4), DXC_est,
-                    net_DICU(-1:-4), net_delta_cu,
-                    SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    EM_EC_std_sv, int(EM), 2, int(ann_type), (month-4), wateryear)}
   case control{
     condition month >= Apr .and. month <= Aug
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_Tot[-1],
-                    EXP_tot(-1:-4), EXP_tot[-1],
+    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), Exp_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
