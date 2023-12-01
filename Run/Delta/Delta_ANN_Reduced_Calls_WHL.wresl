@@ -7,6 +7,7 @@ INCLUDE 'NBA\NBA.wresl'
 INCLUDE 'riovista\riovista.wresl'
 
 ! Contains files for implementation of Artifical Neural Network's for salinity control.
+include 'Ann\AnnCalendar.wresl' 
 INCLUDE 'Ann\gmodel-null.wresl'
 INCLUDE 'Ann\Ann_wyt_D1641.wresl'
 INCLUDE 'Ann\AnnCommon2.wresl'

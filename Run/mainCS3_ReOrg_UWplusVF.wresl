@@ -43,31 +43,31 @@ svar simulateCAM                {value 0.} !1-CAM, 0-WSIDI
 !*******************************************************************
 
 
-svar cn_SJRBASE          {value 13 }
-svar cn_SJRBASE_GW1      {value 14 }
-svar cn_SJRBASE_GW2      {value 15 }
-svar cn_SJRBASE_GW3      {value 16 }
-svar cn_SJRBASE_GW4      {value 17 }
-svar cn_SJR_WQ1          {value 18 }
-svar cn_SJR_PULSE        {value 19 }
-svar cn_SJR_WQ2          {value 20 }
-svar cn_CAM1        	 {value 21 }
-svar cn_CAM2        	 {value 22 }
-svar cn_GW_INITIAL       {value 23 }
-svar cn_GW_FIRST         {value 24 }
-svar cn_GW_SECOND        {value 25 }
-svar cn_GW_THIRD         {value 26 }
-svar cn_GW_FOURTH        {value 27 }
-svar cn_PRESETUP         {value 28 }
-svar cn_SETUP            {value 29 }
-svar cn_MONTHLYWEIGHTED  {value 30 }
-svar cn_UPSTREAM         {value 31 }
-svar cn_DELTA_SRPLS      {value 32 }
-svar cn_DELTA            {value 33 }
-svar cn_TRANSFERS_STAGE1 {value 34 }
-svar cn_WHEELCVC         {value 35 }
-svar cn_WHEELJPOD        {value 36 }
-svar cn_ITP              {value 37 }
+svar cn_SJRBASE          {value 14 }
+svar cn_SJRBASE_GW1      {value 15 }
+svar cn_SJRBASE_GW2      {value 16 }
+svar cn_SJRBASE_GW3      {value 17 }
+svar cn_SJRBASE_GW4      {value 18 }
+svar cn_SJR_WQ1          {value 19 }
+svar cn_SJR_PULSE        {value 20 }
+svar cn_SJR_WQ2          {value 21 }
+svar cn_CAM1        	 {value 22 }
+svar cn_CAM2        	 {value 23 }
+svar cn_GW_INITIAL       {value 24 }
+svar cn_GW_FIRST         {value 25 }
+svar cn_GW_SECOND        {value 26 }
+svar cn_GW_THIRD         {value 27 }
+svar cn_GW_FOURTH        {value 28 }
+svar cn_PRESETUP         {value 29 }
+svar cn_SETUP            {value 30 }
+svar cn_MONTHLYWEIGHTED  {value 31 }
+svar cn_UPSTREAM         {value 32 }
+svar cn_DELTA_SRPLS      {value 33 }
+svar cn_DELTA            {value 34 }
+svar cn_TRANSFERS_STAGE1 {value 35 }
+svar cn_WHEELCVC         {value 36 }
+svar cn_WHEELJPOD        {value 37 }
+svar cn_ITP              {value 38 }
 
 
 ! Define start month and start water year
