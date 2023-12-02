@@ -1,6 +1,0 @@
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:204)1922/4/30 cycle 24 (gw_initial), em_a0_sv in svar definition: Variable sac_tot is not in -1 from the current cycle - cam2
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:204)1922/4/30 cycle 24 (gw_initial), em_a0_sv in svar definition: Variable exp_tot is not in -1 from the current cycle - cam2
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:219)1922/4/30 cycle 24 (gw_initial), em_a1_sv in svar definition: Variable sac_tot is not in -1 from the current cycle - cam2
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:219)1922/4/30 cycle 24 (gw_initial), em_a1_sv in svar definition: Variable exp_tot is not in -1 from the current cycle - cam2
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:234)1922/4/30 cycle 24 (gw_initial), em_a2_sv in svar definition: Variable sac_tot is not in -1 from the current cycle - cam2
-(c:\calsim3-dcr\calsim3-dcr\run\delta\ann\emmaton_data.wresl:234)1922/4/30 cycle 24 (gw_initial), em_a2_sv in svar definition: Variable exp_tot is not in -1 from the current cycle - cam2
