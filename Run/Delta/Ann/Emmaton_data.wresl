@@ -264,6 +264,10 @@ define EM_b_sv {
   		condition EM_a0_sv>=999999.
   		value 999999.
 	}
+	case noExpSensitivity{
+		condition EM_a2_sv < 0.000001
+		value 0.
+	}
 	case control{
 		condition always
 		value EM_a0_sv/EM_a2_sv
@@ -274,9 +278,14 @@ define EM_m_sv {
   case reducecalls {
     condition  EM_b_sv >= 999990.
     value 0.}
+   case noExpSensitivity{
+    condition EM_a2_sv < 0.000001
+	Value 1.
+	}    
   case control{
     condition month >= Apr .and. month <= Aug
     value -EM_a1_sv/EM_a2_sv}
+  
   case other {
     condition  always
     value 0.}
