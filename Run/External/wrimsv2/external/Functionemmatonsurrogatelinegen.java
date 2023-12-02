@@ -1,6 +1,7 @@
 package wrimsv2.external;
 
 import java.util.*;
+import java.io.*;
 
 import calsim.surrogate.AggregateMonths;
 import calsim.surrogate.DailyToSurrogate;
@@ -13,6 +14,8 @@ import calsim.surrogate.Surrogate;
 import calsim.surrogate.SurrogateMonth;
 import calsim.surrogate.TensorWrapper;
 import calsim.surrogate.SalinitySurrogateManager;
+//import wrimsv2.ConfigUtils;
+//import wrimsv2.ILP;
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
 
@@ -26,17 +29,29 @@ public class Functionemmatonsurrogatelinegen extends ExternalFunction{
 		long t1 = Calendar.getInstance().getTimeInMillis();
 		ssm=SalinitySurrogateManager.INSTANCE;
 		//set up an ANN surrogate month for emmaton	
+        String loggingSurrogate = "loggingSurrogate"; //default is false
+        boolean logSurrogate = true; // ConfigUtils.readBoolean(ConfigUtils.configMap, loggingSurrogate, false);
+        if (logSurrogate){
+            //Log output path in File format for WRIMS 2 can be obtained by the following method:
+            //File ilpDir=ILP.getIlpDir();
+            //Please notice ilpDir is a File class object. You can turn it to a String path name by    
+            //String logPathDir = ilpDir.getAbsolutePath();
+            //ssm.enableLogging(logPathDir + File.separatorChar+"surrogate.log");
+            ssm.enableLogging("surrogate.log");
+        }        
+        
 		int location = ssm.EMM_CALSIM;
 		int aveType = ssm.MEAN;
 		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
 		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
 		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
 		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-		Surrogate emm = emmatonANN();
-		AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
-		SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-		ssm.setSurrogateForSite(location, aveType, month);
-		
+        if (ssm.getSurrogateForSite(location, aveType) == null){
+            Surrogate emm = emmatonANN();
+            AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
+            SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
+            ssm.setSurrogateForSite(location, aveType, month);
+		}
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);
 		nCalls++;
@@ -165,7 +180,7 @@ public class Functionemmatonsurrogatelinegen extends ExternalFunction{
 		ArrayList<double[][]> monthlyInput = new ArrayList<double[][]>(
 				Arrays.asList(sac, exp, dcc, dcd, sjr, tide, smscg));
 
-		float out = (float) ssm.lineGenImpl(monthlyInput, location, variable, ave_type, currMonth, currYear);	
+		float out = (float) ssm.lineGenImpl(monthlyInput, location, variable, ave_type, currMonth, currYear, Qsac_est, Qexp_est, ECTARGET);	
 		
 		return out;
 	}
