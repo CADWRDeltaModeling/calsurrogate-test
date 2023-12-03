@@ -6,10 +6,7 @@ import java.io.*;
 
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
-import wrimsv2.ilp.ILP;
-import wrimsv2.config.ConfigUtils;
-
-
+import wrimsv2.external.SalinitySurrogateSetup;
 import calsim.surrogate.AggregateMonths;
 import calsim.surrogate.DailyToSurrogate;
 import calsim.surrogate.DailyToSurrogateBlocked;
@@ -23,43 +20,22 @@ import calsim.surrogate.TensorWrapper;
 import calsim.surrogate.examples.EmmatonExampleTensorFlowANN;
 import calsim.surrogate.SalinitySurrogateManager;
 
-public class Functionemmatonsurrogateec extends ExternalFunction{
+
+public class Functionsurrogateec extends ExternalFunction{
 	private final boolean DEBUG = false;
 	private static int cpuTime=0;
 	private static int nCalls=0;
 	private SalinitySurrogateManager ssm;
 
-	public Functionemmatonsurrogateec(){
+	public Functionsurrogateec(){
 		long t1 = Calendar.getInstance().getTimeInMillis();
-		ssm=SalinitySurrogateManager.INSTANCE;
-
-        String loggingSurrogate = "loggingSurrogate"; //default is false
-        boolean logSurrogate = ConfigUtils.readBoolean(ConfigUtils.configMap, loggingSurrogate, false);
-        if (logSurrogate){
-            File ilpDir=ILP.getIlpDir();
-            String logPathDir = ilpDir.getAbsolutePath();
-            ssm.enableLogging(logPathDir + File.separatorChar+"surrogate.log");
-            //ssm.enableLogging("surrogate.log");
-        } 
-        
-		//set up an ANN surrogate month for emmaton	
-		int location = ssm.EMM_CALSIM;
-		int aveType = ssm.MEAN;
-		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
-		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
-		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
-		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-        if (ssm.getSurrogateForSite(location, aveType) == null){
-            Surrogate emm = emmatonANN();
-            AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
-            SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-            ssm.setSurrogateForSite(location, aveType, month);
-		}		
+		
+		ssm=SalinitySurrogateSetup.getManager();
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);
 		nCalls++;
-		TimeUsage.cpuTimeMap.put("emmatonsurrogateec", cpuTime);
-		TimeUsage.nCallsMap.put("emmatonsurrogateec", nCalls);
+		TimeUsage.cpuTimeMap.put("surrogateec", cpuTime);
+		TimeUsage.nCallsMap.put("surrogateec", nCalls);
 	}
 
 	public void execute(Stack stack) {
@@ -130,8 +106,8 @@ public class Functionemmatonsurrogateec extends ExternalFunction{
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);
 		nCalls++;
-		TimeUsage.cpuTimeMap.put("emmatonsurrogateec", cpuTime);
-		TimeUsage.nCallsMap.put("emmatonsurrogateec", nCalls);
+		TimeUsage.cpuTimeMap.put("surrogateec", cpuTime);
+		TimeUsage.nCallsMap.put("surrogateec", nCalls);
 	}
 
 	public float surrogateec(double[] sac, double[] exp, double[] dcc, double[] net_dcd, double[] sjr, double[] smscg, int location, int variable, int ave_type, int month, int year){	
@@ -169,16 +145,5 @@ public class Functionemmatonsurrogateec extends ExternalFunction{
 		return out;
 	}
 	
-	public static Surrogate emmatonANN() {
-		String fname = externalDir+ "ann_calsim-main/emmaton";
-		String[] tensorNames = { "serving_default_sac_input:0", "serving_default_exports_input:0",
-				"serving_default_dcc_input:0", "serving_default_net_dcd_input:0", "serving_default_sjr_input:0",
-				"serving_default_tide_input:0", "serving_default_smscg_input:0", };
 
-		String[] tensorNamesInt = new String[0];
-		String outName = "StatefulPartitionedCall:0";
-		DailyToSurrogate dayToANN = new DailyToSurrogateBlocked(8, 10, 11);
-		Surrogate wrap = new TensorWrapper(fname, tensorNames, tensorNamesInt, outName, dayToANN);
-		return wrap;
-	}
 }

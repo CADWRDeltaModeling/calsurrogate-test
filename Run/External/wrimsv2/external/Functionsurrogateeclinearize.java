@@ -14,49 +14,24 @@ import calsim.surrogate.Surrogate;
 import calsim.surrogate.SurrogateMonth;
 import calsim.surrogate.TensorWrapper;
 import calsim.surrogate.SalinitySurrogateManager;
-import wrimsv2.ilp.ILP;
-import wrimsv2.config.ConfigUtils;
-
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
+import wrimsv2.external.SalinitySurrogateSetup;
 
-public class Functionemmatonsurrogatelinegen extends ExternalFunction{
+public class Functionsurrogateeclinearize extends ExternalFunction{
 	private final boolean DEBUG = false;
 	private static int cpuTime=0;
 	private static int nCalls=0;
 	private SalinitySurrogateManager ssm;
 	
-	public Functionemmatonsurrogatelinegen(){
+	public Functionsurrogateeclinearize(){
 		long t1 = Calendar.getInstance().getTimeInMillis();
-		ssm=SalinitySurrogateManager.INSTANCE;
-		//set up an ANN surrogate month for emmaton	
-        String loggingSurrogate = "loggingSurrogate"; //default is false
-        boolean logSurrogate = ConfigUtils.readBoolean(ConfigUtils.configMap, loggingSurrogate, false);
-        if (logSurrogate){
-            //Log output path in File format for WRIMS 2 can be obtained by the following method:
-            File ilpDir=ILP.getIlpDir();
-            String logPathDir = ilpDir.getAbsolutePath();
-            ssm.enableLogging(logPathDir + File.separatorChar+"surrogate.log");
-            //ssm.enableLogging("surrogate.log");
-        }        
-        
-		int location = ssm.EMM_CALSIM;
-		int aveType = ssm.MEAN;
-		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
-		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
-		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
-		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-        if (ssm.getSurrogateForSite(location, aveType) == null){
-            Surrogate emm = emmatonANN();
-            AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
-            SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-            ssm.setSurrogateForSite(location, aveType, month);
-		}
+		ssm=SalinitySurrogateSetup.getManager();
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);
 		nCalls++;
-		TimeUsage.cpuTimeMap.put("emmatonsurrogatelinegen", cpuTime);
-		TimeUsage.nCallsMap.put("emmatonsurrogatelinegen", nCalls);
+		TimeUsage.cpuTimeMap.put("surrogateeclinearize", cpuTime);
+		TimeUsage.nCallsMap.put("surrogateeclinearize", nCalls);
 	}
 
 	public void execute(Stack stack) {
@@ -133,7 +108,7 @@ public class Functionemmatonsurrogatelinegen extends ExternalFunction{
 			Qsac_prv[i]=Qsac_prv_Arr[i].doubleValue();
 		}
 
-		double result = emmatonsurrogatelinegen(Qsac_prv, Qsac_est, Qexp_prv, Qexp_est, Qsjr_prv, Qsjr_fut, DXC_prv, DXC_fut, DICU_prv, DICU_fut, SMSCG_prv, SMSCG_fut, ECTARGET, location, variable, ave_type, currMonth, currYear);
+		double result = surrogateeclinearize(Qsac_prv, Qsac_est, Qexp_prv, Qexp_est, Qsjr_prv, Qsjr_fut, DXC_prv, DXC_fut, DICU_prv, DICU_fut, SMSCG_prv, SMSCG_fut, ECTARGET, location, variable, ave_type, currMonth, currYear);
 
 		// push the result on the Stack
 		stack.push(new Double(result));
@@ -141,11 +116,11 @@ public class Functionemmatonsurrogatelinegen extends ExternalFunction{
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);
 		nCalls++;
-		TimeUsage.cpuTimeMap.put("emmatonsurrogatelinegen", cpuTime);
-		TimeUsage.nCallsMap.put("emmatonsurrogatelinegen", nCalls);
+		TimeUsage.cpuTimeMap.put("surrogateeclinearize", cpuTime);
+		TimeUsage.nCallsMap.put("surrogateeclinearize", nCalls);
 	}
 
-	public double emmatonsurrogatelinegen(double[] Qsac_prv, double Qsac_est, double[] Qexp_prv, double Qexp_est, double[] Qsjr_prv, double Qsjr_fut, double[] DXC_prv, double DXC_fut, double[] DICU_prv, double DICU_fut, double[] SMSCG_prv, double SMSCG_fut, double ECTARGET, int location, int variable, int ave_type, int currMonth, int currYear){
+	public double surrogateeclinearize(double[] Qsac_prv, double Qsac_est, double[] Qexp_prv, double Qexp_est, double[] Qsjr_prv, double Qsjr_fut, double[] DXC_prv, double DXC_fut, double[] DICU_prv, double DICU_fut, double[] SMSCG_prv, double SMSCG_fut, double ECTARGET, int location, int variable, int ave_type, int currMonth, int currYear){
 		int NHIST = 5;
 		int NLOC = 7; // TODO move to config?
 		double[][] sac = new double[1][NHIST];
@@ -183,18 +158,5 @@ public class Functionemmatonsurrogatelinegen extends ExternalFunction{
 		float out = (float) ssm.lineGenImpl(monthlyInput, location, variable, ave_type, currMonth, currYear, Qsac_est, Qexp_est, ECTARGET);	
 		
 		return out;
-	}
-	
-	public static Surrogate emmatonANN() {
-		String fname = externalDir+ "ann_calsim-main/emmaton";
-		String[] tensorNames = { "serving_default_sac_input:0", "serving_default_exports_input:0",
-				"serving_default_dcc_input:0", "serving_default_net_dcd_input:0", "serving_default_sjr_input:0",
-				"serving_default_tide_input:0", "serving_default_smscg_input:0", };
-
-		String[] tensorNamesInt = new String[0];
-		String outName = "StatefulPartitionedCall:0";
-		DailyToSurrogate dayToANN = new DailyToSurrogateBlocked(8, 10, 11);
-		Surrogate wrap = new TensorWrapper(fname, tensorNames, tensorNamesInt, outName, dayToANN);
-		return wrap;
 	}
 }

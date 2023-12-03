@@ -22,7 +22,7 @@ Modified values are in salinity_std_emt_new.table.
 
 ! calculate previous month's value of salinity
 define EM_EC_Month_sv {
-      value  emmatonsurrogateec(Sac_Tot(-1:-5),
+      value  surrogateEC(Sac_Tot(-1:-5),
                EXP_tot(-1:-5),
                DXC(-1:-5),
                net_DICU(-1:-5),
@@ -217,7 +217,7 @@ define Exp_nominal{
 define EM_a0_sv {
   case control{                  
 	condition month >= Apr .and. month <= Aug 
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
                     EXP_tot(-1:-4), EXP_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,
@@ -232,7 +232,7 @@ define EM_a0_sv {
 define EM_a1_sv {
   case control{
     condition month >= Apr .and. month <= Aug 
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
                     EXP_tot(-1:-4), Exp_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,
@@ -247,7 +247,7 @@ define EM_a1_sv {
 define EM_a2_sv {
   case control{
     condition month >= Apr .and. month <= Aug
-    value  emmatonsurrogatelinegen(Sac_Tot(-1:-4), Sac_nominal,
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
                     EXP_tot(-1:-4), Exp_nominal,
                     C_SJR070(-1:-4), SJR_ann_est,
                     DXC(-1:-4), DXC_est,

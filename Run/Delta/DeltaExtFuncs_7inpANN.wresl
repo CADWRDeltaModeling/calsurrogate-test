@@ -26,6 +26,6 @@ define Ann_X2          {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
 define getNDO_X2       {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
 define getNDO_x2_curMonNDOSplit {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
 
-define emmatonsurrogateec {EXTERNAL f90}
-define emmatonsurrogatelinegen {EXTERNAL f90}
+define surrogateec {EXTERNAL f90}
+define surrogateeclinearize {EXTERNAL f90}
 
