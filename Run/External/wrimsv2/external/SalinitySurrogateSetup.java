@@ -5,6 +5,7 @@ import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
 import wrimsv2.external.ExternalFunction;
 import calsim.surrogate.*;
+import calsim.surrogate.AggregateMonths;
 import wrimsv2.ilp.ILP;
 import wrimsv2.config.ConfigUtils;
 
@@ -13,6 +14,8 @@ public class SalinitySurrogateSetup{
     static SalinitySurrogateManager ssm;
 
 	public SalinitySurrogateSetup(){}
+
+
 
 	public static SalinitySurrogateManager getManager(){
         ssm = SalinitySurrogateManager.INSTANCE;
@@ -32,17 +35,19 @@ public class SalinitySurrogateSetup{
 
 		//set up an ANN surrogate month for emmaton	
 		int location = ssm.EMM_CALSIM;
-		int aveType = ssm.MEAN;
 		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
 		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
 		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
 		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-		if (ssm.getSurrogateForSite(location, aveType) == null){
-			Surrogate emm = emmatonANN();
-			AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
-			SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-			ssm.setSurrogateForSite(location, aveType, month);
-		}			
+        Surrogate emm = emmatonANN();
+        for (AggregateMonths agg : AggregateMonths.values()){
+            int aggCode = agg.calsimCode;
+    		if (ssm.getSurrogateForSite(location, aggCode) == null){
+			    SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
+			    ssm.setSurrogateForSite(location, aggCode, month);
+                ssm.setIndexForSite(location,0);   // 0 because univariate has only one index
+            }
+        }			
 		return ssm;
 
 	}
