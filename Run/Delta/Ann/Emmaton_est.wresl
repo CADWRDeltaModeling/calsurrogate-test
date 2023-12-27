@@ -1,5 +1,6 @@
 
 !Get the required Sac flow for ESTIMATED exports
+/*
 define EMReqSac {
   case NoSalinityControlPossible{
     condition abs(EM_m_sv) <= 0.001 .and. int(EM_b_sv) == 0
@@ -7,15 +8,16 @@ define EMReqSac {
   case NegSlope{
     condition EM_m_sv <= 0.0
     value 0.}
-  /*case highcost{
-    condition EM_Sac_ZeroExp_sv2 >= ANNcap
-    value 0.}*/
   case control{
     condition month >= Apr .and. month <= Aug
     value max(0., (EstTotExpTD-EM_b_sv)/EM_m_sv)}
   case other {
     condition  always
     value 0.}
+}
+*/ 
+define EMReqSac {
+	value requiredSac(EM_EC_std_sv, Sac_Tot(-1:-4), 0., EXP_tot(-1:-4), EstTotExpTD, C_SJR070(-1:-4), SJR_ann_est, DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, SMSCG_OP(-1:-4), SMSCG_OPSV, line_EM_lo, line_EM_hi, int(EM), int(monthly_ave), calmonth, calyear)
 }
 define EMReqSacDV {alias EMReqSac kind 'FLOW' units 'CFS'}
 
