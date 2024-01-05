@@ -32,17 +32,21 @@ public class SalinitySurrogateSetup{
 
 		//set up an ANN surrogate month for emmaton	
 		int location = ssm.EMM_CALSIM;
-		int aveType = ssm.MONTHLY_AVE;
 		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
 		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
-		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
+		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 2., 0.);
+        //TODO this 31 above is because of weird TF implementation
+        // below was {spline, spline, daysOps but 3rd member daysOps changed to repeat
 		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-		if (ssm.getSurrogateForSite(location, aveType) == null){
-			Surrogate emm = emmatonANN();
-			AggregateMonths agg = AggregateMonths.MONTHLY_MEAN;
-			SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-			ssm.setSurrogateForSite(location, aveType, month);
-		}			
+        Surrogate emm = emmatonANN();
+        for (AggregateMonths agg : AggregateMonths.values()){
+            int aggCode = agg.calsimCode;
+    		if (ssm.getSurrogateForSite(location, aggCode) == null){
+			    SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
+			    ssm.setSurrogateForSite(location, aggCode, month);
+                ssm.setIndexForSite(location,0);   // 0 because univariate has only one index
+            }
+        }			
 		return ssm;
 
 	}
