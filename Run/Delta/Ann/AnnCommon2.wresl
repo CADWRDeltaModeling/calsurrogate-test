@@ -134,3 +134,6 @@ define exp_oth_est_ { alias exp_oth_est kind 'FLOW-EXPORTS' units 'CFS' }
 
 define sac_tot{alias C_SAC041+sac_oth kind 'FLOW' units 'CFS'}
 define exp_tot{alias EXP_TD+exp_oth kind 'FLOW-EXPORTS' units 'CFS'}
+define exp_tot2{alias C_SAC041*C_SAC041 kind 'FLOW-EXPORTS' units 'CFS'}
+
+
