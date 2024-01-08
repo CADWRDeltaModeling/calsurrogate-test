@@ -38,7 +38,7 @@ Error_evaluation.txt
 Error_solving.txt
 __study.config
 *.launch.config.prgss
-CVGroundwater_Messages.out
+*CVGroundwater_Messages.out
 
 # Compiled source # 
 ################### 
