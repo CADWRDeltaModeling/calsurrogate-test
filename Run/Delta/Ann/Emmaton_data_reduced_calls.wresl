@@ -45,6 +45,18 @@ define EM_b_sv {value EM_b[monthlyweighted]}
 goal setEM_m {EM_m = EM_m_sv}
 goal setEM_b {EM_b = EM_b_sv}
 
+define EM_a0 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define EM_a1 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define EM_a2 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define EM_a0_sv {value EM_a0[monthlyweighted]}
+define EM_a1_sv {value EM_a1[monthlyweighted]}
+define EM_a2_sv {value EM_a2[monthlyweighted]}
+
+goal setEMa0 {EM_a0 = EM_a0_sv}
+goal setEMa1 {EM_a1 = EM_a1_sv}
+goal setEMa2 {EM_a2 = EM_a2_sv}
+
+
 !********************************************************************
 
 !Get the required Sac flow for ZERO exports

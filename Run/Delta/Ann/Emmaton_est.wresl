@@ -17,7 +17,16 @@ define EMReqSac {
 }
 */ 
 define EMReqSac {
-	value requiredSac(EM_EC_std_sv, Sac_Tot(-1:-4), 0., EXP_tot(-1:-4), EstTotExpTD, C_SJR070(-1:-4), SJR_ann_est, DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, SMSCG_OP(-1:-4), SMSCG_OPSV, line_EM_lo, line_EM_hi, int(EM), int(monthly_ave), calmonth, calyear)
+  case control{
+    condition month >= Apr .and. month <= Aug
+    	value requiredSac(EM_EC_std_sv, Sac_Tot(-1:-4), -9999., EXP_tot(-1:-4), EstTotExpTD, 
+		              C_SJR070(-1:-4), SJR_ann_est, 
+		              DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              5000., 24000., int(EM), int(ann_type), calmonth, calyear)}
+  case other {
+  	condition always
+  	value 0.0}
 }
 define EMReqSacDV {alias EMReqSac kind 'FLOW' units 'CFS'}
 

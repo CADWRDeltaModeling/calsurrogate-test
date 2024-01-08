@@ -28,7 +28,7 @@ define EM_EC_Month_sv {
                net_DICU(-1:-5),
                C_SJR070(-1:-5),
                SMSCG_OP(-1:-5),
-               int(EM), 0, 0, calmonth_prev, calyear_prev)
+               int(EM), int(monthly_ave), 0, calmonth_prev, calyear_prev)
 }
 
 define EM_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
@@ -83,7 +83,7 @@ define EM_EC_MonthDSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
 goal setEM_EC_DSM2 {EM_EC_MonthDSM2 = EM_EC_Month_smooth_sv}
 
 ! calculate the maximum 14 day running average
-define EM_EC_Max14Day_sv {
+define EM_EC_Max14Day_matlab_sv {
   case lastWaterYear {
     condition  month == Oct
       value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
@@ -110,9 +110,23 @@ define EM_EC_Max14Day_sv {
                int(EM),int(max_14day_running_ave),(month-1),wateryear)}
 }
 
+define EM_EC_Max14Day_Matlab {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
+goal setEM14DayprvMatlab {EM_EC_Max14Day_Matlab = EM_EC_Max14Day_matlab_sv}
+
+
+define EM_EC_Max14Day_sv {
+      value  surrogateEC(Sac_Tot(-1:-5),
+               EXP_tot(-1:-5),
+               DXC(-1:-5),
+               net_DICU(-1:-5),
+               C_SJR070(-1:-5),
+               SMSCG_OP(-1:-5),
+               int(EM),int(max_14day_running_ave), 0, calmonth_prev, calyear_prev)
+}
 
 define EM_EC_Max14Day {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
 goal setEM14Dayprv {EM_EC_Max14Day = EM_EC_Max14Day_sv}
+
 
 !get ANN_EC for 2 month earlier
 define EM_EC_Max14day_smooth_sv {
@@ -226,7 +240,7 @@ define EM_a0_sv {
                     EM_EC_std_sv, int(EM), 0, int(ann_type), calmonth, calyear)}
   case other {
     condition  always
-    value 999999.}
+    value 0.}
 }
 
 define EM_a1_sv {
@@ -241,7 +255,7 @@ define EM_a1_sv {
                     EM_EC_std_sv, int(EM), 1, int(ann_type), calmonth, calyear)}
   case other{
     condition  always
-    value 999999.}
+    value -1.}
 }
 
 define EM_a2_sv {
@@ -256,7 +270,7 @@ define EM_a2_sv {
                     EM_EC_std_sv, int(EM), 2, int(ann_type), calmonth, calyear)}
   case other {
     condition  always
-    value 999999.}
+    value 1.}
 }
 
 define EM_b_sv {
@@ -290,6 +304,14 @@ define EM_m_sv {
     condition  always
     value 0.}
 }
+
+define EM_a0 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define EM_a1 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define EM_a2 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+goal setEMa0 {EM_a0 = EM_a0_sv}
+goal setEMa1 {EM_a1 = EM_a1_sv}
+goal setEMa2 {EM_a2 = EM_a2_sv}
+
 define EM_m {lower unbounded upper unbounded kind 'SLOPE' units 'NONE'}
 define EM_b {lower unbounded upper unbounded kind 'INTERCEPT' units 'NONE'}
 goal setEM_m {EM_m = EM_m_sv}
