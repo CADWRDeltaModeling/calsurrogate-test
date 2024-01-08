@@ -1,0 +1,10 @@
+salinity_std_col                   !AM 11/21/98 -- Suisun EC (mmhos/cm) standard at Collinsville(WQCP 5/95)
+month       ECstandard1     beginday1   endday1     ECstandard2     beginday2   endday2          
+1           29.0            1           31          29.0            0           0
+2           25.5            1           30          29.0            0           0
+3           25.5            1           31          29.0            0           0
+4           22.5            1           31          29.0            0           0
+5           28.0            1           28          29.0            0           0
+6           28.0            1           31          29.0            0           0
+7           21.0            1           30          29.0            0           0
+8           21.0            1           31          29.0            0           0
