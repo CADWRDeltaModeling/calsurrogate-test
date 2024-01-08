@@ -110,7 +110,8 @@ public class Functionsurrogateec extends ExternalFunction{
 		TimeUsage.nCallsMap.put("surrogateec", nCalls);
 	}
 
-	public float surrogateec(double[] sac, double[] exp, double[] dcc, double[] net_dcd, double[] sjr, double[] smscg, int location, int variable, int ave_type, int month, int year){	
+	public float surrogateec(double[] sac, double[] exp, double[] dcc, double[] net_dcd, double[] sjr, double[] smscg, 
+			int location, int variable, int ave_type, int month, int year){	
 		
 		double[][] sac1 = { sac };
 		double[][] exp1 = { exp };
@@ -146,4 +147,3 @@ public class Functionsurrogateec extends ExternalFunction{
 	}
 	
 
-}
