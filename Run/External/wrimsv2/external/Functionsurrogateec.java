@@ -145,5 +145,4 @@ public class Functionsurrogateec extends ExternalFunction{
 		float out = ssm.annEC(floatInput, location, variable, ave_type, month, year);
 		return out;
 	}
-	
-
+}
