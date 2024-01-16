@@ -46,4 +46,4 @@ def plot_limiters(out_dir, out_file, title="D1641 Limiters"):
 if __name__ == "__main__":
     out_dir = "../DSS/output"
     out_file = "2023DCR_Hist_DV.dss"
-    plot_limiters(out_dir, out_file,title="Emmaton Control No Reduced Calls")
+    plot_limiters(out_dir, out_file,title="Rock Slough Control No Reduced Calls")
