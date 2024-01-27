@@ -46,7 +46,7 @@ public class Functionsurrogateec extends ExternalFunction{
 		Object param11 = stack.pop();
 		Object param10 = stack.pop();
 		Object param9 = stack.pop();
-		Object param8 = stack.pop();
+		//Object param8 = stack.pop();
 		Object param7 = stack.pop();
 		Object param6 = stack.pop();
 		Object param5 = stack.pop();
@@ -59,7 +59,7 @@ public class Functionsurrogateec extends ExternalFunction{
 		int year = ((Number) param11).intValue();
 		int month = ((Number) param10).intValue();
 		int ave_type = ((Number) param9).intValue();
-		int variable = ((Number) param8).intValue();
+		//int variable = ((Number) param8).intValue();
 		int location = ((Number) param7).intValue();
 		Number[] smscg_Arr = (Number[])param6;
 		int size_smscg=smscg_Arr.length;
@@ -98,7 +98,7 @@ public class Functionsurrogateec extends ExternalFunction{
 			sac[i]=sac_Arr[i].doubleValue();
 		}
 
-		float result = surrogateec(sac, exp, dcc, net_dcd, sjr, smscg, location, variable, ave_type, month, year);
+		float result = surrogateec(sac, exp, dcc, net_dcd, sjr, smscg, location, ave_type, month, year);
 
 		// push the result on the Stack
 		stack.push(new Double(result));
@@ -111,7 +111,7 @@ public class Functionsurrogateec extends ExternalFunction{
 	}
 
 	public float surrogateec(double[] sac, double[] exp, double[] dcc, double[] net_dcd, double[] sjr, double[] smscg, 
-			int location, int variable, int ave_type, int month, int year){	
+			int location, int ave_type, int month, int year){	
 		
 		double[][] sac1 = { sac };
 		double[][] exp1 = { exp };
@@ -142,7 +142,7 @@ public class Functionsurrogateec extends ExternalFunction{
 		floatInput.add(tide);
 		floatInput.add(smscg1);
 
-		float out = ssm.annEC(floatInput, location, variable, ave_type, month, year);
+		float out = ssm.annEC(floatInput, location, ave_type, month, year);
 		return out;
 	}
 }
