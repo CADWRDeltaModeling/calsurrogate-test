@@ -28,7 +28,7 @@ define EM_EC_Month_sv {
                net_DICU(-1:-5),
                C_SJR070(-1:-5),
                SMSCG_OP(-1:-5),
-               int(EM), int(monthly_ave), 0, calmonth_prev, calyear_prev)
+               int(EM), int(monthly_ave), calmonth_prev, calyear_prev)
 }
 
 define EM_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
@@ -44,7 +44,7 @@ define EM_EC_Max14Day_sv {
                net_DICU(-1:-5),
                C_SJR070(-1:-5),
                SMSCG_OP(-1:-5),
-               int(EM),int(max_14day_running_ave), 0, calmonth_prev, calyear_prev)
+               int(EM),int(max_14day_running_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
 }
 
 define EM_EC_Max14Day {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
