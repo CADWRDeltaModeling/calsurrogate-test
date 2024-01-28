@@ -169,16 +169,4 @@ public class Functionemmatonsurrogateec extends ExternalFunction{
 		return out;
 	}
 	
-	public static Surrogate emmatonANN() {
-		String fname = externalDir+ "ann_calsim-main/emmaton";
-		String[] tensorNames = { "serving_default_sac_input:0", "serving_default_exports_input:0",
-				"serving_default_dcc_input:0", "serving_default_net_dcd_input:0", "serving_default_sjr_input:0",
-				"serving_default_tide_input:0", "serving_default_smscg_input:0", };
-
-		String[] tensorNamesInt = new String[0];
-		String outName = "StatefulPartitionedCall:0";
-		DailyToSurrogate dayToANN = new DailyToSurrogateBlocked(8, 10, 11);
-		Surrogate wrap = new TensorWrapper(fname, tensorNames, tensorNamesInt, outName, dayToANN);
-		return wrap;
-	}
 }
