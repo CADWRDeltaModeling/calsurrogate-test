@@ -41,7 +41,7 @@
 <stringAttribute key="wpp.debugModel.ATTR_WPP_PADVSTARTYEAR" value="2022"/>
 <stringAttribute key="wpp.debugModel.ATTR_WPP_PARESETDVSTART" value="yes"/>
 <stringAttribute key="wpp.debugModel.ATTR_WPP_PASTARTINTERVAL" value="12"/>
-<stringAttribute key="wpp.debugModel.ATTR_WPP_PROGRAM" value="Run\mainCS3_ReOrg_UWplusVF.wresl"/>
+<stringAttribute key="wpp.debugModel.ATTR_WPP_PROGRAM" value="Run\mainCS3_ReOrg_UWplusVFNoReduce.wresl"/>
 <stringAttribute key="wpp.debugModel.ATTR_WPP_PROGRAM_MS2" value=""/>
 <stringAttribute key="wpp.debugModel.ATTR_WPP_SENSITIVITYINDEXTABLENAME" value="SensitivityIndex"/>
 <stringAttribute key="wpp.debugModel.ATTR_WPP_SQLGROUP" value="calsim"/>
