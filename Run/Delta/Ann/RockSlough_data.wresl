@@ -199,6 +199,23 @@ define RS_EC_Max14_DSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
 goal setRS_EC_DSM2_2 {RS_EC_Max14_DSM2 = RS_EC_Max14day_smooth_sv}
 
 !****************************************************************************************
+! TensorFlow for comparison, no impact on calcs
+define RS_EC_Month_TF_sv {
+      value  surrogateEC(Sac_Tot(-1:-5),
+               EXP_tot(-1:-5),
+               DXC(-1:-5),
+               net_DICU(-1:-5),
+               C_SJR070(-1:-5),
+               SMSCG_OP(-1:-5),
+               int(RS), int(monthly_ave), calmonth_prev, calyear_prev)
+}
+
+define RS_EC_Month_TF {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
+goal setRSMonTFprv {RS_EC_Month_TF = RS_EC_Month_TF_sv}
+
+
+
+!*******************
 
 ! define the CL standard for Contra Costa Canal
 define RS_CL_STD_sv {select CLstandard1
