@@ -6,14 +6,14 @@ import calsim.surrogate.SalinitySurrogateManager;
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
 
-public class Functionrequiredsac extends ExternalFunction{
+public class Functionrequiredflow extends ExternalFunction{
 	private final boolean DEBUG = false;
 	private static int cpuTime=0;
 	private static int nCalls=0;
 	private SalinitySurrogateManager ssm;
 
 
-	public Functionrequiredsac(){
+	public Functionrequiredflow(){
 		long t1 = Calendar.getInstance().getTimeInMillis();
 		ssm=SalinitySurrogateSetup.getManager();
 		long t2 = Calendar.getInstance().getTimeInMillis();
@@ -99,7 +99,7 @@ public class Functionrequiredsac extends ExternalFunction{
 		}
 		double target = ((Number) param1).doubleValue();
 
-		double result = requiredsac(target, Qsac_prv, Qsac_est, Qexp_prv, Qexp_est, 
+		double result = requiredflow(target, Qsac_prv, Qsac_est, Qexp_prv, Qexp_est, 
                                     Qsjr_prv, Qsjr_fut, DXC_prv, DXC_fut, 
                                     DICU_prv, DICU_fut, 
                                     SMSCG_prv, SMSCG_fut, 
@@ -116,7 +116,7 @@ public class Functionrequiredsac extends ExternalFunction{
 
 	}
 
-	public double requiredsac(double target, double[] Qsac_prv, double Qsac_est, double[] Qexp_prv, 
+	public double requiredflow(double target, double[] Qsac_prv, double Qsac_est, double[] Qexp_prv, 
                               double Qexp_est, double[] Qsjr_prv, double Qsjr_fut, double[] DXC_prv, double DXC_fut, 
                               double[] DICU_prv, double DICU_fut, double[] SMSCG_prv, double SMSCG_fut, 
                               double sacLoBound, double sacHiBound, int location, int ave_type, int month, int year){
@@ -154,7 +154,7 @@ public class Functionrequiredsac extends ExternalFunction{
 		ArrayList<double[][]> monthlyInput = new ArrayList<double[][]>(
 				Arrays.asList(sac, exp, dcc, dcd, sjr, tide, smscg));
 		
-		float out = (float) ssm.requiredSac(target, monthlyInput, 
+		float out = (float) ssm.requiredFlow(target, monthlyInput, 
 				sacLoBound, sacHiBound, location, ave_type, month, year);	
 		
 		return out;
