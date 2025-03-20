@@ -7,7 +7,7 @@ svar RUFRmax {value 0.0}
 !****************************SWITCHBOARD****************************
 !Planning horizon
 svar LODflag                    {value 0.} !0 for existing conditions (historical/validation runs); 1 for buildout/future conditions
-svar ICC	                    {value 0.} !HYDROFORECAST DLL option: 0 = historical forecast, 1 = climate change forecast
+svar ICC	                    {value 1.} !HYDROFORECAST DLL option: 0 = historical forecast, 1 = adjusted hydrology or climate change forecast
 
 !WQ certifications MIFs or Old FERC Licenses (Default: 0 for existing values,1 for New WQ requirements)
 svar P2088_WQCFlag              {value 0.} !FERC Project P-2088 
@@ -21,6 +21,7 @@ svar P2246_WQCFlag              {value 0.} !FERC Project P-2246  (issued in July
 svar simulateUpperFeather       {value 1.}
 svar simulateupperYubaBear      {value 1.} 
 svar simulatelowerYuba          {value 1.}
+svar simulateYubTransfer      	{value 1.} !Set to zero to use timeseries for LYRA transfers, otherwise dynamically calculated
 svar simulateUpperAmerican      {value 1.}
 svar simulateupperMokelumne     {value 1.}
 svar simulatelowerMokelumne     {value 0.} !Set to zero if simulating Sac/SJ valleys. Seepage estimates from EBMUD
@@ -40,6 +41,9 @@ svar SimulateVA_Yub             {value 0.}
 
 !Allocation method (EXPERIMENTAL)
 svar simulateCAM                {value 0.} !1-CAM, 0-WSIDI
+
+!ANN Option for Different Sea Level Rise
+svar simulateANNSLR                {value 0.} !2 - 30 cm SLR,,1 - 15 cm SLR, 0 - 0 cm SLR
 !*******************************************************************
 
 
@@ -343,7 +347,14 @@ group GW_Initialon {
     !Make LVM changes with UserInput.wresl or associated SV timeseries or lookup tables.
     include 'CCWD\UserInput.wresl'
     !*************************************************
-    include 'delta\DeltaExtFuncs_7inpANN.wresl'
+    if int(simulateANNSLR) == 0 { 
+    include 'delta\DeltaExtFuncs_7inpANN.wresl'}
+    elseif int(simulateANNSLR) == 1 { 
+    include 'delta\DeltaExtFuncs_7inpANN_slr15.wresl'}
+        elseif int(simulateANNSLR) == 2 { 
+    include 'delta\DeltaExtFuncs_7inpANN_slr30.wresl'}
+    
+    
     include 'DeliveryLogic\SWP\allocation\co_extfcn.wresl'
     include 'Other\PostSJREstimates.wresl'
     !include 'System\SystemTables_Delta\constraints-Connectivity.wresl'
@@ -406,20 +417,44 @@ MODEL YUBABEAR {
 }
 
 MODEL LOWERYUBA {
-    include group Tdomain
+	!In this cycle, all Yuba River operations are determined.
+	!Transfers are determined in a subsequent cycle
     include 'camplus\Misc\General.wresl'
     include 'camplus\ForecastData\Input_DLL.wresl'
     include 'camplus\ForecastData\Call_CAMDLL.wresl'
     include 'camplus\Network\Inflows_Forecasted_CAMDLL_3.wresl'
-    include[local]  '..\run\Other\Wytypes\YubaIndex.wresl'
-    include[local] '..\run\System\System_LowerYuba.wresl' 
-    include[local] '..\run\northofdelta\LowerYuba\Yuba_Definition.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_minflows_LYRA.wresl' 
-    include[local] '..\run\northofdelta\LowerYuba\Yuba_GW_Substitution.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_AnnualAllocation_LYRA.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_power.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_operations.wresl'
-}        
+    !include[local] '..\run\Other\Wytypes\UnimpairedFlows.wresl'
+	include[local] '..\run\Other\Wytypes\YubaIndex.wresl'
+    
+	If SimulateVA_Yub  ==1. {
+		!include[local] '..\run\Other\Wytypes\UnimpairedFlows.wresl'
+		!include[local] '..\run\Other\Wytypes\YubaIndex.wresl'
+		include[local] '..\run\Other\Wytypes\SacIndex_PrevMay.wresl'
+		include[local] '..\run\Other\Wytypes\SacIndex.wresl'
+		include[local] '..\run\Other\Wytypes\SJRIndex_PrevMay.wresl'
+		include[local] '..\run\Other\Wytypes\SJRIndex.wresl'
+		include[local] '..\run\Other\Wytypes\FeatherIndex.wresl'
+		include[local] '..\run\Other\Wytypes\ShastaIndex.wresl'
+		include[local] '..\run\Other\Wytypes\AmericanIndex.wresl'
+		include[local] '..\run\Other\Wytypes\TrinityIndex.wresl'
+		include[local] '..\run\Other\Wytypes\wytypes.wresl'}
+	
+	include[local] '..\run\System\System_LowerYuba.wresl' 	
+		
+	If simulateYubTransfer == 0. {
+		!Using this option, the timeseries for Yuba Transfers is used		
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\Yuba_Definition.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_minflows_LYRA.wresl' 
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\Yuba_GW_Substitution.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_AnnualAllocation_LYRA.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_power.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_operations.wresl'}
+      
+    If simulateYubTransfer == 1. {
+
+		include[local] '..\run\northofdelta\LowerYuba\Dynamic_Trans\LowerYuba.wresl'}
+		
+}       
     
     
 MODEL UPPERAMERICAN {
@@ -748,6 +783,7 @@ define cyclenum {value cn_SJR_WQ2}
 
 	define S44 {std kind 'STORAGE' units 'TAF'}
     INCLUDE 'CAMPlus\Misc\General.wresl'
+    INCLUDE 'CAMPlus\Misc\DCD_Delta.wresl'
     INCLUDE 'CAMPlus\Misc\GeneralInfo_Forecasted_CAMOnly2.wresl'
     INCLUDE 'CAMPlus\ForecastData\Input_DLL.wresl'
     include 'Other\wytypes\WyTypesGeneral_FAM.wresl'
@@ -805,6 +841,7 @@ define cyclenum {value cn_SJR_WQ2}
 
 	define S44 {std kind 'STORAGE' units 'TAF'}
     INCLUDE 'CAMPlus\Misc\General.wresl'
+    INCLUDE 'CAMPlus\Misc\DCD_Delta.wresl'    
     INCLUDE 'CAMPlus\Misc\GeneralInfo_Forecasted_CAMOnly2.wresl'
     INCLUDE 'CAMPlus\ForecastData\Input_DLL.wresl'
     include 'Other\wytypes\WyTypesGeneral_FAM.wresl'
@@ -979,6 +1016,7 @@ define cyclenum {value cn_GW_INITIAL}
 
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl' 
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_FIRST {   
@@ -1090,6 +1128,7 @@ define cyclenum {value cn_GW_FIRST}
 
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_SECOND { 
@@ -1202,6 +1241,7 @@ define cyclenum {value cn_GW_SECOND}
 
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_THIRD {  
@@ -1315,6 +1355,7 @@ define cyclenum {value cn_GW_THIRD}
 
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_FOURTH {  
@@ -1428,6 +1469,7 @@ define cyclenum {value cn_GW_FOURTH}
 
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }   
      
 MODEL PRESETUP {      
@@ -1551,6 +1593,7 @@ define cyclenum {value cn_PRESETUP}
     
         include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
         include 'CCWD\CalSimConnection_PreSetup.wresl'   
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
 
 MODEL SETUP {      ! (also functions as fourth groundwater cycle)
@@ -1676,6 +1719,7 @@ define cyclenum {value cn_SETUP}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
     
 MODEL MONTHLYWEIGHTED {
@@ -1805,6 +1849,7 @@ define cyclenum {value cn_MONTHLYWEIGHTED}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
     include 'Other\CycleOutput\TributaryCycleOutflows.wresl' 
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL UPSTREAM {  
@@ -1904,7 +1949,8 @@ define cyclenum {value cn_UPSTREAM}
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     
     include  'Delta\ANN\ExportEstimate1.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN.wresl'                   ! calsurrogate caching allows this  
     include 'Delta\SpecProjects\SMSCGwatercost_init.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -1942,6 +1988,7 @@ define cyclenum {value cn_UPSTREAM}
      include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl'   
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 ! New cycle. Export capacity available under BO RPAs is shared assuming excess conditions 
@@ -2043,7 +2090,8 @@ define cyclenum {value cn_DELTA_SRPLS}
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN.wresl'                   ! calsurrogate caching allows this    
     include 'Delta\SpecProjects\SMSCGwatercost_init.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -2080,6 +2128,7 @@ define cyclenum {value cn_DELTA_SRPLS}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl'
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }    
     
      
@@ -2179,7 +2228,8 @@ define cyclenum {value cn_DELTA}
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN.wresl'                   ! calsurrogate caching allows this   
     include 'Delta\SpecProjects\SMSCGwatercost.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -2215,6 +2265,7 @@ define cyclenum {value cn_DELTA}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl'
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
 
 MODEL TRANSFERS_STAGE1 {  
@@ -2248,6 +2299,8 @@ define cyclenum {value cn_TRANSFERS_STAGE1}
     include 'Delta\Export_Ops\export_ops1.wresl'
     include 'Delta\Export_Ops\export_ops2.wresl'
     include 'Delta\IsolatedFacility\IsolatedFacility.wresl'
+	If simulateYubTransfer==1. {  
+	include 'NorthOfDelta\LowerYuba\Dynamic_Trans\Common\Yuba_Trans_VA.wresl'}  !Added for dynamic LYRA transfer calculations
     include 'ReOperations\Transfers\Transfers_MultiYr.wresl'
     include 'ReOperations\Transfers\TransfersCore.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer.wresl'
@@ -2319,7 +2372,8 @@ define cyclenum {value cn_TRANSFERS_STAGE1}
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN_Transfer.wresl'     ! calsurrogate caching allows this    
     include 'Delta\SpecProjects\SMSCGwatercost.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -2361,6 +2415,7 @@ define cyclenum {value cn_TRANSFERS_STAGE1}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl'
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
     }
 
 MODEL WHEELCVC {  
@@ -2393,6 +2448,8 @@ define cyclenum {value cn_WHEELCVC}
     include 'Delta\Export_Ops\export_ops1.wresl'
     include 'Delta\Export_Ops\export_ops2.wresl'
     include 'Delta\IsolatedFacility\IsolatedFacility.wresl'
+	If simulateYubTransfer==1. {  
+	include 'NorthOfDelta\LowerYuba\Dynamic_Trans\Common\Yuba_Trans_VA.wresl'}  !Added for dynamic LYRA transfer calculations
     include 'ReOperations\Transfers\Transfers_MultiYr.wresl'
     include 'ReOperations\Transfers\TransfersCore.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer.wresl'
@@ -2458,7 +2515,8 @@ define cyclenum {value cn_WHEELCVC}
     include 'DeliveryLogic\rulecurve\rulecv.wresl'
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN_Transfer.wresl'         ! calsurrogate caching allows this   
     include 'Delta\SpecProjects\SMSCGwatercost.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -2494,6 +2552,7 @@ define cyclenum {value cn_WHEELCVC}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'
       include 'Other\CycleOutput\TributaryCycleOutflows.wresl'   
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL WHEELJPOD {  
@@ -2526,7 +2585,9 @@ define cyclenum {value cn_WHEELJPOD}
 
     include 'Delta\Export_Ops\export_ops1.wresl'
     include 'Delta\Export_Ops\export_ops2.wresl'
-    include 'Delta\IsolatedFacility\IsolatedFacility.wresl'    
+    include 'Delta\IsolatedFacility\IsolatedFacility.wresl'   
+	If simulateYubTransfer==1. {  
+	include 'NorthOfDelta\LowerYuba\Dynamic_Trans\Common\Yuba_Trans_VA.wresl'}  !Added for dynamic LYRA transfer calculations	
     include 'ReOperations\Transfers\Transfers_MultiYr.wresl'
     include 'ReOperations\Transfers\TransfersCore.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer.wresl'
@@ -2598,7 +2659,8 @@ define cyclenum {value cn_WHEELJPOD}
     include 'SanJoaquin\IntegratedOperations\IntegratedOperationsCyc6.wresl'    
     
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
-    include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    !include  'Delta\Delta_ANN_Reduced_Calls_Transfer.wresl'     ! Use this file for ANN salinity requirements
+    include  'Delta\Delta_ANN_Transfer.wresl'         ! calsurrogate caching allows this    
     include 'Delta\SpecProjects\SMSCGwatercost.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels.wresl'
@@ -2645,9 +2707,10 @@ define cyclenum {value cn_WHEELJPOD}
     include 'Other\CycleOutput\Cycle_Output_TS.wresl' }
      include 'Other\DCD_Delta_Output.wresl'
      !include 'Other\CycleOutput\Cycle_Output2.wresl'
-    include 'camplus\Misc\GenFlowTables.wresl'
+    !include 'camplus\Misc\GenRunoffTables.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl'    
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
        }
 
 MODEL ITP {
@@ -2680,7 +2743,9 @@ define cyclenum {value cn_ITP}
 
     include 'Delta\Export_Ops\export_ops1.wresl'
     include 'Delta\Export_Ops\export_ops2.wresl'
-    include 'Delta\IsolatedFacility\IsolatedFacility.wresl'    
+    include 'Delta\IsolatedFacility\IsolatedFacility.wresl'
+	If simulateYubTransfer==1. {  
+	include 'NorthOfDelta\LowerYuba\Dynamic_Trans\Common\Yuba_Trans_VA.wresl'}  !Added for dynamic LYRA transfer calculations    
     include 'ReOperations\Transfers\Transfers_MultiYr.wresl'
     include 'ReOperations\Transfers\TransfersCore.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer.wresl'
@@ -2758,7 +2823,8 @@ define cyclenum {value cn_ITP}
     
     include  'Delta\ANN\ExportEstimate1_BO.wresl'     /* Use this file for ANN salinity requirements, Gmodel must be OFF if this is ON */
     !include  'Delta\Delta_ANN_Reduced_Calls_WHL.wresl'     ! Use this file for ANN salinity requirements
-    include 'Delta\Delta_ANN_Reduced_Calls_output.wresl'     ! AK
+    include 'Delta\Delta_ANN_output.wresl'     ! calsurrogate caching allows this
+    !include 'Delta\Delta_ANN_Reduced_Calls_output.wresl'     ! AK
     include 'Delta\SpecProjects\SMSCGwatercost.wresl'
     
     include  'Delta\SoDeltaChannels\SoDeltaChannels_ITP.wresl'
@@ -2819,10 +2885,11 @@ define cyclenum {value cn_ITP}
     include 'Other\CycleOutput\Cycle_Output_TS.wresl' }     
     include 'Other\DCD_Delta_Output.wresl'
      !include 'Other\CycleOutput\Cycle_Output2.wresl'
-     include 'camplus\Misc\GenFlowTables.wresl'
+     include 'camplus\Misc\GenRunoffTables.wresl'
      include 'Other\CycleOutput\TributaryCycleOutflows.wresl' 
      include 'Other\CycleOutput\QAQC_outputs.wresl'   
     include 'Other\TUCP_ExpLimit.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      
     if simulateGroundWaterSeepage > 0.5 {           
            !*********************************************************************

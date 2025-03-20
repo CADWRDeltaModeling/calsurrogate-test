@@ -1,26 +1,71 @@
 package wrimsv2.external;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import wrimsv2.components.ControlData;
 import wrimsv2.components.TimeUsage;
 import wrimsv2.external.ExternalFunction;
-import calsim.surrogate.*;
 import wrimsv2.ilp.ILP;
 import wrimsv2.config.ConfigUtils;
+import calsim.surrogate.*;
+//import calsim.surrogate.ExogTimeSeriesAssignment;
+
+
+/* Current codes in SalinitySurrogateManager and in CalSim. These have to be manually coordinated
+	public final int JER_CALSIM = 1; // Jersey Point
+	public final int RSL_CALSIM = 2; // Rock Slough
+	public final int EMM_CALSIM = 3; // Emmaton
+	public final int ANH_CALSIM = 4; // Antioch
+	public final int CLL_CALSIM = 5; // Collinsville
+	public final int MAL_CALSIM = 6; // Mallard is Chipps
+	public final int LVR_CALSIM = 7; // Los Vaqueros Intake
+	public final int MDR_CALSIM = 8; // Middle River Intake
+	public final int CCW_CALSIM = 9; // Victoria River Intake 
+	public final int TRP_CALSIM = 10; // CVP Tracy Intake 
+	public final int CCF_CALSIM = 11;
+	public final int CCI_CALSIM = 12;  
+	public final int BDL_CALSIM = 20; // Beldons Landing
+	public final int MRZ_CALSIM = 21;
+	public final int X2_CALSIM =  30; // X2
+ */
+
 
 public class SalinitySurrogateSetup{
-    static boolean isInitialized = false;
-    static SalinitySurrogateManager ssm;
+	static boolean isInitialized = false;
+	static SalinitySurrogateManager ssm;
+
+	// This is a map between the integer codes CalSim uses and the python (zero-based)
+	// output index within the ANN. The latter is ANN specific, as is the number of surrogates
+	// 
+	private static final Map<Integer, Integer> outputIndexMap = new HashMap<>();
+	static {
+		outputIndexMap.put(SalinitySurrogateManager.JER_CALSIM, 11);
+		outputIndexMap.put(SalinitySurrogateManager.RSL_CALSIM, 16); 
+		outputIndexMap.put(SalinitySurrogateManager.MRZ_CALSIM, 12);
+		outputIndexMap.put(SalinitySurrogateManager.MAL_CALSIM, 2);
+		//outputIndexMap.put(SalinitySurrogateManager.RSL_CALSIM, 6);
+		outputIndexMap.put(SalinitySurrogateManager.EMM_CALSIM, 8);
+		outputIndexMap.put(SalinitySurrogateManager.ANH_CALSIM, 10);	  
+		outputIndexMap.put(SalinitySurrogateManager.CLL_CALSIM, 7);
+		outputIndexMap.put(SalinitySurrogateManager.BDL_CALSIM, 5);
+		outputIndexMap.put(SalinitySurrogateManager.X2_CALSIM,  0);
+	}
+
 
 	public SalinitySurrogateSetup(){}
 
 	public static SalinitySurrogateManager getManager(){
-        ssm = SalinitySurrogateManager.INSTANCE;
-        // Initialization should only be done once
-        if (isInitialized) return ssm;
-        
-        // Set up call logging, which is done here in the run rather than in the library 
-        // because we are using CalSIM's active logging directory
+		ssm = SalinitySurrogateManager.INSTANCE;		
+		// Initialization should only be done once
+		if (isInitialized) return ssm;
+
+
+		// Set up call logging, which is done here in the run rather than in the library 
+		// because we are using CalSIM's active logging directory
 		String loggingSurrogateKey = "loggingSurrogate"; //default is false
 		boolean logSurrogate = ConfigUtils.readBoolean(ConfigUtils.configMap, loggingSurrogateKey, false);
 		if (logSurrogate){
@@ -29,60 +74,131 @@ public class SalinitySurrogateSetup{
 			String logPathDir = ilpDir.getAbsolutePath() + File.separatorChar+"surrogate.log";
 			ssm.enableLogging(logPathDir);
 		} 
+        String surrogateKey = "salinitySurrogateMultitask";
+		//String multiTaskANNLoc = ConfigUtils.readString(ConfigUtils.configMap,surrogateKey,false); //"/ann/schism_base.suisun_gru2_tf";
+        String multiTaskANNLoc ="/ann/schism_base.suisun_gru2_tf";
+        Surrogate deltaANN = loadSurrogate(multiTaskANNLoc);
 
 		//set up an ANN surrogate month for emmaton	
-		int location = ssm.EMM_CALSIM;
+
 		DisaggregateMonths spline = new DisaggregateMonthsSpline(5);
 		DisaggregateMonths repeat = new DisaggregateMonthsRepeat(5);
 		DisaggregateMonths daysOps = new DisaggregateMonthsDaysToOps(5, 1., 0.);
-        //TODO this 31 above is because of weird TF implementation
-        // below was {spline, spline, daysOps but 3rd member daysOps changed to repeat
-		DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-		String dir = "ann_calsim-main/emmaton";
-        Surrogate emm = loadSurrogate(dir);
-        for (AggregateMonths agg : AggregateMonths.values()){
-            int aggCode = agg.calsimCode;
-            System.out.println("Emm call location " + location + " agg code "+aggCode);
-    		if (! ssm.hasSurrogateForSite(location, aggCode)){
-                System.out.println("Loading Emmaton "+aggCode);
-			    SurrogateMonth month = new SurrogateMonth(disagg, emm, agg);
-			    ssm.setSurrogateForSite(location, aggCode, month);
-                ssm.setIndexForSite(location,0);   // 0 because univariate has only one index
-            }
-        }
-		//set up an ANN surrogate month for emmaton	
-		location = ssm.RSL_CALSIM;
-		//DisaggregateMonths[] disagg = { spline, spline, daysOps, spline, spline, spline, repeat };
-		dir = "ann_calsim-main/rock_slough";
-        Surrogate annRS = loadSurrogate(dir);
-        for (AggregateMonths agg : AggregateMonths.values()){
-            int aggCode = agg.calsimCode;
-            System.out.println("Rock Slough location " + location + " agg code "+aggCode);
-    		if (! ssm.hasSurrogateForSite(location, aggCode)){
-    			System.out.println("Loading Rockslough "+aggCode);
-			    SurrogateMonth monthRS = new SurrogateMonth(disagg, annRS, agg);
-			    ssm.setSurrogateForSite(location, aggCode, monthRS);
-                ssm.setIndexForSite(location,0);   // 0 because univariate has only one index
-            }
-        }	        
+		DisaggregateMonths[] disagg = { spline, spline, spline, spline, repeat, repeat, daysOps, repeat };
+
+
+		List<ExogTimeSeriesAssignment> assignments = new ArrayList<>();
+		assignments.add(new ExogTimeSeriesAssignment("calsim/surrogate/sf_tide.csv", "sf_tidal_energy", "serving_default_sf_tidal_energy:0"));
+		assignments.add(new ExogTimeSeriesAssignment("calsim/surrogate/sf_tide.csv", "sf_tidal_filter", "serving_default_sf_tidal_filter:0"));		
+		for (AggregateMonths agg : AggregateMonths.values()) {
+			// Create a new surrogate for the current aggregator
+			SurrogateMonth annMonthDelta = new SurrogateMonth(disagg, deltaANN, agg, assignments);
+			int aggCode = agg.calsimCode;
+			// For each location, assign this surrogate if not already present.
+			for (Integer location : outputIndexMap.keySet()){
+				int outIndex = outputIndexMap.get(location);
+				if (!ssm.hasSurrogateForSite(location, aggCode)) {
+					ssm.setSurrogateForSite(location, aggCode, annMonthDelta);
+					ssm.setIndexForSite(location, outIndex);   // e.g. 0 if univariate has only one index
+				}
+			}
+		}
 		return ssm;
+
 
 	}
 
-
+	// Every ANN that changes inputs or their names must be altered here. You need to enter these in the 
+	// order they are given in training. The utility saved_model_cli will give you the names but 
+	// it permutes the order
 	public static Surrogate loadSurrogate(String dir) {
 		String fname = ExternalFunction.externalDir+dir;
-		String[] tensorNames = { "serving_default_sac_input:0", "serving_default_exports_input:0",
-				"serving_default_dcc_input:0", "serving_default_net_dcd_input:0", "serving_default_sjr_input:0",
-				"serving_default_tide_input:0", "serving_default_smscg_input:0", };
+		String[] tensorNames = { "serving_default_northern_flow:0", 
+				"serving_default_exports:0",
+				"serving_default_sjr_flow:0", 
+				"serving_default_cu_flow:0", 
+				"serving_default_sf_tidal_energy:0",
+				"serving_default_sf_tidal_filter:0", 
+				"serving_default_dcc:0", 
+				"serving_default_smscg:0", };
 
 		String[] tensorNamesInt = new String[0];
-		String outName = "StatefulPartitionedCall:0";
-		DailyToSurrogate dayToANN = new DailyToSurrogateBlocked(8, 10, 11);
-		Surrogate wrap = new TensorWrapper(fname, tensorNames, tensorNamesInt, outName, dayToANN);
+		String outName = "StatefulPartitionedCall:2";
+		// This describes how daily histories are aggregated and presented to the ANN
+		// starting from an (oversized) set of daily values. The Blocked implementation
+		// does something akin to legacy CalSim (individual values then averages, all reversed)
+		// The Default implementation is more of a pass-through that doesn't aggregate or reversed
+		// the data. It describes the length of the history in days that goes into one batch 
+		DailyToSurrogate dayToANN = new DailyToSurrogateDefault(90,false);
+		Surrogate wrap = new TensorWrapper(fname, 
+				tensorNames, 
+				tensorNamesInt, 
+				outName, 
+				dayToANN);
 		return wrap;
 	}	
 
-
-
 }
+/* This is the order of the inputs during training:
+      - northern_flow
+      - exports
+      - sjr_flow
+      - cu_flow
+      - sf_tidal_energy
+      - sf_tidal_filter
+      - dcc
+      - smscg
+
+  And this is the signature of the ANN as obtained from 
+  > saved_model_cli show --dir schism_base.suisun_gru2_tf --tag_set serve --signature_def serving_default
+  inputs['cu_flow'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_cu_flow:0
+  inputs['dcc'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_dcc:0
+  inputs['exports'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_exports:0
+  inputs['northern_flow'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_northern_flow:0
+  inputs['sf_tidal_energy'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_sf_tidal_energy:0
+  inputs['sf_tidal_filter'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_sf_tidal_filter:0
+  inputs['sjr_flow'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_sjr_flow:0
+  inputs['smscg'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 90)
+      name: serving_default_smscg:0
+The given SavedModel SignatureDef contains the following output(s):
+  outputs['unscale_base'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 19)
+      name: StatefulPartitionedCall:0
+  outputs['unscale_contrast'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 19)
+      name: StatefulPartitionedCall:1
+  outputs['unscale_suisun'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 19)
+      name: StatefulPartitionedCall:2
+Method name is: tensorflow/serving/predict
+ */
+
+
+
+

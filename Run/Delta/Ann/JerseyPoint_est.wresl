@@ -1,5 +1,27 @@
 
 !Get the required Sac flow for ESTIMATED exports
+
+define JPReqSac {
+  case HighFlow{
+  	condition (SAC_nominal - EXP_nominal > 15000) .and. (SAC_TOT(-1) - EXP_tot(-1) > 15000)
+    value 0.0}
+  case control{
+    condition month >=Oct .and. month <=Jan .or. month >= Apr .and. month <= Sep
+    	value max(0., requiredFlow(JP_EC_std_sv, Sac_Tot(-1:-4), -9999., EXP_tot(-1:-4), EstTotExpTD, 
+		              C_SJR070(-1:-4), SJR_ann_est, 
+		              DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              5000., 24000., int(JP), int(ann_type), calmonth, calyear))
+		       }
+  ! todo: review special cases, 5000/2400 brackets and necessity of the max(0., part
+  case other {
+  	condition always
+  	value 0.0}
+}
+define JPReqSacDV {alias JPReqSac kind 'FLOW' units 'CFS'}
+
+/*
+!Get the required Sac flow for ESTIMATED exports
 define JPReqSac {
   case NoSalinityControlPossible{
     condition abs(JP_m_sv) <= 0.001 .and. int(JP_b_sv) == 0
@@ -7,9 +29,6 @@ define JPReqSac {
   case NegSlope{
     condition JP_m_sv <= 0.0
     value 0.}
-  /*case highcost{
-    condition JP_Sac_ZeroExp_sv2 >= ANNcap
-    value 0.}*/
   case NegCarriage{
     condition JP_m_sv >= 1.0
     value 0.}
@@ -21,4 +40,4 @@ define JPReqSac {
     value 0.}
 }
 define JPReqSacDV {alias JPReqSac kind 'FLOW' units 'CFS'}
-
+*/

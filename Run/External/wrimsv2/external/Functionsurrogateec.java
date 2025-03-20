@@ -119,7 +119,8 @@ public class Functionsurrogateec extends ExternalFunction{
 		double[][] dcc1 = { dcc };
 		double[][] net_dcd1 = { net_dcd };
 		double[][] sjr1 = { sjr };
-		double[][] tide = { { 6.560, 6.184, 5.508, 5.083, 6.913 } };
+		double[][] tide_energy = { { 6.560, 6.184, 5.508, 5.083, 6.913 } };
+		double[][] tide_filter = { { 1. ,1. , 1., 1., 1. } };
 		double[][] smscg1 = { smscg };
 		
 		if (DEBUG){
@@ -136,10 +137,11 @@ public class Functionsurrogateec extends ExternalFunction{
 		ArrayList<double[][]> floatInput = new ArrayList<double[][]>();
 		floatInput.add(sac1);
 		floatInput.add(exp1);
-		floatInput.add(dcc1);
-		floatInput.add(net_dcd1);
 		floatInput.add(sjr1);
-		floatInput.add(tide);
+		floatInput.add(net_dcd1);
+		floatInput.add(tide_energy);
+		floatInput.add(tide_filter);	
+		floatInput.add(dcc1);		
 		floatInput.add(smscg1);
 
 		float out = ssm.annEC(floatInput, location, ave_type, month, year);

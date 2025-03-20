@@ -10,7 +10,10 @@ initial {
 
 svar RUFRmax {value 0.0} 
 
-svar LODflag {value 0.}!0 for existing conditions (historical/validation runs); 1 for buildout/future conditions
+!****************************SWITCHBOARD****************************
+!Planning horizon
+svar LODflag                    {value 0.} !0 for existing conditions (historical/validation runs); 1 for buildout/future conditions
+svar ICC	                    {value 1.} !HYDROFORECAST DLL option: 0 = historical forecast, 1 = adjusted hydrology or climate change forecast
 
 ! Switches for use of new WQ certifications MIFs or Old FERC Licenses (Default: 0 for existing values,1 for New WQ requirements)
 svar P2088_WQCFlag      {value 0.}      !FERC Project P-2088 
@@ -20,9 +23,11 @@ svar P803_WQCFlag       {value 0.}      !FERC Project P-803
 svar P2266_WQCFlag      {value 0.}      !FERC Project P-2266 
 svar P2246_WQCFlag      {value 0.}      !FERC Project P-2246  (issued in July 2020)
 
+!Modeling domain
 svar simulateUpperFeather     {value 1.}
 svar simulateupperYubaBear    {value 1.} 
 svar simulatelowerYuba        {value 1.}
+svar simulateYubTransfer      	{value 1.} !Set to zero to use timeseries for LYRA transfers, otherwise dynamically calculated
 svar simulateUpperAmerican    {value 1.}
 svar simulateupperMokelumne   {value 1.}
 svar simulatelowerMokelumne   {value 0.} !Part of stand-alone model, otherwise set to zero. Seepage estimates from EBMUD
@@ -32,14 +37,20 @@ svar simulateSanJoaquinValley {value 1.} !Includes lower Mokelumne but uses GW d
 svar simulateSacramentoValley {value 1.} 
 svar simulateGroundWaterSeepage {value 1.} ! 1 for dynamic groundwater simulation, 0 for fixed groundwater timeseries
 
-svar simulateTUCP     {value 0.} ! For SWP LTO studies, TUCP should be off
+!Operational assumptions
+svar simulateTUCP               {value 0.} !For SWP LTO studies, TUCP should be off
+svar simulateTisdaleWeir        {value 0.} !Turn on Tisdale Weir !20230714
+svar SimulateVA_Amr             {value 0.}
+svar SimulateVA_Mok             {value 0.}
+svar SimulateVA_Pth             {value 0.}
+svar SimulateVA_Yub             {value 0.}
 
-svar simulateTisdaleWeir {value 0.} !Turn on Tisdale Weir !20230714
-svar SimulateVA_Amr {value 0.}
-svar SimulateVA_Mok {value 0.}
-svar SimulateVA_Pth {value 0.}
-svar SimulateVA_Yub {value 0.}
+!Allocation method (EXPERIMENTAL)
+svar simulateCAM                {value 0.} !ALWAYS ZERO! Needed for some code like in feather_special
 
+!ANN Option for Different Sea Level Rise
+svar simulateANNSLR                {value 0.} !2 - 30 cm SLR,,1 - 15 cm SLR, 0 - 0 cm SLR
+!*******************************************************************
 svar cn_SJRBASE          {value 13 }
 svar cn_SJRBASE_GW1      {value 14 }
 svar cn_SJRBASE_GW2      {value 15 }
@@ -58,160 +69,169 @@ svar cn_SETUP            {value 27 }
 svar cn_MONTHLYWEIGHTED  {value 28 }
 svar cn_WHEELCVC         {value 29 }
 svar cn_WHEELJPOD        {value 30 }
-}
 
+! Define start month and start water year
+svar BgnWY {value 1922}
+svar EndWY   {value 2021}
+svar BgnMo {value 1}
+}
 SEQUENCE CYCLE01 {  
+    model   GENTables
+    condition wateryear==BgnWY .and. month==Jan
+    order   1
+    }
+SEQUENCE CYCLE02 {  
     model   SWPForecast
     condition month>=Jan .and. month<=May 
-    order   1
+    order   2
     }  
-SEQUENCE CYCLE02 {  
+SEQUENCE CYCLE03 {  
     model   Forecast2
     !condition simulateSanJoaquinValley >= 0.5
-    order   2
+    order   3
     }
-SEQUENCE CYCLE03 {
+SEQUENCE CYCLE04 {
     model   UPPERFEATHER
     condition simulateUpperFeather >= 0.5
-    order   3
+    order   4
     }    
-SEQUENCE CYCLE04 {
+SEQUENCE CYCLE05 {
     model   YUBABEAR
     condition simulateupperYubaBear >= 0.5
-    order   4
+    order   5
     }   
-SEQUENCE CYCLE05 {
+SEQUENCE CYCLE06 {
     model   LOWERYUBA
     condition simulatelowerYuba >= 0.5
-    order   5
-    }
-SEQUENCE CYCLE06 {
-    model   UPPERAMERICAN
-    condition simulateUpperAmerican >= 0.5
     order   6
     }
 SEQUENCE CYCLE07 {
-    model   UPPERMOKELUMNE
-    condition simulateupperMokelumne >= 0.5
+    model   UPPERAMERICAN
+    condition simulateUpperAmerican >= 0.5
     order   7
     }
 SEQUENCE CYCLE08 {
-    model   LOWERMOKELUMNE1
-    condition simulatelowerMokelumne >= 0.5
+    model   UPPERMOKELUMNE
+    condition simulateupperMokelumne >= 0.5
     order   8
     }
 SEQUENCE CYCLE09 {
-    model   LOWERMOKELUMNE2
+    model   LOWERMOKELUMNE1
     condition simulatelowerMokelumne >= 0.5
     order   9
     }
-SEQUENCE CYCLE10 {  
-    model   UPPERSTANISLAUS
-     condition simulateupperStanislaus >= 0.5
+SEQUENCE CYCLE10 {
+    model   LOWERMOKELUMNE2
+    condition simulatelowerMokelumne >= 0.5
     order   10
     }
 SEQUENCE CYCLE11 {  
+    model   UPPERSTANISLAUS
+     condition simulateupperStanislaus >= 0.5
+    order   11
+    }
+SEQUENCE CYCLE12 {  
     model   UPPERTUOLUMNE1
     condition simulateupperTuolumne >= 0.5
-    order   11
+    order   12
     }     
-SEQUENCE CYCLE12 {  
+SEQUENCE CYCLE13 {  
     model   UPPERTUOLUMNE2
     condition simulateupperTuolumne >= 0.5
-    order   12
-    }      
-SEQUENCE CYCLE13 {  
-    model   SJRBASE
-    condition simulateSanJoaquinValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   13
-    }
+    }      
 SEQUENCE CYCLE14 {  
-    model   SJRBASE_GW1
+    model   SJRBASE
     condition simulateSanJoaquinValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   14
     }
 SEQUENCE CYCLE15 {  
-    model   SJRBASE_GW2
+    model   SJRBASE_GW1
     condition simulateSanJoaquinValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   15
     }
 SEQUENCE CYCLE16 {  
-    model   SJRBASE_GW3
+    model   SJRBASE_GW2
     condition simulateSanJoaquinValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   16
     }
 SEQUENCE CYCLE17 {  
-    model   SJRBASE_GW4
-    condition simulateSanJoaquinValley >= 0.5
+    model   SJRBASE_GW3
+    condition simulateSanJoaquinValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   17
     }
-SEQUENCE CYCLE18 {
-    model   SJR_WQ1
+SEQUENCE CYCLE18 {  
+    model   SJRBASE_GW4
     condition simulateSanJoaquinValley >= 0.5
     order   18
     }
 SEQUENCE CYCLE19 {
-    model   SJR_PULSE
-    condition  simulateSanJoaquinValley >= 0.5 .and.  month>=APR .and. month<=MAY
+    model   SJR_WQ1
+    condition simulateSanJoaquinValley >= 0.5
     order   19
     }
 SEQUENCE CYCLE20 {
-    model   SJR_WQ2
-    condition simulateSanJoaquinValley >= 0.5 .and. month>=APR .and. month<=MAY
+    model   SJR_PULSE
+    condition  simulateSanJoaquinValley >= 0.5 .and.  month>=APR .and. month<=MAY
     order   20
     }
 SEQUENCE CYCLE21 {
-    model   GW_INITIAL
-    condition simulateSacramentoValley >= 0.5
+    model   SJR_WQ2
+    condition simulateSanJoaquinValley >= 0.5 .and. month>=APR .and. month<=MAY
     order   21
     }
 SEQUENCE CYCLE22 {
-    model   GW_FIRST
-    condition simulateSacramentoValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
+    model   GW_INITIAL
+    condition simulateSacramentoValley >= 0.5
     order   22
     }
 SEQUENCE CYCLE23 {
-    model   GW_SECOND
+    model   GW_FIRST
     condition simulateSacramentoValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   23
     }
 SEQUENCE CYCLE24 {
-    model   GW_THIRD
+    model   GW_SECOND
     condition simulateSacramentoValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   24
     }
 SEQUENCE CYCLE25 {
-    model   GW_FOURTH
+    model   GW_THIRD
     condition simulateSacramentoValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
     order   25
-    }  
+    }
 SEQUENCE CYCLE26 {
+    model   GW_FOURTH
+    condition simulateSacramentoValley >= 0.5 .and. simulateGroundWaterSeepage > 0.5
+    order   26
+    }  
+SEQUENCE CYCLE27 {
     model   PRESETUP
     condition simulateSacramentoValley >= 0.5
-    order   26
+    order   27
     }     
-SEQUENCE CYCLE27 {
+SEQUENCE CYCLE28 {
     model   SETUP
     condition simulateSacramentoValley >= 0.5
-    order   27
+    order   28
     }    
-SEQUENCE CYCLE28 {
+SEQUENCE CYCLE29 {
     model   MONTHLYWEIGHTED
     condition simulateSacramentoValley >= 0.5
-    order   28
+    order   29
     }
-SEQUENCE CYCLE29 {
+SEQUENCE CYCLE30 {
     model   WHEELCVC
     condition simulateSacramentoValley >= 0.5
-    order   29
+    order   30
     }
 
 group Tdomain {
 
     ! Define start month and start water year
-    define BgnWY {value 1922}
-    define EndWY {value 2021}
-    define BgnMo {value OCT}
+    !define BgnWY {value 1922}
+    !define EndWY {value 2021}
+    !define BgnMo {value OCT}
     
     define SGPHIGH {value 77777}
 
@@ -291,11 +311,20 @@ group GW_Initialon {
     !Make LVM changes with UserInput.wresl or associated SV timeseries or lookup tables.
     include 'CCWD\UserInput.wresl'
     !*************************************************
-    include 'delta\DeltaExtFuncs_7inpANN.wresl'
+    if int(simulateANNSLR) == 0 { 
+    include 'delta\DeltaExtFuncs_7inpANN.wresl'}
+    elseif int(simulateANNSLR) == 1 { 
+    include 'delta\DeltaExtFuncs_7inpANN_slr15.wresl'}
+        elseif int(simulateANNSLR) == 2 { 
+    include 'delta\DeltaExtFuncs_7inpANN_slr30.wresl'}
     include 'DeliveryLogic\SWP\allocation\co_extfcn.wresl'
     include 'Other\PostSJREstimates.wresl'
     !include 'System\SystemTables_Delta\constraints-Connectivity.wresl'
     }
+
+MODEL GenTables{
+	include 'camplus\Misc\GenCCTables.wresl'
+}
 
 MODEL SWPForecast{
 
@@ -350,19 +379,43 @@ MODEL YUBABEAR {
 }
 
 MODEL LOWERYUBA {
-    include group Tdomain
+	!In this cycle, all Yuba River operations are determined.
+	!Transfers are determined in a subsequent cycle
     include 'camplus\Misc\General.wresl'
     include 'camplus\ForecastData\Input_DLL.wresl'
     include 'camplus\ForecastData\Call_CAMDLL.wresl'
     include 'camplus\Network\Inflows_Forecasted_CAMDLL_3.wresl'
-    include[local]  '..\run\Other\Wytypes\YubaIndex.wresl'
-    include[local] '..\run\System\System_LowerYuba.wresl' 
-    include[local] '..\run\northofdelta\LowerYuba\Yuba_Definition.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_minflows_LYRA.wresl' 
-    include[local] '..\run\northofdelta\LowerYuba\Yuba_GW_Substitution.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_AnnualAllocation_LYRA.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_power.wresl'
-    include[local] '..\run\northofdelta\LowerYuba\yuba_operations.wresl'
+    !include[local] '..\run\Other\Wytypes\UnimpairedFlows.wresl'
+	include[local] '..\run\Other\Wytypes\YubaIndex.wresl'
+    
+	If SimulateVA_Yub  ==1. {
+		!include[local] '..\run\Other\Wytypes\UnimpairedFlows.wresl'
+		!include[local] '..\run\Other\Wytypes\YubaIndex.wresl'
+		include[local] '..\run\Other\Wytypes\SacIndex_PrevMay.wresl'
+		include[local] '..\run\Other\Wytypes\SacIndex.wresl'
+		include[local] '..\run\Other\Wytypes\SJRIndex_PrevMay.wresl'
+		include[local] '..\run\Other\Wytypes\SJRIndex.wresl'
+		include[local] '..\run\Other\Wytypes\FeatherIndex.wresl'
+		include[local] '..\run\Other\Wytypes\ShastaIndex.wresl'
+		include[local] '..\run\Other\Wytypes\AmericanIndex.wresl'
+		include[local] '..\run\Other\Wytypes\TrinityIndex.wresl'
+		include[local] '..\run\Other\Wytypes\wytypes.wresl'}
+	
+	include[local] '..\run\System\System_LowerYuba.wresl' 	
+		
+	If simulateYubTransfer == 0. {
+		!Using this option, the timeseries for Yuba Transfers is used		
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\Yuba_Definition.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_minflows_LYRA.wresl' 
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\Yuba_GW_Substitution.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_AnnualAllocation_LYRA.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_power.wresl'
+		include[local] '..\run\northofdelta\LowerYuba\TS_Trans\yuba_operations.wresl'}
+      
+    If simulateYubTransfer == 1. {
+
+		include[local] '..\run\northofdelta\LowerYuba\Dynamic_Trans\LowerYuba.wresl'}
+		
 }        
     
     
@@ -404,9 +457,9 @@ MODEL UPPERAMERICAN {
     include[local] '..\run\NorthOfDelta\American\CVP\FolsomRuleCurve_UARM.wresl'
     include[local] '..\run\NorthOfDelta\American\CVP\NimbusPower.wresl'
     include[local] '..\run\NorthOfDelta\American\WYT\WYT_D893.wresl'
-    include[local] '..\run\NorthOfDelta\American\CVP\HStreetBase.wresl'
-    include[local] '..\run\NorthOfDelta\American\FMStandard.wresl'
-    goal[local] setNimbusMIF {C_NTOMA_mif < minflowFMPAmer}
+!    include[local] '..\run\NorthOfDelta\American\CVP\HStreetBase.wresl'
+!    include[local] '..\run\NorthOfDelta\American\FMStandard.wresl'
+!    goal[local] setNimbusMIF {C_NTOMA_mif < minflowFMPAmer}
     include[local] '..\run\NorthOfDelta\American\MFP\PCWA_EBMUD_Transfer.wresl'
 }
 
@@ -811,6 +864,7 @@ define cyclenum {value cn_GW_INITIAL}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_FIRST { 
@@ -920,6 +974,7 @@ define cyclenum {value cn_GW_FIRST}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl' 
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'   
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_SECOND {  
@@ -1031,6 +1086,7 @@ define cyclenum {value cn_GW_SECOND}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 MODEL GW_THIRD {  
@@ -1141,6 +1197,7 @@ define cyclenum {value cn_GW_THIRD}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
 
 MODEL GW_FOURTH {  
@@ -1251,7 +1308,9 @@ define cyclenum {value cn_GW_FOURTH}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
+
 MODEL PRESETUP {      
 define cyclenum {value cn_PRESETUP}
     include group Tdomain
@@ -1370,6 +1429,7 @@ define cyclenum {value cn_PRESETUP}
     include 'NorthOfDelta\Freeport\SCWA\scwa_excess_zero.wresl'    !ejc
     include 'CCWD\CalSimConnection_PreSetup.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
      
 
@@ -1494,6 +1554,7 @@ define cyclenum {value cn_SETUP}
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl' 
     include 'Other\TUCP_ExpLimit.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
     
 MODEL MONTHLYWEIGHTED {   
@@ -1624,6 +1685,7 @@ define cyclenum {value cn_MONTHLYWEIGHTED}
     include 'Other\CycleOutput\TributaryCycleOutflows.wresl' 
     include 'Other\TUCP_ExpLimit.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
      }
 
 MODEL WHEELCVC {  
@@ -1656,6 +1718,8 @@ define cyclenum {value cn_WHEELCVC}
     include 'Delta\export_ops\export_ops1.wresl'
     include 'Delta\export_ops\export_ops2.wresl'
     include 'Delta\IsolatedFacility\IsolatedFacility.wresl'
+	If simulateYubTransfer==1. {  
+	include 'NorthOfDelta\LowerYuba\Dynamic_Trans\Common\Yuba_Trans_VA_wsidi.wresl'}  !Added for dynamic LYRA transfer calculations
     include 'ReOperations\Transfers\Transfers_MultiYr.wresl'
  
     !include 'ReOperations\Transfers\TransfersCore.wresl'
@@ -1755,11 +1819,12 @@ define cyclenum {value cn_WHEELCVC}
     include 'CCWD\WQ_Calcs\WQ_Calcs_MONTHLYWEIGHTED.wresl'  
     
     include 'Other\DCD_Delta_Output.wresl'
-    include 'camplus\Misc\GenFlowTables.wresl'
+    include 'camplus\Misc\GenRunoffTables.wresl'
     include 'DeliveryLogic\Output\swpcvpdeloutput.wresl'  
     include 'Other\CycleOutput\TributaryCycleOutflows.wresl' 
     include 'Other\TUCP_ExpLimit.wresl'
     include 'DeliveryLogic\CVP\SRSC_LF_Transfer_zero.wresl'
+    INCLUDE 'CAMPlus\Network\Oroville_forecast_save.wresl'
 
     if simulateGroundWaterSeepage > 0.5 {           
            !*********************************************************************

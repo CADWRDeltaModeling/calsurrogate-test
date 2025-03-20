@@ -34,23 +34,23 @@ goal setRSMax2 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 999999.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_2_sv) <= 0.001 .and. int(RS_b_2_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs ExportCap}
   case NegSlope{
-    condition RS_m_2_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 999999.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs ExportCap}*/
   case LargeNegInt{
-    condition RS_b_2_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 999999.}
   case NegCarriage{
-    condition RS_m_2_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 999999.}
   case Normal {
     condition always
-    rhs RS_m_2_sv*C_SACtot_ANN + RS_b_2_sv}
+    rhs RS_m_1_sv*C_SACtot_ANN + RS_b_1_sv}
 }
 
 define RS_MaxExport_3 {lower unbounded upper unbounded kind 'FLOW' units 'CFS'}
@@ -60,23 +60,23 @@ goal setRSMax3 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 999999.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_3_sv) <= 0.001 .and. int(RS_b_3_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs ExportCap}
   case NegSlope{
-    condition RS_m_3_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 999999.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs ExportCap}*/
   case LargeNegInt{
-    condition RS_b_3_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 999999.}  
   case NegCarriage{
-    condition RS_m_3_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 999999.}
   case Normal {
     condition always
-    rhs RS_m_3_sv*C_SACtot_ANN + RS_b_3_sv}
+    rhs RS_m_1_sv*C_SACtot_ANN + RS_b_1_sv}
 }
 
 
@@ -116,24 +116,24 @@ goal setRSmrdo2 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 0.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_2_sv) <= 0.001 .and. int(RS_b_2_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs 0.}
   case NegSlope{
-    condition RS_m_2_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 0.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs 0.}*/
   case LargeNegInt{
-    condition RS_b_2_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 0.}  
   case NegCarriage{
-    condition RS_m_2_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 0.}
   case Normal {
     condition always
-    rhs ((1-RS_m_2_sv)/RS_m_2_sv)*ExportActualTD /*- ((1-RS_m_2_sv)/RS_m_2_sv)*C_CAA003_wts_stg1 - ((1-RS_m_2_sv)/RS_m_2_sv)*C_CAA003_cvcrels
-    - ((1-RS_m_2_sv)/RS_m_2_sv)*C_CAA003_whlrels*/ - RS_b_2_sv/RS_m_2_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
+    rhs ((1-RS_m_1_sv)/RS_m_1_sv)*ExportActualTD /*- ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_wts_stg1 - ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_cvcrels
+    - ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_whlrels*/ - RS_b_1_sv/RS_m_1_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
 						   + DeltaAccretionforNDOI - DeltaDepletionforNDOI}
 }
 
@@ -144,24 +144,24 @@ goal setRSmrdo3 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 0.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_3_sv) <= 0.001 .and. int(RS_b_3_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs 0.}
   case NegSlope{
-    condition RS_m_3_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 0.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs 0.}*/
   case LargeNegInt{
-    condition RS_b_3_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 0.}  
   case NegCarriage{
-    condition RS_m_3_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 0.}
   case Normal {
     condition always
-    rhs ((1-RS_m_3_sv)/RS_m_3_sv)*ExportActualTD /* - ((1-RS_m_3_sv)/RS_m_3_sv)*C_CAA003_wts_stg1 - ((1-RS_m_3_sv)/RS_m_3_sv)*C_CAA003_cvcrels
-    - ((1-RS_m_3_sv)/RS_m_3_sv)*C_CAA003_whlrels*/ - RS_b_3_sv/RS_m_3_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
+    rhs ((1-RS_m_1_sv)/RS_m_1_sv)*ExportActualTD /* - ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_wts_stg1 - ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_cvcrels
+    - ((1-RS_m_1_sv)/RS_m_1_sv)*C_CAA003_whlrels*/ - RS_b_1_sv/RS_m_1_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
 						   + DeltaAccretionforNDOI - DeltaDepletionforNDOI}
 }
 
@@ -199,23 +199,23 @@ goal set_RS_ReqSac2 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 0.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_2_sv) <= 0.001 .and. int(RS_b_2_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs 0.}
   case NegSlope{
-    condition RS_m_2_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 0.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs 0.}*/
   case LargeNegInt{
-    condition RS_b_2_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 0.}    
   case NegCarriage{
-    condition RS_m_2_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 0.}
   case Normal {
     condition always
-    rhs ExportActualTD/RS_m_2_sv - RS_b_2_sv/RS_m_2_sv}
+    rhs ExportActualTD/RS_m_1_sv - RS_b_1_sv/RS_m_1_sv}
 }
 
 define RS_ReqSac3 {lower unbounded upper unbounded kind 'FLOW' units 'cfs'}
@@ -225,21 +225,21 @@ goal set_RS_ReqSac3 {
     condition C_SAC041_ANN(-1) >=40000.
     rhs 0.}
   case NoSalinityControlPossible{
-    condition abs(RS_m_3_sv) <= 0.001 .and. int(RS_b_3_sv) == 0
+    condition abs(RS_m_1_sv) <= 0.001 .and. int(RS_b_1_sv) == 0
     rhs 0.}
   case NegSlope{
-    condition RS_m_3_sv <= 0.0
+    condition RS_m_1_sv <= 0.0
     rhs 0.}
   /*case HighCost{
     condition RS_Sac_ZeroExp_sv2 >= ANNcap
     rhs 0.}*/
   case LargeNegInt{
-    condition RS_b_3_sv < -10000.0
+    condition RS_b_1_sv < -10000.0
     rhs 0.}    
   case NegCarriage{
-    condition RS_m_3_sv >= 1.0
+    condition RS_m_1_sv >= 1.0
     rhs 0.}
   case Normal {
     condition always
-    rhs ExportActualTD/RS_m_3_sv - RS_b_3_sv/RS_m_3_sv}
+    rhs ExportActualTD/RS_m_1_sv - RS_b_1_sv/RS_m_1_sv}
 }

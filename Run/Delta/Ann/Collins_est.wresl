@@ -1,24 +1,22 @@
 
 !Get the required Sac flow for ESTIMATED exports
+
 define COReqSac {
-  case NoSalinityControlPossible{
-    condition abs(CO_m_sv) <= 0.001 .and. int(CO_b_sv) == 0
-    value 0.}
-  case NegSlope{
-    condition CO_m_sv <= 0.0
-    value 0.}
-  /*case highcost{
-    condition CO_Sac_ZeroExp_sv2 >= ANNcap
-    value 0.}*/
-  case NegCarriage{
-    condition CO_m_sv >= 1.0
-    value 0.}
+  case HighFlow{
+  	condition (SAC_nominal - EXP_nominal > 15000) .and. (SAC_TOT(-1) - EXP_tot(-1) > 15000)
+    value 0.0}	
   case control{
     condition month >=OCT .and. month <=MAY
-    value max(0., (EstTotExpTD-CO_b_sv)/CO_m_sv)}
+    	value max(0.,requiredFlow(EM_EC_std_sv, Sac_Tot(-1:-4), -9999., EXP_tot(-1:-4), EstTotExpTD, 
+		              C_SJR070(-1:-4), SJR_ann_est, 
+		              DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              5000., 24000., int(CO), int(ann_type), calmonth, calyear))
+		         }
   case other {
-    condition  always
-    value 0.}
+  	condition always
+  	value 0.0}
 }
 define COReqSacDV {alias COReqSac kind 'FLOW' units 'CFS'}
+
 

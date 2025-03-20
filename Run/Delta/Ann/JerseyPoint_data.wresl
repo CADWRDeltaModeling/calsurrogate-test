@@ -20,164 +20,39 @@ Modified values are in salinity_std_jpt_new.table.
 
 !****************************************************************************************
 
+
+
 ! calculate previous month's value of salinity
 define JP_EC_Month_sv {
-  case lastWaterYear {
-    condition  month == Oct
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(monthly_ave),12,(wateryear-1))}
-
-  case others {
-    condition always
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(monthly_ave),(month-1),wateryear)}
+        value  surrogateEC(Sac_Tot(-1:-5),
+               EXP_tot(-1:-5),
+               DXC(-1:-5),
+               net_DICU(-1:-5),
+               C_SJR070(-1:-5),
+               SMSCG_OP(-1:-5),
+               int(JP), int(monthly_ave), calmonth_prev, calyear_prev)
 }
 
-define JP_EC_Month {std kind 'SALINITY' units 'UMHOS/CM'}
-goal setJP_EC_MON {JP_EC_Month = JP_EC_Month_sv}
+define JP_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
+goal setJPMonprv {JP_EC_Month = JP_EC_Month_sv}
 
-!get ANN_EC for 2 month earlier 4/14/2005
-define JP_EC_Month_smooth_sv {
-  case October {
-    condition  month == Oct
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(monthly_ave),11,(wateryear-1))}
 
-  case November {
-    condition  month == Nov
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(monthly_ave),12,(wateryear-1))}
+!**************************************************************************************************
+!get 14-day ANN_EC for 1 month earlier
 
-  case others {
-    condition always
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(monthly_ave),(month-2),wateryear)}
-}
-
-define JP_EC_MonthDSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
-goal setJP_EC_DSM2 {JP_EC_MonthDSM2 = JP_EC_Month_smooth_sv}
-
-! calculate the maximum 14 day running average
 define JP_EC_Max14Day_sv {
-  case lastWaterYear {
-    condition  month == Oct
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(max_14day_running_ave),12,(wateryear-1))}
-
-  case others {
-    condition always
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(max_14day_running_ave),(month-1),wateryear)}
-}
-define JP_EC_Max14Day {std kind 'SALINITY' units 'UMHOS/CM'}
-goal setJP_EC_14Ave {JP_EC_Max14Day = JP_EC_Max14Day_sv}
-
-!get ANN_EC for 2 month earlier
-define JP_EC_Max14day_smooth_sv {
-  case October {
-    condition  month == Oct
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(max_14day_running_ave),11,(wateryear-1))}
-
-  case November {
-    condition  month == Nov
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(max_14day_running_ave),12,(wateryear-1))}
-
-  case others {
-    condition always
-      value  AnnEC_matchDSM2(
-             C_SAC041(-7),C_SAC041(-6), C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-6),EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),
-               C_SJR070(-7),C_SJR070(-6),C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-6),DXC(-5),DXC(-4),DXC(-3),DXC(-2),
-               net_DICU(-6),net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),
-               sac_oth(-6),sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),
-               exp_oth(-6),exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),
-               SMSCG_OP(-6),SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),
-               int(daysindv(-7)),int(daysindv(-6)),int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(JP),int(max_14day_running_ave),(month-2),wateryear)}
+      value  surrogateEC(Sac_Tot(-1:-5),
+               EXP_tot(-1:-5),
+               DXC(-1:-5),
+               net_DICU(-1:-5),
+               C_SJR070(-1:-5),
+               SMSCG_OP(-1:-5),
+               int(JP),int(monthly_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
 }
 
-define JP_EC_Max14_DSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
-goal setJP_EC_DSM2_2 {JP_EC_Max14_DSM2 = JP_EC_Max14day_smooth_sv}
+define JP_EC_Max14Day {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
+goal setJP14Dayprv {JP_EC_Max14Day = JP_EC_Max14Day_sv}
+
 
 !****************************************************************************************
 
@@ -206,71 +81,154 @@ define JP_EC_STD {std kind 'SALINITY' units 'UMHOS/CM'}
 goal JPECstandout {JP_EC_STD = JP_EC_STD_sv}
 
 !****************************************************************************************
-!get slope and intercept for constraint exp<=m*sac+b
+!get parameters for constraint
 
-define JP_b_sv {
+! linearization around these nominal values (later move to shared location)
+define Sac_nominal{
+  case controlfirstcycle{
+    condition cyclenum == cn_GW_INITIAL
+    value Sac_Tot(-1)
+  }
   case control{
-    condition month >=Oct .and. month <=Jan .or. month >= Apr .and. month <= Sep
-    value  AnnLineGen(C_SAC041_ANN(-4),C_SAC041_ANN(-3),C_SAC041_ANN(-2),C_SAC041_ANN(-1),
-                    EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-                    C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),SJR_ann_est,
-                    DXC(-4),DXC(-3),DXC(-2),DXC(-1),DXC_est,
-                    net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),net_delta_cu,
-                    sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),sac_oth_est,
-                    exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),exp_oth_est,
-                    SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),SMSCG_OPSV,
-                    int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),daysin,
-                    JP_EC_STD_sv,line_JP_lo,line_JP_hi,
-                    int(JP),int(intercept),int(ann_type),month,wateryear,4)}
+  	condition always
+  	value Sac_Tot[-1]
+  }
+}
+define Exp_nominal{
+  case controlfirstcycle{
+    condition cyclenum == cn_GW_INITIAL
+    value Exp_Tot(-1)
+  }
+  case controlafterfirst{
+  	condition always
+  	value Exp_Tot[-1]
+  }
+}
+
+! Todo: define HighFlow or find it elsewhere instead of hardwired 15000
+define JP_a0_sv {
+  case HighFlow{
+  	condition (SAC_nominal - EXP_nominal > 15000) .and. (SAC_TOT(-1) - EXP_tot(-1) > 15000)
+    value 0.0}	
+  case control{                  
+	condition month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), EXP_nominal,
+                    C_SJR070(-1:-4), SJR_ann_est,
+                    DXC(-1:-4), DXC_est,
+                    net_DICU(-1:-4), net_delta_cu,
+                    SMSCG_OP(-1:-4), SMSCG_OPSV,
+                    JP_EC_std_sv, int(JP), 0, int(ann_type), calmonth, calyear)}
   case other {
     condition  always
-    value 999999.}
+    value 0.}
 }
+
+define JP_a1_sv {
+  case HighFlow{
+  	condition (SAC_nominal - EXP_nominal > 15000) .and. (SAC_TOT(-1) - EXP_tot(-1) > 15000)
+    value -1.0}	
+  case control{
+    !condition month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    condition month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), Exp_nominal,
+                    C_SJR070(-1:-4), SJR_ann_est,
+                    DXC(-1:-4), DXC_est,
+                    net_DICU(-1:-4), net_delta_cu,
+                    SMSCG_OP(-1:-4), SMSCG_OPSV,
+                    JP_EC_std_sv, int(JP), 1, int(ann_type), calmonth, calyear)}
+  case other{
+    condition  always
+    value -1.}
+}
+
+define JP_a2_sv {
+  case HighFlow{
+  	condition (SAC_nominal - EXP_nominal > 15000) .and. (SAC_TOT(-1) - EXP_tot(-1) > 15000)
+    value 1.0}	
+  case control{
+    condition month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    value  surrogateECLinearize(Sac_Tot(-1:-4), Sac_nominal,
+                    EXP_tot(-1:-4), Exp_nominal,
+                    C_SJR070(-1:-4), SJR_ann_est,
+                    DXC(-1:-4), DXC_est,
+                    net_DICU(-1:-4), net_delta_cu,
+                    SMSCG_OP(-1:-4), SMSCG_OPSV,
+                    JP_EC_std_sv, int(JP), 2, int(ann_type), calmonth, calyear)}
+  case other {
+    condition  always
+    value 1.}
+}
+
+define JP_b_sv {	
+	case noControl{
+  		condition JP_a0_sv>=999999.
+  		value 999999.
+	}
+	case negExpSensativity{  ! must precede lowExpSensativity
+		condition JP_a2_sv < -0.0001
+		value -JP_a0_sv/JP_a2_sv
+	}	
+	case lowExpSensitivity{
+		condition JP_a2_sv < 0.0001
+		value 0.
+	}
+	case control{            ! normal sensitivity where JP_a2_sv is positive
+		condition always
+		value JP_a0_sv/JP_a2_sv
+	}
+}
+
 define JP_m_sv {
-  case reducecalls {
+  case noControl {
     condition  JP_b_sv >= 999990.
     value 0.}
+   case negExpSensitivity{
+    condition JP_a2_sv < -0.0001 .and. month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+	Value JP_a1_sv/JP_a2_sv
+	}    
+   case lowExpSensitivity{
+    condition JP_a2_sv < 0.0001 .and. month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+	Value 1.
+	}    
   case control{
-    condition month >=Oct .and. month <=Jan .or. month >= Apr .and. month <= Sep
-    value  AnnLineGen(C_SAC041_ANN(-4),C_SAC041_ANN(-3),C_SAC041_ANN(-2),C_SAC041_ANN(-1),
-                    EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-                    C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),SJR_ann_est,
-                    DXC(-4),DXC(-3),DXC(-2),DXC(-1),DXC_est,
-                    net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),net_delta_cu,
-                    sac_oth(-4),sac_oth(-3),sac_oth(-2), sac_oth(-1), sac_oth_est,
-                    exp_oth(-4),exp_oth(-3),exp_oth(-2), exp_oth(-1), exp_oth_est,
-                    SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),SMSCG_OPSV,
-                    int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),daysin,
-                    JP_EC_STD_sv,line_JP_lo,line_JP_hi,
-                    int(JP),int(slope),int(ann_type),month,wateryear,4)}
+    condition month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    value -JP_a1_sv/JP_a2_sv}
+  
   case other {
     condition  always
     value 0.}
 }
+
+define JP_a0 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define JP_a1 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+define JP_a2 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
+goal setJPa0 {JP_a0 = JP_a0_sv}
+goal setJPa1 {JP_a1 = JP_a1_sv}
+goal setJPa2 {JP_a2 = JP_a2_sv}
+
 define JP_m {lower unbounded upper unbounded kind 'SLOPE' units 'NONE'}
 define JP_b {lower unbounded upper unbounded kind 'INTERCEPT' units 'NONE'}
 goal setJP_m {JP_m = JP_m_sv}
 goal setJP_b {JP_b = JP_b_sv}
-
-!****************************************************************************************
-!Get the required Sac flow for ZERO exports
-define JP_Sac_ZeroExp_sv1 {
-  case NoSalinityControlPossible{
-    condition abs(JP_m_sv) <= 0.001 .and. int(JP_b_sv) == 0
-    value 0.}
-  case NegSlope{
-    condition JP_m_sv <= 0.0
-    value 0.}
-  case NegCarriage{
-    condition JP_m_sv >= 1.0
-    value 0.}
+!!!!!!!!!!!!
+define JP_Sac_zeroExp_sv2 {
   case control{
     condition month >=Oct .and. month <=Jan .or. month >= Apr .and. month <= Sep
-    value -JP_b_sv/JP_m_sv}
+        ! The zero after Exp_tot(-1:-4) is the zero exports for the current month
+    	value max(0., requiredFlow(JP_EC_std_sv, Sac_Tot(-1:-4), -9999., EXP_tot(-1:-4), 0., 
+		              C_SJR070(-1:-4), SJR_ann_est, 
+		              DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              5000., 24000., int(JP), int(ann_type), calmonth, calyear))
+		       }
+  ! todo: review special cases, 5000/2400 brackets and necessity of the max(0., part
   case other {
-    condition  always
-    value 0.}
+  	condition always
+  	value 0.0}
 }
-define JP_Sac_ZeroExp_sv2 {value max(0.0,JP_Sac_ZeroExp_sv1)}
 define JP_Sac_ZeroExp {lower unbounded upper unbounded kind 'FLOW' units 'CFS'}
 goal setJP_Sac_ZeroExp {JP_Sac_ZeroExp = JP_Sac_ZeroExp_sv2}
+
+

@@ -13,16 +13,20 @@ define EM_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
 define EM_EC_Month_sv {value EM_EC_Month[monthlyweighted]}
 goal setEMMonprv {EM_EC_Month = EM_EC_Month_sv}
 
+!get ANN_EC for 2 month earlier 4/14/2005
+define EM_EC_MonthDSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
+define EM_EC_Month_smooth_sv {value EM_EC_MonthDSM2[monthlyweighted]}
+goal setEM_EC_DSM2 {EM_EC_MonthDSM2 = EM_EC_Month_smooth_sv}
 
 ! calculate the maximum 14 day running average
 define EM_EC_Max14Day {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
 define EM_EC_Max14Day_sv {value EM_EC_Max14Day[monthlyweighted]}
 goal setEM14Dayprv {EM_EC_Max14Day = EM_EC_Max14Day_sv}
 
-define EM_EC_Max14Day_Matlab {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
-define EM_EC_Max14Day_matlab_sv {value EM_EC_Max14Day_Matlab[monthlyweighted]}
-goal setEM14DayprvMlab {EM_EC_Max14Day_Matlab = EM_EC_Max14Day_matlab_sv}
-
+!get ANN_EC for 2 month earlier
+define EM_EC_Max14_DSM2 {std kind 'SALINITY' units 'UMHOS/CM'}
+define EM_EC_Max14day_smooth_sv {value EM_EC_Max14_DSM2[monthlyweighted]}
+goal setEM_EC_DSM2_2 {EM_EC_Max14_DSM2 = EM_EC_Max14day_smooth_sv}
 
 !*************************************************************************************************************
 
@@ -40,18 +44,6 @@ define EM_m_sv {value EM_m[monthlyweighted]}
 define EM_b_sv {value EM_b[monthlyweighted]}
 goal setEM_m {EM_m = EM_m_sv}
 goal setEM_b {EM_b = EM_b_sv}
-
-define EM_a0 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
-define EM_a1 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
-define EM_a2 {lower unbounded upper unbounded kind 'constraint' units 'UMHOS/CM'}
-define EM_a0_sv {value EM_a0[monthlyweighted]}
-define EM_a1_sv {value EM_a1[monthlyweighted]}
-define EM_a2_sv {value EM_a2[monthlyweighted]}
-
-goal setEMa0 {EM_a0 = EM_a0_sv}
-goal setEMa1 {EM_a1 = EM_a1_sv}
-goal setEMa2 {EM_a2 = EM_a2_sv}
-
 
 !********************************************************************
 

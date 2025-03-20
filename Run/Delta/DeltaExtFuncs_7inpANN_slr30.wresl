@@ -16,15 +16,12 @@ define getFinalMrdo {EXTERNAL f90}
 
 !*************************************************************************************************************
 ! Define External ANN Code AND DLLS
-define AnnLineGen      {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
+define AnnLineGen      {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
 
-define AnnEC           {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
+define AnnEC           {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
 
-define AnnEC_matchDSM2 {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
+define AnnEC_matchDSM2 {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
 
-define Ann_X2          {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
-define getNDO_X2       {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
-define getNDO_x2_curMonNDOSplit {EXTERNAL Ann7inp_CS3_Base_SLR0cm_20230428_OneAPIx64.dll}
-define surrogateec {EXTERNAL f90}
-define surrogateeclinearize {EXTERNAL f90}
-define requiredFlow {EXTERNAL f90}
+define Ann_X2          {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
+define getNDO_X2       {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
+define getNDO_x2_curMonNDOSplit {EXTERNAL Ann7inp_CS3_2040_SLR30cm_20230428_OneAPIx64.dll}
