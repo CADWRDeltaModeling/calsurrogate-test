@@ -32,7 +32,7 @@ define(fm) max_sjr_ie_fm {
 define(fm) max_swp_sjr_ie_fm {
 	case AprMay{
 		condition mv($m)==Apr .or. mv($m)==May
-		value max(700.,pct_sjr_exp*I33B_fm($m)*taf_cfs($m))*cfs_taf($m)
+		value max(600.,pct_sjr_exp*I33B_fm($m)*taf_cfs($m))*cfs_taf($m)
 	}
 	case other{
 		condition always
@@ -43,7 +43,7 @@ define(fm) max_swp_sjr_ie_fm {
 define(fm) max_cvp_sjr_ie_fm {
 	case AprMay{
 		condition mv($m)==Apr .or. mv($m)==May
-		value max(800.,pct_sjr_exp*I33B_fm($m)*taf_cfs($m))*cfs_taf($m)
+		value max(900.,pct_sjr_exp*I33B_fm($m)*taf_cfs($m))*cfs_taf($m)
 	}
 	case other{
 		condition always

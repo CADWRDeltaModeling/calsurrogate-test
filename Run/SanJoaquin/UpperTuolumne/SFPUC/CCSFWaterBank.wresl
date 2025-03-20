@@ -80,7 +80,7 @@ define E_PEDRO_WTBNK {   !in cfs
 }
 
 ! Calculate Water Bank Storage in Cycle 1
-define S_PEDRO_WTBNK_C1   {value min(S_PEDRO_WTBNK(-1) + I_WTBNK_C1*cfs_taf - E_PEDRO_WTBNK*cfs_taf, 570.)}
+define S_PEDRO_WTBNK_C1   {value max(0, min(S_PEDRO_WTBNK(-1) + I_WTBNK_C1*cfs_taf - E_PEDRO_WTBNK*cfs_taf, 570.))} ! Need to set to min to 0 because this can go negative in extreme scenarios like 95% LOC. Also, total water bank is not allowed to go negative. NOsorio 10/27/2023
 define S_PEDRO_WTBNK_C1dv {alias S_PEDRO_WTBNK_C1 kind 'STORAGE' units 'TAF'} !for debugging purposes
 
 ! Calculate Water Bank Storage in Cycle 2

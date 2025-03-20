@@ -14,7 +14,7 @@ Description:    The purpose of this module is to calculate inputs for the follow
 define MFPForecastRelease  {timeseries kind 'STORAGE-FORECAST' units 'TAF'}
 define UARPForecastRelease {timeseries kind 'STORAGE-FORECAST' units 'TAF'}
 define P184ForecastRelease {timeseries kind 'STORAGE-FORECAST' units 'TAF'}
-
+/*
 define AmerFrcstInflowOctMar {              
         case OCT_MAR {condition month >= OCT .or. month <= MAR
                   value  UNIMP_FOLS + MFPForecastRelease + UARPForecastRelease + P184ForecastRelease}
@@ -73,7 +73,7 @@ define AmerFrcstInflowMarJul_a {alias AmerFrcstInflowMarJul kind 'INFLOW-FRCST' 
 define AmerFrcstInflowMarAug_a {alias AmerFrcstInflowMarAug kind 'INFLOW-FRCST' units 'TAF'}
 define AmerFrcstInflowMarSep_a {alias AmerFrcstInflowMarSep kind 'INFLOW-FRCST' units 'TAF'}
 define AmerFrcstInflowJunSep_a {alias AmerFrcstInflowJunSep kind 'INFLOW-FRCST' units 'TAF'}
-
+*/
 
 !=================================================================================================
 !Divs       - Folsom Diversion Forecasts
@@ -92,7 +92,7 @@ define waterlimit_PCWA         {value (                                         
 
 define waterlimit_tot {alias waterlimit_UD_26N_PU1 + waterlimit_UD_26N_PU2a3 + waterlimit_UD_26S_PU1 + waterlimit_UD_26S_PU2 + waterlimit_UD_26S_PU3 + waterlimit_UD_60N_PU
                             + waterlimit_UD_ELDID_NU3 + waterlimit_UD_26N_NU1 + waterlimit_PCWA kind'debug' units 'cfs'}
-       
+/*       
 ! Calculate the Forecast Diversions
 define AmerFrcstDivs_OctMar {
     case OCT_MAR {condition month >= OCT .or. month <= MAR
@@ -105,10 +105,10 @@ define AmerFrcstDivs_OctMar {
                 + min(  UD_ELDID_NU3   * cfs_taf                , perdem_UD_ELDID_NU3            * waterlimit_UD_ELDID_NU3    )
                 + min(  UD_26N_NU1 * cfs_taf                    , perdem_UD_26N_NU1          * waterlimit_UD_26N_NU1  )
                 +       UD_26S_NU4 * cfs_taf
-                + min( (AWO_24_NA2
-                      + AWR_24_NA2
-                      + AWO_24_NA3
-                      + AWR_24_NA3
+                + min( (AWO_24_NA2*DFo_24_NA2
+                      + AWR_24_NA2*DFr_24_NA2
+                      + 2.5*AWO_24_NA3*DFo_24_NA3
+                      + 2.5*AWR_24_NA3*DFr_24_NA3
                       + UD_24_NU2) * cfs_taf                , perdem_PCWA                * waterlimit_PCWA        )
                       }
         case other {condition always value 0.0}
@@ -272,6 +272,6 @@ define AmerFrcstDivs_MarJul_a  {alias AmerFrcstDivs_MarJul kind 'FRCST-DIV' unit
 define AmerFrcstDivs_MarAug_a  {alias AmerFrcstDivs_MarAug kind 'FRCST-DIV' units 'TAF'}
 define AmerFrcstDivs_MarSep_a  {alias AmerFrcstDivs_MarSep kind 'FRCST-DIV' units 'TAF'}
 define AmerFrcstDivs_JunSep_a  {alias AmerFrcstDivs_JunSep kind 'FRCST-DIV' units 'TAF'}
-define AmerFrcstDivs_NowSep_a  {alias AmerFrcstDivs_NowSep kind 'FRCST-DIV' units 'TAF'}
+define AmerFrcstDivs_NowSep_a  {alias AmerFrcstDivs_NowSep kind 'FRCST-DIV' units 'TAF'}*/
 
 

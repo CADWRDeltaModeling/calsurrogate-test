@@ -236,7 +236,7 @@ goal continuityRFS64        {R_64_PA2_RFS64 - D_RFS64_64_NA2 - R_RFS64_EBP022   
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!! San Joaquin River   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!goal continuityMLRTN        {I_MLRTN - D_MLRTN_FRK000 - D_MLRTN_MDC006 - C_MLRTN - E_MLRTN     = S_MLRTN*taf_cfs - S_MLRTN(-1)*taf_cfs }!Millerton Reservoir
+!goal continuityMLRTN        {I_MLRTN_IMP - D_MLRTN_FRK000 - D_MLRTN_MDC006 - C_MLRTN - E_MLRTN     = S_MLRTN*taf_cfs - S_MLRTN(-1)*taf_cfs }!Millerton Reservoir
 goal continuitySJR265       {C_MLRTN + I_SJR265 - C_SJR265            = 0.}  !@jmg 2017.11.27 - tracking Exchange releases from Friant w/ C_SJR265E
 goal continuitySJR263       {C_SJR265 + SG54_SJR263_7 - C_SJR263     = 0.} 
 goal continuitySJR258       {C_SJR263 + I_SJR258 - C_SJR258        = 0.}   

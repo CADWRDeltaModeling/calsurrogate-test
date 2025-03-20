@@ -44,13 +44,13 @@ contractor  contract
 7341        85.000   !Firebaugh Canal Company
 9011        900.000  !Westlands Priority I
 9012        250.000  !Westlands Priority II
-9013        40.688   !Westlands WD assignments - Centinella WD (2.500), Widren WD (2.990), Broadview WD (27.000), Mercy Springs (4.198), Oro Lomo (4.000)
+9013        45.383   !Westlands WD assignments - Centinella WD (2.500), Widren WD (2.990), Broadview WD (27.000), Mercy Springs (4.198), Oro Lomo (4.000), Mercy Springs (75% of the 6.26 originally assigned to Pajaro Valley)
 9031.1      16.500   !Cities of Avenal(3.500), Coalinga (10.000), Huron (3.000)
 9031.2      0.000    !City of Avenal water right water 
 9111.1      55.478   !CVP Contract Water: Terra Linda Farms, fomerly Coelho Family Trust (2.080), Fresno Slough WD (4.000), James ID (35.300), RD 1606 (228), Tranquility ID (13.800), Tranquility PUD (0.070)
 9111.2      35.623   !Schedule 2 water: Dudley & Indart (2.280), Terra Linda Farms (1.332), Meyer Farms Family Trust (0.210), Fresno Slough WD (0.866), James ID (9.700), RD 1606 (0.342), Tranquility ID (20.200), Tranquility PUD (0.093), Carvalho Revocable Trust (0.600)
 9121        27.594   !Mendota WA
-9911.1      39.360   !San Felipe Division Ag: Santa Clara WD (33.100), Pajaro Valley WD (6.260)
+9911.1      34.665   !San Felipe Division Ag: Santa Clara WD (33.100 + 1.565 Mercy Springs prv assigned to Pajaro, now Valley Water), Pajaro Valley WD (0.0)
 9911.2      35.550   !San Felipe Division Ag: San Benito County (35.550)
 9931.1      119.400  !San Felipe Division MI: Santa Clara WD (119.400)
 9931.2      8.250    !San Felipe Division MI: San Bento County (8.250)

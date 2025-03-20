@@ -59,7 +59,7 @@ Objective obj_SYS_SJREAST = {
 [D_CLV026_60S_PA1,    29900],   !Main SEWD Ag source
 [D_LJC010_60S_PA2,    40000],   !40000Central San Joaquin WCD
 [D_LJC022_60S_PA1,    29800],   !Stan to SEWD AG. Most SEWD AG water comes from Calaveras, but distribution uncertain.
-[D_LJC022_WTPWDHa,    40000],   !to 60S_NU1 - SEWD MI delivery
+[D_LJC022_WTPWDHa,    39990],   !to 60S_NU1 - SEWD MI delivery
 [D_LJC022_WTPWDHb,    50000],   ! to 60S_NU1 - Sale of OID water to Stockton East WD (no more sales)
 ![D_STS059_UFC000,     39800],  !39800 to 60S_PA2 (D520A)  !no weight for diversions not connecting to DUs 
 
@@ -191,8 +191,8 @@ Objective obj_SYS_SJREAST = {
 
 
 [S_WDWRD_1,    2000000*taf_cfs],
-[S_WDWRD_2,       5010*taf_cfs], 
-[S_WDWRD_3,       5000*taf_cfs],
+[S_WDWRD_2,     100010*taf_cfs], 
+[S_WDWRD_3,     100000*taf_cfs],
 [S_WDWRD_4,    -100000*taf_cfs], 
 
 

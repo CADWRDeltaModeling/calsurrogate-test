@@ -53,7 +53,7 @@ define IIO_CVP {std kind 'flex-bound' units 'cfs'} !apply high negative weight
 goal split_FIO {FIO = FIO_FWUA + FIO_SWP + FIO_CVP}
 goal split_IIO {IIO = IIO_FWUA + IIO_SWP + IIO_CVP}
 
-goal continuityIO_FWUA {I_MLRTN-C_MLRTN_FWUA-FIO_FWUA+IIO_FWUA-E17-E_MLRTN-D_MLRTN_FRK_FWUA-D_MLRTN_MDC_FWUA-DIO_F_S+DIO_S_F-DIO_F_C+DIO_C_F=SIO_FWUA*taf_cfs-SIO_FWUA(-1)*taf_cfs} !FWUA IO storage continuity
+goal continuityIO_FWUA {I_MLRTN_IMP-C_MLRTN_FWUA-FIO_FWUA+IIO_FWUA-E17-E_MLRTN-D_MLRTN_FRK_FWUA-D_MLRTN_MDC_FWUA-DIO_F_S+DIO_S_F-DIO_F_C+DIO_C_F=SIO_FWUA*taf_cfs-SIO_FWUA(-1)*taf_cfs} !FWUA IO storage continuity
 goal continuityIO_SWP {-C_MLRTN_SWP-FIO_SWP+IIO_SWP-D_MLRTN_FRK_SWP-D_MLRTN_MDC_SWP-DIO_S_F+DIO_F_S=SIO_SWP*taf_cfs-SIO_SWP(-1)*taf_cfs} !SWP IO storage continuity
 goal continuityIO_CVP {-C_MLRTN_CVP-FIO_CVP+IIO_CVP-D_MLRTN_FRK_CVP-D_MLRTN_MDC_CVP-DIO_C_F+DIO_F_C=SIO_CVP*taf_cfs-SIO_CVP(-1)*taf_cfs} !CVP IO storage continuity
 

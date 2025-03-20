@@ -296,8 +296,8 @@ define swp_IN_AVEK  {alias D_ESB324_AVEK_PIN kind 'swp_delivery' units 'cfs'}   
 define swp_IN_CVWD  {alias D_ESB407_CCHLA_PIN kind 'swp_delivery' units 'cfs'}    !Coachella Valley WD
 define swp_IN_CLA   {alias 0.  kind 'swp_delivery' units 'cfs'}    !Crestline-Line Arrowhead WA
 define swp_IN_Desert{alias D_ESB408_DESRT_PIN kind 'swp_delivery' units 'cfs'}    !Desert WA
-define swp_IN_LCID  {alias 0. kind 'swp_delivery' units 'cfs'}    !Littlerock Creek ID
-define swp_IN_MWA   {alias 0. kind 'swp_delivery' units 'cfs'}    !Mojave WA
+define swp_IN_LCID  {alias D_ESB355_LROCK_PIN kind 'swp_delivery' units 'cfs'}    !Littlerock Creek ID
+define swp_IN_MWA   {alias D_ESB403_MOJVE_PIN kind 'swp_delivery' units 'cfs'}    !Mojave WA
 define swp_IN_PWD   {alias D_ESB347_PLMDL_PIN kind 'swp_delivery' units 'cfs'}    !Palmdale WD
 define swp_IN_Other {alias swp_IN_AVEK   +
                            swp_IN_CVWD   +

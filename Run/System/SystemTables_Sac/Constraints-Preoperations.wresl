@@ -80,8 +80,8 @@ define d_folsm_edcoca_wr {std kind 'FLOW-DIVERSION' units 'CFS'}
                                                                                                                                                   
 goal set_D_FOLSM_EDCOCA_CVP {lhs D_FOLSM_EDCOCA_CVP case WatershedsOn {condition simulateUpperAmerican >= 0.5 rhs D_FOLSM_EDCOCA_CVP[UPPERAMERICAN] lhs<rhs penalty 0 lhs>rhs constrain}
                                                     case Otherwise    {condition always                       rhs D_FOLSM_EDCOCA_CVP_SV}}         
-goal set_D_FOLSM_WTPEDH_CVP {lhs D_FOLSM_WTPEDH_CVP case WatershedsOn {condition simulateUpperAmerican >= 0.5 rhs D_FOLSM_WTPEDH_CVP[UPPERAMERICAN] lhs<rhs penalty 0 lhs>rhs constrain}
-                                                    case Otherwise    {condition always                       rhs D_FOLSM_WTPEDH_CVP_SV}}                                                                                                                                                                                         
+!goal set_D_FOLSM_WTPEDH_CVP {lhs D_FOLSM_WTPEDH_CVP case WatershedsOn {condition simulateUpperAmerican >= 0.5 rhs D_FOLSM_WTPEDH_CVP[UPPERAMERICAN] lhs<rhs penalty 0 lhs>rhs constrain}
+!                                                    case Otherwise    {condition always                       rhs D_FOLSM_WTPEDH_CVP_SV}}                                                                                                                                                                                         
                                                     
 goal set_D_FOLSM_WTPEDH_WR {lhs D_FOLSM_WTPEDH_WR   case WatershedsOn {condition simulateUpperAmerican >= 0.5 rhs D_FOLSM_WTPEDH_WR[UPPERAMERICAN]}
                                                     case Otherwise    {condition always                       rhs D_FOLSM_WTPEDH_WR_SV}}   

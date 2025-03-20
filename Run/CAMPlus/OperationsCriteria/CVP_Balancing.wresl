@@ -265,7 +265,7 @@ define D1_total {/*!data from ryan's first attempt:
                          I1_Nov +
                          I1_Dec)*0.26}
 
-goal setD1 {(sum(i= monthFromJan, fm, 1) D1_fm(i)) = D1_total}
+goal setD1 {lhs (sum(i= monthFromJan, fm, 1) D1_fm(i)) rhs D1_total lhs>rhs penalty 99999. lhs<rhs penalty 99999. }
 
 /*goal setCCT_Jan {D1_Jan <  250.*cfs_taf( 4-month)}	    
 goal setCCT_Feb {D1_Feb <  250.*cfs_taf( 5-month)}

@@ -2,6 +2,8 @@ package wrimsv2.external;
 
 import java.util.*;
 
+import wrimsv2.components.FilePaths;
+
 public class Functionhydroforecast extends ExternalFunction{
 	private final boolean DEBUG = false;
 
@@ -87,7 +89,11 @@ public class Functionhydroforecast extends ExternalFunction{
 			float[] a56={0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
 			float[] a57={0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
 			float[] a58={0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
-			float result = hydroforecast(ICALC, ICODE, IYPOS, IMPOS, IYEAR, IM, IFREQOD, IFREQ1, IFREQ2, IFREQ3, IFREQ4, IFREQ5, ICC, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58);
+			
+			String cPath=FilePaths.genTableDir;
+			int iLenPath=cPath.length();
+			
+			float result = hydroforecast(cPath, iLenPath, ICALC, ICODE, IYPOS, IMPOS, IYEAR, IM, IFREQOD, IFREQ1, IFREQ2, IFREQ3, IFREQ4, IFREQ5, ICC, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58);
 			
 			// push the result on the Stack
 			stack.push(new Float(result));
@@ -551,7 +557,10 @@ public class Functionhydroforecast extends ExternalFunction{
 			int ICODE = ((Number) param2).intValue();
 			int ICALC = ((Number) param1).intValue();
 
-			float result = hydroforecast(ICALC, ICODE, IYPOS, IMPOS, IYEAR, IM, IFREQOD, IFREQ1, IFREQ2, IFREQ3, IFREQ4, IFREQ5, ICC, SQKS, SQOR, SQFW, SQFP, SQSW, SQNB, QOR, QFO, QYU, QSH, QBD, QTR, QWH, QST, QTU, QME, QSJ, POR, PFO, PYU, PSH, PTR, PWH, PST, PTU, PME, PSJ, TOR, TFO, TYU, TSH, TTR, TWH, TST, TTU, TME, TSJ, VPDOR, VPDFO, VPDYU, VPDSH, VPDTR, VPDWH, VPDST, VPDTU, VPDME, VPDSJ, QOR1, QFO1, QYU1, QSH1, QBD1, QTR1, QWH1, QST1, QTU1, QME1, QSJ1);
+			String cPath=FilePaths.genTableDir;
+			int iLenPath=cPath.length();
+			
+			float result = hydroforecast(cPath, iLenPath, ICALC, ICODE, IYPOS, IMPOS, IYEAR, IM, IFREQOD, IFREQ1, IFREQ2, IFREQ3, IFREQ4, IFREQ5, ICC, SQKS, SQOR, SQFW, SQFP, SQSW, SQNB, QOR, QFO, QYU, QSH, QBD, QTR, QWH, QST, QTU, QME, QSJ, POR, PFO, PYU, PSH, PTR, PWH, PST, PTU, PME, PSJ, TOR, TFO, TYU, TSH, TTR, TWH, TST, TTU, TME, TSJ, VPDOR, VPDFO, VPDYU, VPDSH, VPDTR, VPDWH, VPDST, VPDTU, VPDME, VPDSJ, QOR1, QFO1, QYU1, QSH1, QBD1, QTR1, QWH1, QST1, QTU1, QME1, QSJ1);
 
 			// push the result on the Stack
 			stack.push(new Float(result));
@@ -560,5 +569,5 @@ public class Functionhydroforecast extends ExternalFunction{
 
 	}
 
-	public native float hydroforecast(int ICALC, int ICODE, int IYPOS, int IMPOS, int IYEAR, int IM, int IFREQOD, int IFREQ1, int IFREQ2, int IFREQ3, int IFREQ4, int IFREQ5, int ICC, float[] SQKS, float[] SQOR, float[] SQFW, float[] SQFP, float[] SQSW, float[] SQNB, float[] QOR, float[] QFO, float[] QYU, float[] QSH, float[] QBD, float[] QTR, float[] QWH, float[] QST, float[] QTU, float[] QME, float[] QSJ, float[] POR, float[] PFO, float[] PYU, float[] PSH, float[] PTR, float[] PWH, float[] PST, float[] PTU, float[] PME, float[] PSJ, float[] TOR, float[] TFO, float[] TYU, float[] TSH, float[] TTR, float[] TWH, float[] TST, float[] TTU, float[] TME, float[] TSJ, float[] VPDOR, float[] VPDFO, float[] VPDYU, float[] VPDSH, float[] VPDTR, float[] VPDWH, float[] VPDST, float[] VPDTU, float[] VPDME, float[] VPDSJ, float[] QOR1, float[] QFO1, float[] QYU1, float[] QSH1, float[] QBD1, float[] QTR1, float[] QWH1, float[] QST1, float[] QTU1, float[] QME1, float[] QSJ1);
+	public native float hydroforecast(String cPath, int iLenPath, int ICALC, int ICODE, int IYPOS, int IMPOS, int IYEAR, int IM, int IFREQOD, int IFREQ1, int IFREQ2, int IFREQ3, int IFREQ4, int IFREQ5, int ICC, float[] SQKS, float[] SQOR, float[] SQFW, float[] SQFP, float[] SQSW, float[] SQNB, float[] QOR, float[] QFO, float[] QYU, float[] QSH, float[] QBD, float[] QTR, float[] QWH, float[] QST, float[] QTU, float[] QME, float[] QSJ, float[] POR, float[] PFO, float[] PYU, float[] PSH, float[] PTR, float[] PWH, float[] PST, float[] PTU, float[] PME, float[] PSJ, float[] TOR, float[] TFO, float[] TYU, float[] TSH, float[] TTR, float[] TWH, float[] TST, float[] TTU, float[] TME, float[] TSJ, float[] VPDOR, float[] VPDFO, float[] VPDYU, float[] VPDSH, float[] VPDTR, float[] VPDWH, float[] VPDST, float[] VPDTU, float[] VPDME, float[] VPDSJ, float[] QOR1, float[] QFO1, float[] QYU1, float[] QSH1, float[] QBD1, float[] QTR1, float[] QWH1, float[] QST1, float[] QTU1, float[] QME1, float[] QSJ1);
 }

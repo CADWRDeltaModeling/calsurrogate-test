@@ -121,7 +121,7 @@ get Class 2 allocation
 define I_MLRTN_thrujun {
     case FebthruJun {
         condition   month >= feb .and. month <= jun
-        sum(i=0,9-month,1) I_MLRTN(i) * cfs_taf(i) }
+        sum(i=0,9-month,1) I_MLRTN_IMP(i) * cfs_taf(i) }
     case otherwise {
         condition   always
         value 0.0 } }

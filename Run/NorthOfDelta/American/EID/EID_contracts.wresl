@@ -497,7 +497,7 @@ goal conD_FOLSM_EDCOCA_NA2 {D_FOLSM_EDCOCA_NA2 = D_FOLSM_EDCOCA_NA2_P21112_WR}
 goal zeroLTWAC_FolsomAg {D_FOLSM_EDCOCA_NA2_P21112_WR + D_FOLSM_EDCOCA_NA1_P21112_WR =  0.} !Water through P21112-Folsom LTWAC for M&I Use only
 
 define D_FOLSM_EID_WR   {std kind 'DIVERSION' units 'CFS'}
-goal setD_FOLSM_EID_WR {D_FOLSM_WTPEDH_WR =   D_FOLSM_WTPEDH_Ditch_WR      + D_FOLSM_WTPEDH_P21112_WR
+goal setD_FOLSM_EID_WR {D_FOLSM_EID_WR =   D_FOLSM_WTPEDH_Ditch_WR      + D_FOLSM_WTPEDH_P21112_WR
                                               + D_FOLSM_EDCOCA_NU1_Ditch_WR  + D_FOLSM_EDCOCA_NU1_P21112_WR
                                               + D_FOLSM_EDCOCA_NU2_Ditch_WR + D_FOLSM_EDCOCA_NU2_P21112_WR
                                               + D_FOLSM_EDCOCA_NA1_P21112_WR + D_FOLSM_EDCOCA_NA2_P21112_WR}

@@ -26,7 +26,7 @@ define perdel_swp_fsc {
             value        0.5}
 */
 	case sevenyears {
-            condition    (sum(i=1,7,1) perdv_swp_fsc(-12*i)) <6.5
+            condition    (sum(i=1,7,1) perdv_swp_fsc(-12*i)) <6.4 ! Per TF Stantec, NOsorio 02/2024
             !condition    wateryear > 1928 .and. (sum(i=1,7,1) perdv_swp_fsc(-12*i)) <6.5
             value        1.0}
 

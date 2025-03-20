@@ -6,39 +6,39 @@ Objective obj_SYS = {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ! Storage 
-[S_TRNTY_1, 20000*taf_cfs],
+[S_TRNTY_1, 200000*taf_cfs],
 [S_TRNTY_2,    93*taf_cfs],
 [S_TRNTY_3,    88*taf_cfs],
 [S_TRNTY_4,    84*taf_cfs],
 [S_TRNTY_5,-15000*taf_cfs],
 
-[S_WKYTN_1, 20000*taf_cfs],
+[S_WKYTN_1, 200000*taf_cfs],
 [S_WKYTN_2,    94*taf_cfs],
 [S_WKYTN_3,    89*taf_cfs],
 [S_WKYTN_4,    82*taf_cfs],
 [S_WKYTN_5, -9000*taf_cfs],
       
-[S_SHSTA_1, 20000*taf_cfs],
+[S_SHSTA_1, 200000*taf_cfs],
 [S_SHSTA_2,    93*taf_cfs],
 [S_SHSTA_3,    88*taf_cfs],
 [S_SHSTA_4,    84*taf_cfs],
 [S_SHSTA_5,    50*taf_cfs],
 [S_SHSTA_6,-15000*taf_cfs],
       
-[S_KSWCK_1, 20000*taf_cfs],
+[S_KSWCK_1, 200000*taf_cfs],
 [S_KSWCK_2,    96*taf_cfs],
 [S_KSWCK_3,    95*taf_cfs],
 [S_KSWCK_4,    94*taf_cfs],
 [S_KSWCK_5,-15000*taf_cfs],
       
-[S_OROVL_1, 20000*taf_cfs],
+[S_OROVL_1, 200000*taf_cfs],
 [S_OROVL_2,    93*taf_cfs],
 [S_OROVL_3,    88*taf_cfs],
 [S_OROVL_4,    84*taf_cfs],
 [S_OROVL_5,    62*taf_cfs],
 [S_OROVL_6,-15000*taf_cfs],
       
-[S_THRMA_1, 20000*taf_cfs],
+[S_THRMA_1, 200000*taf_cfs],
 [S_THRMA_2,    95*taf_cfs],
 [S_THRMA_3,    94*taf_cfs],
 [S_THRMA_4,    93*taf_cfs],
@@ -47,14 +47,14 @@ Objective obj_SYS = {
 ![S_MERLC_1, 20000*taf_cfs],
 ![S_MERLC_2,     1*taf_cfs],
       
-[S_FOLSM_1, 20000*taf_cfs],
+[S_FOLSM_1, 200000*taf_cfs],
 [S_FOLSM_2,    93*taf_cfs],
 [S_FOLSM_3,    88*taf_cfs],
 [S_FOLSM_4,    84*taf_cfs],
 [S_FOLSM_5,    50*taf_cfs],
 [S_FOLSM_6,-15000*taf_cfs],
       
-[S_NTOMA_1, 20000*taf_cfs],
+[S_NTOMA_1, 200000*taf_cfs],
 [S_NTOMA_2, 10000*taf_cfs],
 [S_NTOMA_3,    95*taf_cfs],
 [S_NTOMA_4,    94*taf_cfs],
@@ -163,7 +163,7 @@ Objective obj_SYS = {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! WBA 4     !!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-[D_SAC240_TCC001,5010.2],
+![D_SAC240_TCC001,5010.2],
 ![D_TCC001_CCL005,5000],
 [D_CCL005_04_PA1, 5000],
 [D_TCC022_04_PA2, 5001],
@@ -302,7 +302,7 @@ Objective obj_SYS = {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! WBA 14    !!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-[D_FDC006_14_NA, 15005],
+[D_FDC006_14_NA, 25000],
 [D_YUB013_14_NA, 15004],
 ![C_FDC006_ADD,  -15000], !Only release for BVID diversion
 [C_FDC006_MIF,    5100],
@@ -569,7 +569,7 @@ Objective obj_SYS = {
 [C_AMR004_MIT, 5500],   ! Lower American River
 
 ![C_YUB024_MIF,15000],  ! Yuba River at Smartsville
-![C_YUB006_MIF,15500],  ! Yuba River at Marysville  
+[C_YUB006_MIF,15500],  ! Yuba River at Marysville  
 ![C_NBLDB_MIF,70000]
 ![C_NBLDB_POW,10],
 ![C_NBLDB_ADD,-3100],
@@ -622,14 +622,14 @@ Objective obj_SYS = {
 
 [UNUSED_FS,   -1285],   ! COA - unused federal share
 [UNUSED_SS,   -1285],   ! COA - unused state share
-![STORED_FS, -1],
-![STORED_SS_SHA, -1],
-![STORED_SS_FOL, -1],                
+[STORED_FS, -1],
+[STORED_SS_SHA, -1],
+[STORED_SS_FOL, -1],                
 [WTS_Yuba_Stg1_cvp, -1285],  !Allow CVP to control LYRA transfer water only when SWP unable to
 ![C_CAA003_wts_td2, -0.1],    !Fill permitted capacity first, EWA 500 cfs second.
 [I_Orovl_WTS, -1],  !Prevent simultaneous inflow and outflow
 [I_Shsta_WTS, -1.1],    !Prevent simultaneous inflow and outflow
-[C_CAA003_WTS_Stg1, 1300],  !encourage SWP to move transfer water SOD first, back up in storage second.
+[C_CAA003_WTS_Stg1, 22535],  !encourage SWP to move transfer water SOD first, back up in storage second.
 [NDOI_ADD_CVP,    -2000],   ! Delta outflow - CVP share
 [NDOI_ADD_SWP,    -2000],   ! Delta outflow - SWP share
 [NDOI_ADD_WTS,    -2005],
@@ -692,32 +692,32 @@ Objective obj_SYS = {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 [S_DELVE_1,20000*taf_cfs],
-[S_DELVE_2,1245*taf_cfs],
-[S_DELVE_3,1240*taf_cfs],
+[S_DELVE_2,1310*taf_cfs],
+[S_DELVE_3,1300*taf_cfs],
 [S_DELVE_4,40*taf_cfs],
 [S_DELVE_5,-2500*taf_cfs],
 
 [S_SVRWD_1,20000*taf_cfs],
-[S_SVRWD_2,1245*taf_cfs],
-[S_SVRWD_3,1240*taf_cfs],
+[S_SVRWD_2,1310*taf_cfs],
+[S_SVRWD_3,1300*taf_cfs],
 [S_SVRWD_4,40*taf_cfs],
 [S_SVRWD_5,-2500*taf_cfs],
 
 [S_PRRIS_1,20000*taf_cfs],
-[S_PRRIS_2,1245*taf_cfs],
-[S_PRRIS_3,1240*taf_cfs],
+[S_PRRIS_2,1310*taf_cfs],
+[S_PRRIS_3,1300*taf_cfs],
 [S_PRRIS_4,40*taf_cfs],
 [S_PRRIS_5,-2500*taf_cfs],
 
 [S_PYRMD_1,20000*taf_cfs],
-[S_PYRMD_2,1245*taf_cfs],
-[S_PYRMD_3,1240*taf_cfs],
+[S_PYRMD_2,1310*taf_cfs],
+[S_PYRMD_3,1300*taf_cfs],
 [S_PYRMD_4,40*taf_cfs],
 [S_PYRMD_5,-2500*taf_cfs],
 
 [S_CSTIC_1,20000*taf_cfs],
-[S_CSTIC_2,1245*taf_cfs],
-[S_CSTIC_3,1240*taf_cfs],
+[S_CSTIC_2,1310*taf_cfs],
+[S_CSTIC_3,1300*taf_cfs],
 [S_CSTIC_4,40*taf_cfs],
 [S_CSTIC_5,-2500*taf_cfs],
 
@@ -825,8 +825,10 @@ Objective obj_SYS = {
 [D_ESB347_PLMDL_PMI,1265],   ! Califonia Aqueduct - East Branch
 [D_ESB347_PLMDL_PIN,20],
 [D_ESB355_LROCK_PMI,1265],   ! Califonia Aqueduct - East Branch
+[D_ESB355_LROCK_PIN,20],   ! Califonia Aqueduct - East Branch ! New Article 21 demand for LittleRock Creek ID. 5/30/2024
 [D_ESB361_ESBLOS_PLS,1285],   ! Califonia Aqueduct - East Branch
 [D_ESB403_MOJVE_PMI,1265],   ! Califonia Aqueduct - East Branch
+[D_ESB403_MOJVE_PIN,20],   ! Califonia Aqueduct - East Branch! New Article 21 demand for Mojave. 5/30/2024
 [D_ESB406_ESBLOS_PLS,1285],   ! Califonia Aqueduct - East Branch
 [D_ESB407_CCHLA_PMI,1265],   ! Califonia Aqueduct - East Branch
 [D_ESB407_CCHLA_PIN,  20],   ! Califonia Aqueduct - East Branch

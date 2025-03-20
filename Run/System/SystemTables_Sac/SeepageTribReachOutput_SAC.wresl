@@ -145,7 +145,92 @@ define SG_SACFB   {alias SG_TRIB_SAC3BF  + SG_TRIB_CBD + SG_TRIB_BTC + SG_TRIB_S
 define SG_SACAMR  {alias SG_TRIB_SAC4FF + SG_TRIB_AMR kind 'STREAM-GAIN' units 'CFS'}
 define SG_YBPALL  {alias SG_TRIB_CCH + SG_TRIB_PTH + SG_TRIB_YBP kind 'STREAM-GAIN' units 'CFS'}
 define SG_FTRALL  {alias SG_TRIB_FTR + SG_TRIB_BRR + SG_TRIB_YUB  kind 'STREAM-GAIN' units 'CFS'}
-define SG_SACValley {alias SG_SACAB + SG_SACBB + SG_SACFB + SG_SACAMR + SG_YBPALL + SG_FTRALL kind 'STREAM-GAIN' units 'CFS'}
 
+define SR_SACBASIN     {alias +SR_02 +SR_03 +SR_04 +SR_05 +SR_06 +SR_07N +SR_07S +SR_08N 
+        +SR_08S +SR_09 +SR_10 +SR_11 +SR_12 +SR_13 +SR_14 +SR_15N +SR_15S +SR_16 +SR_17N 
+        +SR_17S +SR_18 +SR_19 +SR_20 +SR_21 +SR_22 +SR_23 +SR_24 +SR_25 +SR_26N +SR_26S
+kind 'SURFACE-RUNOFF' units 'CFS'}
 
+define TD_SACBASIN  {alias TD_CWD003_218 + TD_SAC271_219 + TD_COW003_213 + TD_SAC265_223 + TD_SAC277_210 + TD_SAC207_261
++ TD_SAC217_259 + TD_SAC196_272 + TD_SAC201_262 + TD_SAC217_260 + TD_SAC185_276 + TD_CBD049_318 + TD_SAC185_275
++ TD_CBD028_324 + TD_CBD038_321 + TD_CBD049_319 + TD_SAC154_281 + TD_SAC185_277 + TD_CBD028_325 + TD_CBD038_322 
++ TD_RFS8S_330  + TD_BSL001_290 + TD_BTC017_287 + TD_SAC141_294 + TD_SAC185_278 + TD_BSL001_292 + TD_BTC017_289 
++ TD_SAC196_273 + TD_BSL001_291 + TD_BTC017_288 + TD_DWRPS1_340 + TD_FTR059_343 + TD_HON004_346 + TD_RFS13_345  
++ TD_HON004_347 + TD_JCK002_348 + TD_FTR029_352 + TD_JCK002_351 + TD_BRR004_360 + TD_FTR012_361 + TD_DWRPS1_339
++ TD_BSL001_333 + TD_SSL001_366 + TD_RFS18_337  + TD_RD1500_367 + TD_CCH017_392 + TD_PTH021_401 + TD_YBP023_398
++ TD_YBP023_397 + TD_YBP032_396 + TD_CRC002_369 + TD_SAC066_373 + TD_ABN000_368 + TD_BRR004_362 + TD_BRR011_359
++ TD_CCK007_370 + TD_CRC002_371 + TD_ABN000_332 + TD_ABN010_331 + TD_BRR004_356 + TD_CCK022_365 + TD_CRC002_372
++ TD_EMD007_380 + TD_CSL005_411 + TD_PTH024_400 + TD_AMR004_381 + TD_EMD001_382 + TD_EMD007_383 + TD_NTOMA_374
++ TD_AMR007_378 + TD_NTOMA_375  + TD_SAC048_384
+kind 'DRAIN-GW' units 'CFS'}
+
+define SG_SACBASIN {alias TD_SACBASIN
++SG_SACAB + SG_SACBB + SG_SACFB + SG_SACAMR + SG_YBPALL + SG_FTRALL 
+ kind 'STREAM-GAIN' units 'CFS'}
+
+define I_ALD002 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_ALD004 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_ALOHA {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_BSH003 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_CAPLS {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_CMP014 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_CYN009 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_DCC010 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_ECHOL {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_FRMDW {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_GERLE {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_HHOLE {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_ICEHS {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_JNKSN {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_LNG012 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_LOONL {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_LRB004 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_MFA025 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_MFA036 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_NFA016 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_NLC003 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_NMA003 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_NNA013 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_PLC007 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_PLM001 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_PYR001 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_RCK001 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_RUB002 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_RUB047 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SFA040 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SFA066 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SFA076 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SFR006 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SILVR {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SLC003 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SLF009 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SLV006 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_SLV015 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_STMPY {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_UNVLY {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+define I_WBR001 {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'}
+
+define I_SACbasin {alias 
++I_ALD002	+I_ALD004	+I_ALMNR	+I_ALOHA	+I_ANT011	+I_ANTLP	+I_BCC014	+I_BCN010	+I_BLKBT	+I_BOWMN
++I_BRC003	+I_BRR023	+I_BSH003	+I_BTC048	+I_BTL006	+I_BTVLY	+I_BUCKS	+I_CAPLS	+I_CCH053	+I_CLR011
++I_CLRLK	+I_CMBIE	+I_CMP001	+I_CMP014	+I_CMPFW	+I_COW014	+I_CWD018	+I_CYN009	+I_DAVIS	+I_DCC010
++I_DER001	+I_DER004	+I_DHC021	+I_DRC012	+I_EBF001	+I_ECHOL	+I_ELD027	+I_ENGLB	+I_EPARK	+I_FOLSM
++I_FRDYC	+I_FRMAN	+I_FRMDW	+I_FRNCH	+I_GERLE	+I_GZL009	+I_HHOLE	+I_HON021	+I_ICEHS	+I_INDVL
++I_JKSMD	+I_JNKSN	+I_LCBRF	+I_LCC038	+I_LDC029	+I_LGRSV	+I_LKVLY	+I_LNG012	+I_LOONL	+I_LOSVQ
++I_LRB004	+I_LWSTN	+I_MERLC	+I_MFA001	+I_MFA023	+I_MFA025	+I_MFA036	+I_MFF019	+I_MFF087	+I_MFY013
++I_MLC006	+I_MNS000	+I_MSH015	+I_MTMDW	+I_NBLDB	+I_NFA016	+I_NFA022	+I_NFA054	+I_NFF029	+I_NFF046
++I_NFF058	+I_NFY029	+I_NLC003	+I_NMA003	+I_NNA013	+I_OGN005	+I_OROVL	+I_PLC007	+I_PLM001	+I_PTH070
++I_PYN001	+I_PYR001	+I_RCK001	+I_RLLNS	+I_RUB002	+I_RUB047	+I_RVPHB	+I_SCOTF	+I_SCW008	+I_SFA030
++I_SFA040	+I_SFA066	+I_SFA076	+I_SFD003	+I_SFF008	+I_SFF011	+I_SFR006	+I_SFY007	+I_SFY048	+I_SGRGE
++I_SHSTA	+I_SILVR	+I_SLC003	+I_SLF009	+I_SLT009	+I_SLV006	+I_SLV015	+I_SLYCK	+I_SPLDG	+I_STMPY
++I_THM028	+I_TRNTY	+I_UNVLY	+I_WBF006	+I_WBF015	+I_WBF030	+I_WBR001	+I_WKYTN	+I_WLF013	
+ kind 'INFLOW' units 'CFS'}
+ 
+ define CT_SACbasin {alias 
+ +CT_BENDBRIDGE_SV +CT_BUTTECITY_SV +CT_WILKINSSL_SV
+ +CT_OROVILLE_SV +CT_SMARTVILLE_SV +CT_WHEATLAND_SV +CT_NICOLAUS_SV
+ +CT_VERONA_SV +CT_FAIROAKS_SV +CT_FREEPORT_SV
+ !+CT_COLUSA_SV +CT_DAVIS_SV +CT_SACSLOUGH_SV +CT_WOODLAND_SV +CT_YOLO_SV
+ kind 'CLOSURE-TERM' units 'CFS'}
+ 
 

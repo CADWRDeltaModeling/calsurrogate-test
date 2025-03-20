@@ -96,6 +96,10 @@ goal fixSG366_FTR003_64 {lhs SG366_FTR003_64 rhs SG366_FTR003_64[WHEELJPOD] lhs>
 goal fixc_yub002 {lhs c_yub002 rhs c_yub002[WHEELJPOD] lhs>rhs penalty 999999 lhs<rhs penalty 999999}
 goal fixc_yub006 {lhs c_yub006 rhs c_yub006[WHEELJPOD] lhs>rhs penalty 999999 lhs<rhs penalty 999999}
 goal fixC_BRR004 {lhs C_BRR004 rhs C_BRR004[WHEELJPOD] lhs>rhs penalty 999999 lhs<rhs penalty 999999}
+goal fixwts_yubasw {lhs wts_yubasw rhs wts_yubasw[WHEELJPOD] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixwts_yubagw {lhs wts_yubagw rhs  wts_yubagw[WHEELJPOD] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixYuba_Trans {lhs Yuba_Trans rhs Yuba_Trans[WHEELJPOD] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+
 !SHADS
 !goal fixC_KSWCK_m {lhs C_KSWCK_m rhs C_KSWCK_m[WHEELJPOD] lhs>rhs penalty 999999 lhs<rhs penalty 999999}
 !goal fixI_SHSTA {lhs I_SHSTA rhs I_SHSTA[WHEELJPOD] lhs>rhs penalty 999999 lhs<rhs penalty 999999}

@@ -16,6 +16,7 @@ define C_CAA003_whlsurp1 {std kind 'FLOW-DELIVERY' UNITS 'CFS'}
 define C_CAA003_whlsurp2 {std kind 'FLOW-DELIVERY' UNITS 'CFS'}
 
 define C_CAA003_WTS {std kind 'FLOW-DELIVERY' UNITS 'CFS'} ! Water transfer export at Banks
+goal movetransfers {WTS_deliv = C_CAA003_WTS} ! Transfers are pulled out of model immediately so they are not stored in San Luis
 
 define C_CAA003_cvpded {std kind 'FLOW-DELIVERY' UNITS 'CFS'}
 define C_CAA003_cvpded_Exp1 { std kind 'FLOW-DELIVERY' UNITS 'CFS'}

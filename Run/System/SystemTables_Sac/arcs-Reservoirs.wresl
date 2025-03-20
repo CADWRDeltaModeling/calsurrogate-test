@@ -197,15 +197,15 @@ define RelCap_KSWCK  {select discharge from res_info given storage=1000*S_KSWCK(
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!! Lake Oroville, Feather River    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-define S_OROVLlevel1 {value 29.6}
+define S_OROVLlevel1 {value 25.6}!29.6!20231027
 define S_OROVL_1     {std kind 'STORAGE-ZONE' units 'TAF'}
-define S_OROVLlevel2 {value 852}
+define S_OROVLlevel2 {value 797.6}!852!20231027
 define S_OROVL_2     {std kind 'STORAGE-ZONE' units 'TAF'}
 define S_OROVL_3     {std kind 'STORAGE-ZONE' units 'TAF'}
 define S_OROVL_4     {std kind 'STORAGE-ZONE' units 'TAF'}
 define S_OROVLlevel5 {timeseries kind 'STORAGE-LEVEL' units 'TAF'}
 define S_OROVL_5     {std kind 'STORAGE-ZONE' units 'TAF'}
-define S_OROVLlevel6 {value 3537.58}  !@jmg 2017v13
+define S_OROVLlevel6 {value 3424.8}  !@jmg 2017v13 !3537.58!20231027
 define S_OROVL_6     {std kind 'STORAGE-ZONE' units 'TAF'}
 define S_OROVL       {std kind 'STORAGE' units 'TAF'} !LAKE OROVILLE
 define E_OROVL       {lower unbounded kind 'EVAPORATION' units 'CFS'}

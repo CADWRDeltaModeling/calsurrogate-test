@@ -33,10 +33,10 @@ define Amer_B120dv {std kind 'FLOW' units 'TAF'}
 Define Amer_B120  { 
     case firstMon { 
       Condition   WaterYear == BgnWY .and. month == Oct
-        value (sum(i=-Sep-month+1, -Oct-month+1, 1) unimp_Fols(i))}	
+        value (sum(i=-Sep-month+1, -Oct-month+1, 1) UNIMP_FOLS(i))}	
     case FebMay  {
         Condition   Month>=Feb .and. month<=May
-        value (sum(i=Oct-month,-1,1)UNIMP_Fols(i))+ (sum(i=0, Sep-month, 1) I_Folsm_fm_med[Forecast2](i)) }
+        value (sum(i=Oct-month,-1,1)UNIMP_FOLS(i))+ (sum(i=0, Sep-month, 1) I_Folsm_fm_med[Forecast2](i)) }
     case JunSep {
       Condition   Month>=Jun .and. month<=Sep
         value Amer_B120dv(-1)}
@@ -471,7 +471,7 @@ define S_FOLSM_DepletionFrcst_dv {alias S_FOLSM_DepletionFrcst kind 'Depletion' 
 
 define FOLSM_INFLOW {timeseries kind 'INFLOW' units 'TAF'}  !Inflow is a timeseries developed from a prior model run (C_NFA011 +  C_SFA011 + CT_FairOaks + I_FOLSM)
  
-Define S_FOLSM_InflFrcst_FebSep_old {
+Define S_FOLSM_InflFrcst_FebSep {
     case FebMay {                                   ! Forecast the inflow for the current month through the end of May. (For February through May)  
         condition   month >=FEB .and. month <= MAY
          sum(i=1,MAY-month,1) FOLSM_INFLOW(i)}
@@ -482,10 +482,10 @@ Define S_FOLSM_InflFrcst_FebSep_old {
         condition   always
         value       0.0}
 }
-define S_FOLSM_InflFrcst_FebSep_old_dv {alias S_FOLSM_InflFrcst_FebSep_old kind 'debug' units 'taf'}
+define S_FOLSM_InflFrcst_FebSep_dv {alias S_FOLSM_InflFrcst_FebSep kind 'debug' units 'taf'}
 
-!Replacement logic to forecast local inflow to Folsom Reservoir
-Define I_FOLSM_Fcst {
+!Replacement logic to forecast local inflow to Folsom Reservoir. UNDER IMPROVEMENT, 01/2024 NOsorio
+/*Define I_FOLSM_Fcst {
 	case FebMay {condition	month >=FEB .and. month <= MAY 	sum(i=1,MAY-month,1) (I_FOLSM(i) + CT_FAIROAKS_SV(i))*cfs_taf(i)}
 	case JunSep {condition	month >=JUN .and. month <= SEP .and. wateryear < EndWY	sum(i=1,SEP-month,1) (I_FOLSM(i)+CT_FAIROAKS_SV(i))*cfs_taf(i)}
     case LastYr {condition	month >=JUN .and. month < SEP sum(i=1,SEP-month,1) (I_FOLSM(i)+CT_FAIROAKS_SV(i))*cfs_taf(i)}
@@ -493,19 +493,19 @@ Define I_FOLSM_Fcst {
 }
 Define I_FOLSM_FCST_DV {alias I_FOLSM_Fcst kind 'FORECAST' units 'TAF'}
 
-Define S_FOLSM_InflFrcst_FebSep {value max(0., MFP_Release_Fcst + SFA_Release_Fcst + I_FOLSM_Fcst)}
-define S_FOLSM_InflFrcst_FebSep_dv {alias S_FOLSM_InflFrcst_FebSep kind 'debug' units 'taf'}
+Define S_FOLSM_InflFrcst_FebSep_old {value max(0., MFP_Release_Fcst + SFA_Release_Fcst + I_FOLSM_Fcst)}
+define S_FOLSM_InflFrcst_FebSep_old_dv {alias S_FOLSM_InflFrcst_FebSep kind 'debug' units 'taf'}*/
 
 !90% exceedance forecast of fall flows, derived from year with 90% exceedance flows in Fall in FOLSM_INFLOW timeseries
-/*
+
 define Oct90flow {select Histflow from AR_90EXCFALL where month = 1}
 define Nov90flow {select Histflow from AR_90EXCFALL where month = 2}
 define Dec90flow {select Histflow from AR_90EXCFALL where month = 3}
-*/
+/* !UNDER IMPROVEMENT, 01/2024 NOsorio
 define Oct90flow {value FOL_Oct_90pct_Fcst }
 define Nov90flow {value FOL_Nov_90pct_Fcst }
 define Dec90flow {value FOL_Dec_90pct_Fcst }
-
+*/
 Define S_FOLSM_InflFrcst_OctDec {
     case MaySep {
         condition month >= JUN .and. month <= SEP
@@ -626,7 +626,7 @@ define S_FOLSMinit {
         	    - min(  UD_ELDID_NU3 * cfs_taf, perdem_UD_ELDID_NU3* waterlimit_UD_ELDID_NU3 )
         	    - min(  UD_26N_NU1 * cfs_taf, perdem_UD_26N_NU1* waterlimit_UD_26N_NU1  )
         	    - UD_26S_NU4        	    
-        	    - min( (AWO_24_NA2 + AWR_24_NA2 + AWO_24_NA3 + AWR_24_NA3 + UD_24_NU2) * cfs_taf, perdem_PCWA * waterlimit_PCWA )
+        	    - min( (AWO_24_NA2*DFo_24_NA2 + AWR_24_NA2*DFr_24_NA2 + 2.5*AWO_24_NA3*DFo_24_NA3 + 2.5*AWR_24_NA3*DFr_24_NA3 + UD_24_NU2) * cfs_taf, perdem_PCWA * waterlimit_PCWA )
                 - Evap_Folsom_monthly - minflowFMPAmer*cfs_taf )} 
  						
 define S_FOLSMinit_DV {alias S_FOLSMinit kind 'STORAGE' units 'taf'}

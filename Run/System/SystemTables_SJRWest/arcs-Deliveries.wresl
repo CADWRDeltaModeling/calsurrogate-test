@@ -685,3 +685,13 @@ define  TWS_91_PR_SEASO {std kind        'Refuge-Storage'   units 'TAF'}
 define  DN_D_CAA239_CVPRF_prf  {std kind 'SW_DELIVERY-NET'       units 'CFS'}            
 define  DG_D_CAA239_CVPRF_prf  {std kind 'SW_DELIVERY-GROSS'     units 'CFS'}
 define dem_D_CAA239_CVPRF_prf  {timeseries kind 'demand-cvp-rf' units 'taf'}
+
+define WTS_deliv {std kind 'FLOW-DELIVERY' UNITS 'CFS'} ! Used to pull transfers immediately out of SWP San Luis
+
+goal setWTS_deliv {
+	lhs WTS_deliv
+	case SJRcycles {
+		condition cyclenum < cn_GW_INITIAL
+		rhs 0.}}
+
+

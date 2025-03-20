@@ -32,13 +32,13 @@ define(fm) E5_fm {value ER5($m)*A5/1000.0/12.0}
 define E5_fm_{alias E5_fm kind 'evaporation' units 'taf'}
 
 ! swp san luis evaporation:
-define ER6 {timeseries 'ER_SLUIS_SWP' kind 'EVAPORATION-RATE' units 'INCHES'}
+define ER6 {timeseries 'ER_SLUIS' kind 'EVAPORATION-RATE' units 'INCHES'}
 define A6 {select area from res_info given storage=1000*S_SLuis_SWP(-1) use linear where res_num=12}
 define(fm) E6_fm {value ER6($m)*A6/1000.0/12.0}
 define E6_fm_{alias E6_fm kind 'evaporation' units 'taf'}
 
 ! cvp san luis evaporation:
-define ER7 {timeseries 'ER_SLUIS_CVP' kind 'EVAPORATION-RATE' units 'INCHES'}
+define ER7 {timeseries 'ER_SLUIS' kind 'EVAPORATION-RATE' units 'INCHES'}
 define A7 {select area from res_info given storage=1000*S_SLuis_CVP(-1) use linear where res_num=11}
 define(fm) E7_fm {value ER7($m)*A7/1000.0/12.0}
 define E7_fm_{alias E7_fm kind 'evaporation' units 'taf'}

@@ -124,13 +124,13 @@ Objective obj_SYS_SJRWEST = {
 
 [D_DMC007_CAA009,        -100],       ! small penalty on intertie -- discourages intertie if flow < capacity
 
-[S_SLUIS_CVP_1, 60000*taf_cfs],
+[S_SLUIS_CVP_1, 600000*taf_cfs],
 [S_SLUIS_CVP_2, 1235*taf_cfs],
 [S_SLUIS_CVP_3, 1225*taf_cfs],
 [S_SLUIS_CVP_4, 65*taf_cfs],
 [S_SLUIS_CVP_5,-15000*taf_cfs],
 
-[S_SLUIS_SWP_1, 20000*taf_cfs],
+[S_SLUIS_SWP_1, 200000*taf_cfs],
 [S_SLUIS_SWP_2, 1235*taf_cfs],
 [S_SLUIS_SWP_3, 1225*taf_cfs],
 [S_SLUIS_SWP_4, 60*taf_cfs],
@@ -152,7 +152,8 @@ Objective obj_SYS_SJRWEST = {
 [D_DMC034_WWW001, -10000],
 [D_DMC111_FBW001, -10000], 
 [D_DMC054_NMW004, -10000], 
-
+[C_CAA087_CVP_BORROWEDCAP,-10],!DOS AMIGOS PP. CVP USE OF SWP CAPACITY
+[C_CAA087_SWP_BORROWEDCAP,-10], !DOS AMIGOS PP. SWP USE OF CVP CAPACITY
 
 !Penalties for pumping from project units with small penalty for pumping from non-project units.
 [GP_50_PA1,  -9999], 

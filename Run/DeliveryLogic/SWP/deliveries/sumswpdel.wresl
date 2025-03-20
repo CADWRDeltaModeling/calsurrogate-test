@@ -1551,7 +1551,7 @@ define ANN_TOTAL_D_CSB015_KERN_BMWD_PIN {
        condition always
        value     0 }
        }
-	   
+*/	   
 define ANN_TOTAL_D_ESB355_LROCK_PIN {
 
        case      Oct_DEC  {
@@ -1566,7 +1566,7 @@ define ANN_TOTAL_D_ESB355_LROCK_PIN {
        condition always
        value     0 }
        }
-*/	   
+	   
 define ANN_TOTAL_D_PRRIS_MWDSC_PIN {
 
        case      Oct_DEC  {
@@ -1643,7 +1643,7 @@ define ANN_TOTAL_D_ESB433_MWDSC_PIN {
        condition always
        value     0 }
        }
-/*	   
+	   
 define ANN_TOTAL_D_ESB403_MOJVE_PIN {
 
        case      Oct_DEC  {
@@ -1659,7 +1659,7 @@ define ANN_TOTAL_D_ESB403_MOJVE_PIN {
        value     0 }
        }
 	   
-*/
+
 define ann_total_d_bkr004_nba009_napa_pin {
 
        case      Oct_DEC  {
@@ -1860,15 +1860,15 @@ define limit_D_CAA173_EMPIRE_PIN_ANNUAL {value max(0.,dem_D_CAA173_EMPIRE_PIN_AN
 define limit_D_CAA242_Kern_PIN_ANNUAL {value max(0.,dem_D_CAA242_Kern_PIN_ANN_MAX - ANN_TOTAL_D_CAA242_Kern_PIN)*taf_cfs}
 !define limit_D_CAA279_Kern_PIN_ANNUAL {value max(0.,dem_D_CAA279_Kern_PIN_ANN_MAX - ANN_TOTAL_D_CAA279_Kern_PIN)*taf_cfs}
 !define limit_D_CSB015_KERN_BMWD_PIN_ANNUAL {value max(0.,dem_D_CSB015_KERN_BMWD_PIN_ANN_MAX - ANN_TOTAL_D_CSB015_KERN_BMWD_PIN)*taf_cfs}
-!define limit_D_ESB355_LROCK_PIN_ANNUAL {value max(0.,dem_D_ESB355_LROCK_PIN_ANN_MAX - ANN_TOTAL_D_ESB355_LROCK_PIN)*taf_cfs}
+define limit_D_ESB355_LROCK_PIN_ANNUAL {value max(0.,dem_D_ESB355_LROCK_PIN_ANN_MAX - ANN_TOTAL_D_ESB355_LROCK_PIN)*taf_cfs}
 define limit_D_PRRIS_MWDSC_PIN_ANNUAL {value max(0.,dem_D_PRRIS_MWDSC_PIN_ANN_MAX - ANN_TOTAL_D_PRRIS_MWDSC_PIN)*taf_cfs}
 !define limit_D_CAA194_KERNB_PIN_ANNUAL {value max(0.,dem_D_CAA194_KERNB_PIN_ANN_MAX - ANN_TOTAL_D_CAA194_KERNB_PIN)*taf_cfs}
 define limit_D_ESB413_MWDSC_PIN_ANNUAL {value max(0.,dem_D_ESB413_MWDSC_PIN_ANN_MAX - ANN_TOTAL_D_ESB413_MWDSC_PIN)*taf_cfs}
 define limit_D_WSB031_MWDSC_PIN_ANNUAL {value max(0.,dem_D_WSB031_MWDSC_PIN_ANN_MAX - ANN_TOTAL_D_WSB031_MWDSC_PIN)*taf_cfs}
 define limit_D_ESB433_MWDSC_PIN_ANNUAL {value max(0.,dem_D_ESB433_MWDSC_PIN_ANN_MAX - ANN_TOTAL_D_ESB433_MWDSC_PIN)*taf_cfs}
-!define limit_D_ESB403_MOJVE_PIN_ANNUAL {value max(0.,dem_D_ESB403_MOJVE_PIN_ANN_MAX - ANN_TOTAL_D_ESB403_MOJVE_PIN)*taf_cfs}
+define limit_D_ESB403_MOJVE_PIN_ANNUAL {value max(0.,dem_D_ESB403_MOJVE_PIN_ANN_MAX - ANN_TOTAL_D_ESB403_MOJVE_PIN)*taf_cfs}
 define limit_D_BKR004_NBA009_NAPA_PIN_ANNUAL {value max(0.,dem_D_BKR004_NBA009_NAPA_PIN_ANN_MAX - ANN_TOTAL_D_BKR004_NBA009_NAPA_PIN)*taf_cfs}
-define limit_D_CAA046_71_PA7_PIN_ANNUAL {value max(0.,dem_D_CAA046_71_PA7_pag_PIN_ANN_MAX - ANN_TOTAL_D_CAA046_71_PA7_PIN)*taf_cfs}
+define limit_D_CAA046_71_PA7_PIN_ANNUAL {value max(0.,dem_D_CAA046_71_PA7_PIN_ANN_MAX - ANN_TOTAL_D_CAA046_71_PA7_PIN)*taf_cfs}
 define limit_D_ESB347_PLMDL_PIN_ANNUAL {value max(0.,dem_D_ESB347_PLMDL_PIN_ANN_MAX - ANN_TOTAL_D_ESB347_PLMDL_PIN)*taf_cfs}
 define limit_D_ESB414_BRDNO_PIN_ANNUAL {value max(0.,dem_D_ESB414_BRDNO_PIN_ANN_MAX - ANN_TOTAL_D_ESB414_BRDNO_PIN)*taf_cfs}
 define limit_D_ESB415_GABRL_PIN_ANNUAL {value max(0.,dem_D_ESB415_GABRL_PIN_ANN_MAX - ANN_TOTAL_D_ESB415_GABRL_PIN)*taf_cfs}
@@ -1880,3 +1880,84 @@ define limit_D_BKR004_NBA009_SCWA_PIN_ANNUAL {value max(0.,dem_D_BKR004_NBA009_S
 define limit_D_CAA183_TULARE_PIN_ANNUAL {value max(0.,dem_D_CAA183_TULARE_PIN_ANN_MAX - ANN_TOTAL_D_CAA183_TULARE_PIN)*taf_cfs}
 !define limit_D_PYRMD_VNTRA_PIN_ANNUAL {value max(0.,dem_D_PYRMD_VNTRA_PIN_ANN_MAX - ANN_TOTAL_D_PYRMD_VNTRA_PIN)*taf_cfs}
 define limit_D_CSTIC_VNTRA_PIN_ANNUAL {value max(0.,dem_D_CSTIC_VNTRA_PIN_ANN_MAX - ANN_TOTAL_D_CSTIC_VNTRA_PIN)*taf_cfs}
+
+! QAQC outputs
+define	limit_D_SBA009_ACFC_PIN_ANNUAL_	{alias	limit_D_SBA009_ACFC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_SBA020_ACFC_PIN_ANNUAL_	{alias	limit_D_SBA020_ACFC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_SBA029_ACWD_PIN_ANNUAL_	{alias	limit_D_SBA029_ACWD_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB324_AVEK_PIN_ANNUAL_	{alias	limit_D_ESB324_AVEK_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CSB009_CLRTA1_DDWD_PIN_ANNUAL_	{alias	limit_D_CSB009_CLRTA1_DDWD_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_WSB032_CLRTA2_PIN_ANNUAL_	{alias	limit_D_WSB032_CLRTA2_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_WTPCYC_16_PU_SWP_PIN_ANNUAL_	{alias	limit_D_WTPCYC_16_PU_SWP_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB407_CCHLA_PIN_ANNUAL_	{alias	limit_D_ESB407_CCHLA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D201_PIN_ANNUAL_	{alias	limit_D201_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA181_KINGS_PIN_ANNUAL_	{alias	limit_D_CAA181_KINGS_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_SVRWD_CSTLN_PIN_ANNUAL_	{alias	limit_D_SVRWD_CSTLN_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB408_DESRT_PIN_ANNUAL_	{alias	limit_D_ESB408_DESRT_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA184_DUDLEY_PIN_ANNUAL_	{alias	limit_D_CAA184_DUDLEY_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA173_EMPIRE_PIN_ANNUAL_	{alias	limit_D_CAA173_EMPIRE_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_CAA194_KERNA_PIN_ANNUAL_	{alias	limit_D_CAA194_KERNA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_CAA194_KERN_PIN_ANNUAL_	{alias	limit_D_CAA194_KERN_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA242_Kern_PIN_ANNUAL_	{alias	limit_D_CAA242_Kern_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_CAA279_Kern_PIN_ANNUAL_	{alias	limit_D_CAA279_Kern_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_CSB015_KERN_BMWD_PIN_ANNUAL_	{alias	limit_D_CSB015_KERN_BMWD_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB355_LROCK_PIN_ANNUAL_	{alias	limit_D_ESB355_LROCK_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_PRRIS_MWDSC_PIN_ANNUAL_	{alias	limit_D_PRRIS_MWDSC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_CAA194_KERNB_PIN_ANNUAL_	{alias	limit_D_CAA194_KERNB_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB413_MWDSC_PIN_ANNUAL_	{alias	limit_D_ESB413_MWDSC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_WSB031_MWDSC_PIN_ANNUAL_	{alias	limit_D_WSB031_MWDSC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB433_MWDSC_PIN_ANNUAL_	{alias	limit_D_ESB433_MWDSC_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB403_MOJVE_PIN_ANNUAL_	{alias	limit_D_ESB403_MOJVE_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_BKR004_NBA009_NAPA_PIN_ANNUAL_	{alias	limit_D_BKR004_NBA009_NAPA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA046_71_PA7_PIN_ANNUAL_	{alias	limit_D_CAA046_71_PA7_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB347_PLMDL_PIN_ANNUAL_	{alias	limit_D_ESB347_PLMDL_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB414_BRDNO_PIN_ANNUAL_	{alias	limit_D_ESB414_BRDNO_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB415_GABRL_PIN_ANNUAL_	{alias	limit_D_ESB415_GABRL_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_ESB420_GRGNO_PIN_ANNUAL_	{alias	limit_D_ESB420_GRGNO_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CSB038_OBISPO_PIN_ANNUAL_	{alias	limit_D_CSB038_OBISPO_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CSB103_BRBRA_PIN_ANNUAL_	{alias	limit_D_CSB103_BRBRA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_SBA036_SCVWD_PIN_ANNUAL_	{alias	limit_D_SBA036_SCVWD_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_BKR004_NBA009_SCWA_PIN_ANNUAL_	{alias	limit_D_BKR004_NBA009_SCWA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CAA183_TULARE_PIN_ANNUAL_	{alias	limit_D_CAA183_TULARE_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+!define	limit_D_PYRMD_VNTRA_PIN_ANNUAL_	{alias	limit_D_PYRMD_VNTRA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+define	limit_D_CSTIC_VNTRA_PIN_ANNUAL_	{alias	limit_D_CSTIC_VNTRA_PIN_ANNUAL	kind	'debug'	units	'cfs'}
+
+define	ANN_TOTAL_D_SBA009_ACFC_PIN_	{alias	ANN_TOTAL_D_SBA009_ACFC_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_SBA020_ACFC_PIN_	{alias	ANN_TOTAL_D_SBA020_ACFC_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_SBA029_ACWD_PIN_	{alias	ANN_TOTAL_D_SBA029_ACWD_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB324_AVEK_PIN_	{alias	ANN_TOTAL_D_ESB324_AVEK_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CSB009_CLRTA1_DDWD_PIN_	{alias	ANN_TOTAL_D_CSB009_CLRTA1_DDWD_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_WSB032_CLRTA2_PIN_	{alias	ANN_TOTAL_D_WSB032_CLRTA2_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_WTPCYC_16_PU_SWP_PIN_	{alias	ANN_TOTAL_D_WTPCYC_16_PU_SWP_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB407_CCHLA_PIN_	{alias	ANN_TOTAL_D_ESB407_CCHLA_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D201_PIN_	{alias	ANN_TOTAL_D201_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA181_KINGS_PIN_	{alias	ANN_TOTAL_D_CAA181_KINGS_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_SVRWD_CSTLN_PIN_	{alias	ANN_TOTAL_D_SVRWD_CSTLN_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB408_DESRT_PIN_	{alias	ANN_TOTAL_D_ESB408_DESRT_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA184_DUDLEY_PIN_	{alias	ANN_TOTAL_D_CAA184_DUDLEY_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA173_EMPIRE_PIN_	{alias	ANN_TOTAL_D_CAA173_EMPIRE_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_CAA194_KERNA_PIN_	{alias	ANN_TOTAL_D_CAA194_KERNA_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_CAA194_KERN_PIN_	{alias	ANN_TOTAL_D_CAA194_KERN_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA242_Kern_PIN_	{alias	ANN_TOTAL_D_CAA242_Kern_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_CAA279_Kern_PIN_	{alias	ANN_TOTAL_D_CAA279_Kern_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_CSB015_KERN_BMWD_PIN_	{alias	ANN_TOTAL_D_CSB015_KERN_BMWD_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB355_LROCK_PIN_	{alias	ANN_TOTAL_D_ESB355_LROCK_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_PRRIS_MWDSC_PIN_	{alias	ANN_TOTAL_D_PRRIS_MWDSC_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_CAA194_KERNB_PIN_	{alias	ANN_TOTAL_D_CAA194_KERNB_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB413_MWDSC_PIN_	{alias	ANN_TOTAL_D_ESB413_MWDSC_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_WSB031_MWDSC_PIN_	{alias	ANN_TOTAL_D_WSB031_MWDSC_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB433_MWDSC_PIN_	{alias	ANN_TOTAL_D_ESB433_MWDSC_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB403_MOJVE_PIN_	{alias	ANN_TOTAL_D_ESB403_MOJVE_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_BKR004_NBA009_NAPA_PIN_	{alias	ANN_TOTAL_D_BKR004_NBA009_NAPA_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA046_71_PA7_PIN_	{alias	ANN_TOTAL_D_CAA046_71_PA7_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB347_PLMDL_PIN_	{alias	ANN_TOTAL_D_ESB347_PLMDL_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB414_BRDNO_PIN_	{alias	ANN_TOTAL_D_ESB414_BRDNO_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB415_GABRL_PIN_	{alias	ANN_TOTAL_D_ESB415_GABRL_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_ESB420_GRGNO_PIN_	{alias	ANN_TOTAL_D_ESB420_GRGNO_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CSB038_OBISPO_PIN_	{alias	ANN_TOTAL_D_CSB038_OBISPO_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CSB103_BRBRA_PIN_	{alias	ANN_TOTAL_D_CSB103_BRBRA_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_SBA036_SCVWD_PIN_	{alias	ANN_TOTAL_D_SBA036_SCVWD_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_BKR004_NBA009_SCWA_PIN_	{alias	ANN_TOTAL_D_BKR004_NBA009_SCWA_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CAA183_TULARE_PIN_	{alias	ANN_TOTAL_D_CAA183_TULARE_PIN	kind	'debug'	units	'TAF'}
+!define	ANN_TOTAL_D_PYRMD_VNTRA_PIN_	{alias	ANN_TOTAL_D_PYRMD_VNTRA_PIN	kind	'debug'	units	'TAF'}
+define	ANN_TOTAL_D_CSTIC_VNTRA_PIN_	{alias	ANN_TOTAL_D_CSTIC_VNTRA_PIN	kind	'debug'	units	'TAF'}

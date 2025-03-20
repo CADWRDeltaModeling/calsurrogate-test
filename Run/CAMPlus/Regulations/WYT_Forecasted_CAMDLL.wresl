@@ -28,7 +28,7 @@ define I3_Jan50 {
 	}
 	case afterJan{
 		condition always
-		value Unimp_SHAS(PrevJan)
+		value UNIMP_SHAS(PrevJan)
 	}
 }
 define I3_Feb50 {
@@ -38,7 +38,7 @@ define I3_Feb50 {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_SHAS(PrevFeb)
+		value UNIMP_SHAS(PrevFeb)
 	}
 }
 define I3_Mar50 {
@@ -48,7 +48,7 @@ define I3_Mar50 {
 	}
 	case afterMar{
 		condition always
-		value Unimp_SHAS(PrevMar)
+		value UNIMP_SHAS(PrevMar)
 	}
 }
 define I3_Apr50 {
@@ -58,7 +58,7 @@ define I3_Apr50 {
 	}
 	case afterApr{
 		condition always
-		value Unimp_SHAS(PrevApr)
+		value UNIMP_SHAS(PrevApr)
 	}
 }
 define I3_May50 {
@@ -68,7 +68,7 @@ define I3_May50 {
 	}
 	case afterMay{
 		condition always
-		value Unimp_SHAS(PrevMay)
+		value UNIMP_SHAS(PrevMay)
 	}
 }
 define I3_Jun50 {value HYDROFORECAST(0,258)}
@@ -167,7 +167,7 @@ define I4_Jan50 {
 	}
 	case afterJan{
 		condition always
-		value Unimp_Orov(PrevJan)
+		value UNIMP_OROV(PrevJan)
 	}
 }
 define I4_Feb50 {
@@ -177,7 +177,7 @@ define I4_Feb50 {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_Orov(PrevFeb)
+		value UNIMP_OROV(PrevFeb)
 	}
 }
 define I4_Mar50 {
@@ -187,7 +187,7 @@ define I4_Mar50 {
 	}
 	case afterMar{
 		condition always
-		value Unimp_Orov(PrevMar)
+		value UNIMP_OROV(PrevMar)
 	}
 }
 define I4_Apr50 {
@@ -197,7 +197,7 @@ define I4_Apr50 {
 	}
 	case afterApr{
 		condition always
-		value Unimp_Orov(PrevApr)
+		value UNIMP_OROV(PrevApr)
 	}
 }
 define I4_May50 {
@@ -207,7 +207,7 @@ define I4_May50 {
 	}
 	case afterMay{
 		condition always
-		value Unimp_Orov(PrevMay)
+		value UNIMP_OROV(PrevMay)
 	}
 }
 define I4_Jun50 {value HYDROFORECAST(0,222)}
@@ -308,7 +308,7 @@ define F_Jan {
 	}
 	case afterJan{
 		condition always
-		value Unimp_Orov(PrevJan)
+		value UNIMP_OROV(PrevJan)
 	}
 }
 define F_Feb {
@@ -318,7 +318,7 @@ define F_Feb {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_Orov(PrevFeb)
+		value UNIMP_OROV(PrevFeb)
 	}
 }
 define F_Mar {
@@ -328,7 +328,7 @@ define F_Mar {
 	}
 	case afterMar{
 		condition always
-		value Unimp_Orov(PrevMar)
+		value UNIMP_OROV(PrevMar)
 	}
 }
 define F_Apr {
@@ -338,7 +338,7 @@ define F_Apr {
 	}
 	case afterApr{
 		condition always
-		value Unimp_Orov(PrevApr)
+		value UNIMP_OROV(PrevApr)
 	}
 }
 define F_May {
@@ -348,7 +348,7 @@ define F_May {
 	}
 	case afterMay{
 		condition always
-		value Unimp_Orov(PrevMay)
+		value UNIMP_OROV(PrevMay)
 	}
 }
 define F_Jun {value HYDROFORECAST(0,114)}
@@ -375,7 +375,7 @@ define Y_Jan {
 	}
 	case afterJan{
 		condition always
-		value Unimp_Yuba(PrevJan)
+		value UNIMP_YUBA(PrevJan)
 	}
 }
 define Y_Feb {
@@ -385,7 +385,7 @@ define Y_Feb {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_Yuba(PrevFeb)
+		value UNIMP_YUBA(PrevFeb)
 	}
 }
 define Y_Mar {
@@ -395,7 +395,7 @@ define Y_Mar {
 	}
 	case afterMar{
 		condition always
-		value Unimp_Yuba(PrevMar)
+		value UNIMP_YUBA(PrevMar)
 	}
 }
 define Y_Apr {
@@ -405,7 +405,7 @@ define Y_Apr {
 	}
 	case afterApr{
 		condition always
-		value Unimp_Yuba(PrevApr)
+		value UNIMP_YUBA(PrevApr)
 	}
 }
 define Y_May {
@@ -415,7 +415,7 @@ define Y_May {
 	}
 	case afterMay{
 		condition always
-		value Unimp_Yuba(PrevMay)
+		value UNIMP_YUBA(PrevMay)
 	}
 }
 define Y_Jun {value HYDROFORECAST(0,138)}
@@ -442,7 +442,7 @@ define Am_Jan {
 	}
 	case afterJan{
 		condition always
-		value Unimp_FOLS(PrevJan)
+		value UNIMP_FOLS(PrevJan)
 	}
 }
 define Am_Feb {
@@ -452,7 +452,7 @@ define Am_Feb {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_FOLS(PrevFeb)
+		value UNIMP_FOLS(PrevFeb)
 	}
 }
 define Am_Mar {
@@ -462,7 +462,7 @@ define Am_Mar {
 	}
 	case afterMar{
 		condition always
-		value Unimp_FOLS(PrevMar)
+		value UNIMP_FOLS(PrevMar)
 	}
 }
 define Am_Apr {
@@ -472,7 +472,7 @@ define Am_Apr {
 	}
 	case afterApr{
 		condition always
-		value Unimp_FOLS(PrevApr)
+		value UNIMP_FOLS(PrevApr)
 	}
 }
 define Am_May {
@@ -482,7 +482,7 @@ define Am_May {
 	}
 	case afterMay{
 		condition always
-		value Unimp_FOLS(PrevMay)
+		value UNIMP_FOLS(PrevMay)
 	}
 }
 define Am_Jun {value HYDROFORECAST(0,126)}
@@ -512,7 +512,7 @@ define S_Jan {
 	}
 	case afterJan{
 		condition always
-		value Unimp_SRBB(PrevJan)
+		value UNIMP_SRBB(PrevJan)
 	}
 }
 define S_Feb {
@@ -522,7 +522,7 @@ define S_Feb {
 	}
 	case afterFeb{
 		condition always
-		value Unimp_SRBB(PrevFeb)
+		value UNIMP_SRBB(PrevFeb)
 	}
 }
 define S_Mar {
@@ -532,7 +532,7 @@ define S_Mar {
 	}
 	case afterMar{
 		condition always
-		value Unimp_SRBB(PrevMar)
+		value UNIMP_SRBB(PrevMar)
 	}
 }
 define S_Apr {
@@ -542,7 +542,7 @@ define S_Apr {
 	}
 	case afterApr{
 		condition always
-		value Unimp_SRBB(PrevApr)
+		value UNIMP_SRBB(PrevApr)
 	}
 }
 define S_May {
@@ -552,7 +552,7 @@ define S_May {
 	}
 	case afterMay{
 		condition always
-		value Unimp_SRBB(PrevMay)
+		value UNIMP_SRBB(PrevMay)
 	}
 }
 define S_Jun {value HYDROFORECAST(0,162)}
@@ -716,9 +716,9 @@ define RI_Jun {value F_Jun + Y_Jun + Am_Jun + S_Jun + I33B_Jun}
 
 ! the 60-20-20 index for San Joaquin basin
 define wyt_SJR_CAM {
-    case SuperWetOCTtoJAN {
-         condition  month >= OCT .and. month <= JAN .and. (wateryear - 1 == 1938 .or. wateryear - 1 == 1969 .or. wateryear - 1 == 1982 .or. wateryear - 1 == 1983 .or. wateryear - 1 == 2006)
- 		 value 0. }
+    !case SuperWetOCTtoJAN {
+    !     condition  month >= OCT .and. month <= JAN .and. (wateryear - 1 == 1938 .or. wateryear - 1 == 1969 .or. wateryear - 1 == 1982 .or. wateryear - 1 == 1983 .or. wateryear - 1 == 2006)
+ 	!	 value 0. }
      case SuperWetrest {
          condition  wateryear == 1938 .or. wateryear == 1969 .or. wateryear == 1982 .or. wateryear == 1983 .or. wateryear == 2006
 		 value 0. }

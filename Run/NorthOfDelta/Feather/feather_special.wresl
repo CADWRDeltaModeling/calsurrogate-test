@@ -194,7 +194,32 @@ goal split_C_OROVL {C_OROVL = C_OROVL_IBU + C_OROVL_EXP}
 define TotalInflowOROVL   {value I_OROVL + CT_OROVILLE_SV + C_FTR074_SV2}
 define TotalInflowOROVLdv {alias TotalInflowOROVL kind 'Inflow' units 'cfs'}
 
+!For July-Sept for a CAM run, replace 1600 with the CAM forecast of Oroville storage computed back in May
+!This is to try to hit 1600 target in September more precisely -TF 101823
+define S_OROVL_final_CAM_frcst_init {
+	case inJuly {
+	condition month == Jul
+		value S_OROVL_final_CAM_frcst_July_dv(prevMay)}
+	case inAug {
+	condition month == Aug
+		value S_OROVL_final_CAM_frcst_Aug_dv(prevMay)}
+	case inSept {
+	condition month == Sep
+		value S_OROVL_final_CAM_frcst_Sept_dv(prevMay)}
+	case otherwise {
+	condition always
+		value 0.}
+}
+
+define S_OROVL_final_CAM_frcst {value max(1600., S_OROVL_final_CAM_frcst_init)}
+
 define C_OROVL_EXP_max_ {
+	case UpperFeatherCAMJune {
+	     condition simulateUpperFeather == 1 .and. simulateCAM > 0.5 .and. range(month,jul,sep) 
+	     value max(0., C_FTR074[UPPERFEATHER] + I_OROVL + CT_OROVILLE_SV + (S_OROVL(-1) - S_OROVL_final_CAM_frcst - DrainTar_buffer)*taf_cfs)}
+	case otherwiseCAMJune {
+             condition simulateCAM > 0.5 .and. range(month,jul,sep)
+             value max(0., C_FTR074_SV + I_OROVL + CT_OROVILLE_SV + (S_OROVL(-1) - S_OROVL_final_CAM_frcst - DrainTar_buffer)*taf_cfs)}
 	case UpperFeather {
 	     condition simulateUpperFeather == 1
 	     value max(0., C_FTR074[UPPERFEATHER] + I_OROVL + CT_OROVILLE_SV + (S_OROVL(-1) - 1600. - DrainTar_buffer)*taf_cfs)}

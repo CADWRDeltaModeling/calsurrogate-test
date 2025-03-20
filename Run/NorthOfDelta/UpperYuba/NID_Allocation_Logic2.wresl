@@ -6,7 +6,7 @@
 
 ! Bear System, limit NID deliveries based on drought contingency plan
 goal limit_24_NU3_deliveries {D_WSE004_24_NU3 < UD_24_NU3/(1.0-DLF_24_NU3) * Usage_Reduction_NID}
-goal limit_24_NA1_deliveries {D_ABN024_24_NA1 + D_WSE004_24_NA1 + D_CBC001_24_NA1 < ((AWO_24_NA1*(1.0-RUFO_24_NA1+RPF_24_NA1) + AWR_24_NA1*(1.0-RUFR_24_NA1+RPF_24_NA1)*(1.0-GPmin_24_NA1))/(1.0-DLF_24_NA1))*Usage_Reduction_NID}
+goal limit_24_NA1_deliveries {D_ABN024_24_NA1 + D_WSE004_24_NA1 + D_CBC001_24_NA1 < Usage_Reduction_NID*(AWO_24_NA1*(1.0-RUFO_24_NA1+RPF_24_NA1) + AWR_24_NA1*(1.0-RUFR_24_NA1+RPF_24_NA1))*(1.0-GPmin_24_NA1)/(1.0-DLF_24_NA1) }
 
 define AW_24_NA1_wloss {alias ((AWO_24_NA1*(1.0-RUFO_24_NA1+RPF_24_NA1) + AWR_24_NA1*(1.0-RUFR_24_NA1+RPF_24_NA1)*(1.0-GPmin_24_NA1))/(1.0-DLF_24_NA1))  kind 'demand' units 'cfs'}
 

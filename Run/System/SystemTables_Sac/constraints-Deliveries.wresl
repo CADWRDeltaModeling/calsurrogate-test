@@ -1526,7 +1526,7 @@ goal setDG_ELDID_NU3_  {DG_ELDID_NU3 = D_WTPEDH_ELDID_NU3 + D_EDWWTP_ELDID_NU3 +
 ! net surface delivery = surface diversion - conveyance losses
 goal setDN_ELDID_NU3  {DN_ELDID_NU3 = DG_ELDID_NU3 - DL_ELDID_NU3}
 ! Total Applied Water = net surface delivery + groundwater pumping
-goal setUD_ELDID_NU3  {UD_ELDID_NU3 = DN_ELDID_NU3 + RU_ELDID_NU3 + SHRTG_ELDID_NU3} /* + GP_ELDID_NU3  + SHRTG_ELDID_NU3 */ ! Made logic consistent with upper watershed file, NSO 01/26/2022
+goal setUD_ELDID_NU3  {UD_ELDID_NU3 = DN_ELDID_NU3 + SHRTG_ELDID_NU3} /* + GP_ELDID_NU3  + SHRTG_ELDID_NU3 */ ! Made logic consistent with upper watershed file, NSO 01/26/2022
 
 
 !======================================================================

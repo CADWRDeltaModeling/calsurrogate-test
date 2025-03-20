@@ -21,7 +21,7 @@ define curr_fr_del {
 
 ! Estimate the rainflood release that will be required from Friant this month
 ! use an average monthly value for the restoration flow release
-define Fr_rain_rel_ {value max ( 0.0, SIO_FWUA(-1) + I_MLRTN*cfs_taf - curr_Fr_del - Friant_est_evap - TF_est_evap
+define Fr_rain_rel_ {value max ( 0.0, SIO_FWUA(-1) + I_MLRTN_IMP*cfs_taf - curr_Fr_del - Friant_est_evap - TF_est_evap
                      - S_MLRTNlevel5 - S17level3 - mam_fc_credit  + Friant_fs_req - MLRTN_rel*cfs_taf)  } 
 goal save_rain_rel {Fr_rain_rel = Fr_rain_rel_}
 

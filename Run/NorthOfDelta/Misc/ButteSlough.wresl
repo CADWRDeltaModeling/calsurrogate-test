@@ -44,6 +44,12 @@ goal setC_BSL001a  { /*To prevent model instability and non-unique solutions, In
 
 goal setD_BSL000_SAC141  { 
      lhs D_BSL000_SAC141
+           case Apr_Nov_Shasta { ! Done in 95% LOC study to prevent "spills" to try to meet downstream demands, NOsorio 12/2023
+                condition (month >= Oct .and. month <= Nov .or. month >= Apr .and. month <= Sep) .and. S_SHSTA(-1) > 550.
+               rhs 0
+               lhs>rhs     constrain
+               lhs<rhs     penalty 0 }
+
            case Apr_Nov {
                 condition month >= Oct .and. month <= Nov .or. month >= Apr .and. month <= Sep
                rhs 0

@@ -77,7 +77,7 @@ define FtrGW4ctrl {
 }
 define RV_days_open {
     case UpstreamControl {
-        condition SacGW4ctrl + AmrGW4ctrl + FtrGW4ctrl > .5
+        condition SacGW4ctrl + AmrGW4ctrl + FtrGW4ctrl > .5 .and. S_SHSTA(prevSep)>2200.
         value daysin}
     case RVcontrol_zero { ! RS is still met even if gates are closed every day
         condition C_SAC017_ADD[GW_FOURTH]<0.1 .and. RS_estCL_zeroDXC <= RS_CL_STD_TEST - 5.

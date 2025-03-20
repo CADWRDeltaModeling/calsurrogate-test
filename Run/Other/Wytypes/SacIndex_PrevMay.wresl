@@ -53,7 +53,7 @@ define i_Orovl_PrevAprJul_dv{alias i_Orovl_PrevAprJul kind 'index' units 'taf'}
 define i_Folsm_PrevOctMar{
 	case JanMay{
 		condition month>=Jan .and. month<=may
-		value (sum(i=Oct-month-12, mar-month-12, 1) UNIMP_Fols(i))
+		value (sum(i=Oct-month-12, mar-month-12, 1) UNIMP_FOLS(i))
 	}
 	case JunDec{
 		condition always
@@ -65,7 +65,7 @@ define i_Folsm_PrevOctMar_dv{alias i_Folsm_PrevOctMar kind 'index' units 'taf'}
 define i_Folsm_PrevAprJul{
 	case JanMay{
 		condition month>=Jan .and. month<=may
-		value (sum(i=Apr-month-12, Jul-month-12, 1) UNIMP_Fols(i))
+		value (sum(i=Apr-month-12, Jul-month-12, 1) UNIMP_FOLS(i))
 	}
 	case other{
 		condition always

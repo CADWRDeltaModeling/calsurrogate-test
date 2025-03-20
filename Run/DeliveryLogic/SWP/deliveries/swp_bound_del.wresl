@@ -86,6 +86,8 @@ goal maxD_WSB031_MWDSCPINdeliv {D_WSB031_MWDSC_PIN < min(dem_D_WSB031_MWDSC_PIN,
 goal maxD_SBA009_ACFCPINdeliv {D_SBA009_ACFC_PIN < min(dem_D_SBA009_ACFC_PIN, limit_D_SBA009_ACFC_PIN_ANNUAL) *perdel_swp_int}
 goal maxD_SBA029_ACWDPINdeliv {D_SBA029_ACWD_PIN < min(dem_D_SBA029_ACWD_PIN, limit_D_SBA029_ACWD_PIN_ANNUAL) *perdel_swp_int}
 goal maxD_SBA036_SCVWDPINdeliv {D_SBA036_SCVWD_PIN < min(dem_D_SBA036_SCVWD_PIN, limit_D_SBA036_SCVWD_PIN_ANNUAL) *perdel_swp_int}
+goal maxD_ESB355_LROCK_PINdeliv {D_ESB355_LROCK_PIN < min(dem_D_ESB355_LROCK_PIN, limit_D_ESB355_LROCK_PIN_ANNUAL) *perdel_swp_int} ! New Article 21 demands. JByers, 05/30/2024
+goal maxD_ESB403_MOJVEPINdeliv  {D_ESB403_MOJVE_PIN  < min(dem_D_ESB403_MOJVE_PIN, limit_D_ESB403_MOJVE_PIN_ANNUAL) *perdel_swp_int} !New Article 21 demands. JByers, 05/30/2024
 
 !Ensure North Bay Article 21 is limited to surplus conditions.
 goal constrain_North_Bay_A21 {D_BKR004_NBA009_NAPA_PIN + D_BKR004_NBA009_SCWA_PIN < NDOI_ADD_swp + NDOI_ADD_cvp}
@@ -99,7 +101,8 @@ goal balanceKCWAMWDPIN {
 }
 
 !Total SOD PIN demand
-define SWP_SOD_PIN_demand {std kind 'demand' units 'cfs'}
+define SWP_SOD_PIN_demand {std kind 'demand' units 'cfs'} ! Lower bound
+define SWP_SOD_PIN_upper_demand {std kind 'demand' units 'cfs'} ! Upper bound
 goal setSWP_SOD_PIN_demand {SWP_SOD_PIN_demand =
 min(dem_D_CAA046_71_PA7_PIN, limit_D_CAA046_71_PA7_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
 + min(dem_D_CAA173_EMPIRE_PIN, limit_D_CAA173_EMPIRE_PIN_ANNUAL) *perdel_swp_int
@@ -122,7 +125,35 @@ min(dem_D_CAA046_71_PA7_PIN, limit_D_CAA046_71_PA7_PIN_ANNUAL) *perdel_swp_int !
 + min(dem_D_WSB031_MWDSC_PIN, limit_D_WSB031_MWDSC_PIN_ANNUAL) *perdel_swp_int
 + min(dem_D_SBA009_ACFC_PIN, limit_D_SBA009_ACFC_PIN_ANNUAL) *perdel_swp_int
 + min(dem_D_SBA029_ACWD_PIN, limit_D_SBA029_ACWD_PIN_ANNUAL) *perdel_swp_int
-+ min(dem_D_SBA036_SCVWD_PIN, limit_D_SBA036_SCVWD_PIN_ANNUAL) *perdel_swp_int}
++ min(dem_D_SBA036_SCVWD_PIN, limit_D_SBA036_SCVWD_PIN_ANNUAL) *perdel_swp_int
++ min(dem_D_ESB355_LROCK_PIN, limit_D_ESB355_LROCK_PIN_ANNUAL)*perdel_swp_int  ! New Article 21 demands. JByers, 05/30/2024
++ min(dem_D_ESB403_MOJVE_PIN, limit_D_ESB403_MOJVE_PIN_ANNUAL)*perdel_swp_int} ! New Article 21 demands. JByers, 05/30/2024
+
+goal setSWP_SOD_PIN_upper_demand {SWP_SOD_PIN_upper_demand =
+max(dem_D_CAA046_71_PA7_PIN, limit_D_CAA046_71_PA7_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
++ max(dem_D_CAA173_EMPIRE_PIN, limit_D_CAA173_EMPIRE_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_CAA181_KINGS_PIN, limit_D_CAA181_KINGS_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 1/2/2020
++ max(dem_D_CAA184_DUDLEY_PIN, limit_D_CAA184_DUDLEY_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_CSB009_CLRTA1_DDWD_PIN, limit_D_CSB009_CLRTA1_DDWD_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_CSB103_BRBRA_PIN, limit_D_CSB103_BRBRA_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 1/2/2020
++ max(dem_D_ESB347_PLMDL_PIN, limit_D_ESB347_PLMDL_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
++ max(dem_D_CAA183_TULARE_PIN, limit_D_CAA183_TULARE_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_CAA242_Kern_PIN, limit_D_CAA242_Kern_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_CSB038_OBISPO_PIN, limit_D_CSB038_OBISPO_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
++ max(dem_D_ESB324_AVEK_PIN, limit_D_ESB324_AVEK_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_ESB407_CCHLA_PIN, limit_D_ESB407_CCHLA_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_ESB408_DESRT_PIN, limit_D_ESB408_DESRT_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_ESB413_MWDSC_PIN, limit_D_ESB413_MWDSC_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_ESB414_BRDNO_PIN, limit_D_ESB414_BRDNO_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
++ max(dem_D_ESB415_GABRL_PIN, limit_D_ESB415_GABRL_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 1/2/2020
++ max(dem_D_ESB420_GRGNO_PIN, limit_D_ESB420_GRGNO_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. 07/2020
++ max(dem_D_ESB433_MWDSC_PIN, limit_D_ESB433_MWDSC_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_WSB031_MWDSC_PIN, limit_D_WSB031_MWDSC_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_SBA009_ACFC_PIN, limit_D_SBA009_ACFC_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_SBA029_ACWD_PIN, limit_D_SBA029_ACWD_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_SBA036_SCVWD_PIN, limit_D_SBA036_SCVWD_PIN_ANNUAL) *perdel_swp_int
++ max(dem_D_ESB355_LROCK_PIN, limit_D_ESB355_LROCK_PIN_ANNUAL) *perdel_swp_int ! New Article 21 demands. JByers, 05/30/2024
++ max(dem_D_ESB403_MOJVE_PIN, limit_D_ESB403_MOJVE_PIN_ANNUAL)*perdel_swp_int} ! New Article 21 demands. JByers, 05/30/2024
 
 !losses
 goal maxD_CAA220_CAALOS_PLSPLSdeliv {D_CAA220_CAALOS_PLS < dem_D_CAA220_CAALOS_PLS}

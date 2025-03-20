@@ -45,10 +45,12 @@ define RemSWPExpCng {value max(ApMySWPExpCng - LYRA_SWPExp_Cum,0.) }
 
 ! For Future conditions use unimpaired inflows at Smartville and Goodyear
 !define SmartvilleUnimpaired {value (I_FRNCH + I_BOWMN + I_DER001 + I_DER004 + I_FRDYC + I_JKSMD  + I_SFD003 + I_SFY007  + I_SPLDG  + I_SFY048 + I_LCBRF + I_SCOTF + I_NBLDB + I_ENGLB + I_SLT009 + I_OGN005 + I_NFY029 + I_MFY013)*cfs_taf + CT_Smartville_SV}
+
 define GoodyearUnimpaired {value (I_NFY029)*cfs_taf}
 
 define BaseCarryover {value 234.0}
 define Triggervalue  {value 0.0} /*{value 166.0}*/
+/*
 define Index_Accorddv   {std kind 'INDEX' units 'TAF'}
 define YrType_Accorddv  {std kind 'INDEX' units 'NONE'}
 
@@ -408,9 +410,6 @@ define Index_D1644 {
  		condition always
          	value 6}
         }
-  
- goal set_YrType_D1644 {YrType_D1644dv=YrType_D1644}
- 
  
 !******************************************************************************
 ! 1.0 LYRA SW transfers acquisitions
@@ -436,7 +435,12 @@ define MonthlyLYRA_SW {
 }
 
 define YubaSW_Max {value AprSepLYRA_SW}
-
+*/
+If simulateYubTransfer == 1. {
+	define YrType_Accord {value YrType_Accord_LYRA[LowerYuba]}}
+elseif simulateYubTransfer ==0. {
+	define YrType_Accord {value YrType_Accord[LowerYuba]}}
+define YrType_D1644 {value YrType_D1644[LowerYuba]}
 
 !******************************************************************************      
 ! 2.0 LYRA GW transfers acquisitions
@@ -457,18 +461,18 @@ define YubaGW_Max {
 
 
 !Maximum annual non-discretionary transfers:
-define YubaSW_Max_dv {alias YubaSW_Max kind 'Yuba-Max-Acquisition' units 'TAF'}
+!define YubaSW_Max_dv {alias YubaSW_Max kind 'Yuba-Max-Acquisition' units 'TAF'}
 define YubaGW_Max_dv {alias YubaGW_Max kind 'Yuba-Max-Acquisition' units 'TAF'}
-define YubaSWGW_Max_dv {alias YubaGW_Max + YubaSW_Max kind 'Yuba-Max-Acquisition' units 'TAF'}
+!define YubaSWGW_Max_dv {alias YubaGW_Max + YubaSW_Max kind 'Yuba-Max-Acquisition' units 'TAF'}
 
 !******************************************************************************
 ! 3.0 Assumed Monthly Distribution for Supplies
 define YubaPattrnPercGW {select Yuba_GW from WTS_Patterns where month=month}
 define YubaPattrnFactGW {value YubaPattrnPercGW/100.}
-define YubaPattrnFactSW {value MonthlyLYRA_SW/AprSepLYRA_SW}                    !dynamic calc for Yuba LYRA component
+!define YubaPattrnFactSW {value MonthlyLYRA_SW/AprSepLYRA_SW}                    !dynamic calc for Yuba LYRA component
 
 goal setWTS_YubaGW_1 {WTS_YubaGW_1 = YubaGW_Max * YubaPattrnFactGW * taf_cfs}
-goal setWTS_YubaSW_1 {WTS_YubaSW_1 = YubaSW_Max * YubaPattrnFactSW * taf_cfs}    
+goal setWTS_YubaSW_1 {WTS_YubaSW_1 = Yuba_Trans} !YubaSW_Max * YubaPattrnFactSW * taf_cfs}  
 goal setYubaGWdv {YubaGWdv = WTS_YubaGW_1*cfs_taf}
 goal setYubaSWdv {YubaSWdv = WTS_YubaSW_1*cfs_taf}
 
@@ -479,14 +483,14 @@ goal ZeroWTS_YubaGWShort {
     rhs 0.
     lhs>rhs penalty 9999 }
 goal MaxWTS_YubaGWShort {WTS_YubaGWShort < WTS_YubaGW_1}
-
+/*
 goal ZeroWTS_YubaSWShort {
     lhs WTS_YubaSWShort
     rhs 0.
     lhs>rhs penalty 9999 }
 goal MaxWTS_YubaSWShort {WTS_YubaSWShort < WTS_YubaSW_1}
-
-goal setWTS_YubaShort {WTS_YubaShort = WTS_YubaGWShort + WTS_YubaSWShort}
+*/
+goal setWTS_YubaShort {WTS_YubaShort = WTS_YubaGWShort }!+ WTS_YubaSWShort}
 
 !******************************************************************************
 ! 5.0 Total Acquisitions for the month (cfs)

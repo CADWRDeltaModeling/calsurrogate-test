@@ -267,14 +267,14 @@ goal fixsouthbay {
   lhs>rhs penalty 99999
   lhs<rhs penalty 99999
 }
-/*
+
 goal fixSL {
   lhs     S_SLUIS_SWP
-  rhs     S_SLUIS_SWP[DELTA] + C_CAA003_WTS_Stg1*cfs_taf - E_SLUIS_SWP*cfs_taf + E_SLUIS_SWP[Delta]*cfs_taf
+  rhs     S_SLUIS_SWP[DELTA] !+ C_CAA003_WTS_Stg1*cfs_taf - E_SLUIS_SWP*cfs_taf + E_SLUIS_SWP[Delta]*cfs_taf
   lhs>rhs penalty 99999
   lhs<rhs penalty 99999
 }
-*/
+
 goal fixterminals {
   lhs     C_CAA238
   rhs     C_CAA238[DELTA]

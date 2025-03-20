@@ -17,12 +17,44 @@ We can break the equation into individual component that will give the same resu
   Georgianna Sl. Flow           = 0.1415*Qsac + 973.48  ==> OPEN OR CLOSED GATE POSITION
   DXC Flow                              = 0.1846*Qsac + 306.52 ==> OPEN GATE POSITION
   DXC Flow                              = 0.0               ==> CLOSED GATE POSITION
+
+! ***************
+Future SLR of 55cm
+09/10/2021
+Modify the regression equations used to compute flow through the Delta cross channel and Georgiana Sl for the
+base scenario derived based on DSM2 outputs (updated by using DCD model as input)
+
+DXC & Georg. Sl. Flow = (a * Sac Flow) + b
+        where a = 0.3526 , b = 1043.2 cfs  ==> OPEN GATE POSITION
+        where a = 0.1402 , b = 1054.8 cfs  ==> CLOSED GATE POSITION
+
+We can break the equation into individual component that will give the same result:
+
+  Georgianna Sl. Flow          			= 0.1402*Qsac + 1054.8  ==> OPEN OR CLOSED GATE POSITION
+  DXC Flow                              = 0.2124*Qsac - 11.6    ==> OPEN GATE POSITION
+  DXC Flow                              = 0.0                   ==> CLOSED GATE POSITION
+
+! ***************
+SLR of 15cm
+interpolated from coefficients shown above
+
+  Georgianna Sl. Flow          			= 0.1411*Qsac + 995.66  ==> OPEN OR CLOSED GATE POSITION
+  DXC Flow                              = 0.1922*Qsac + 219.76  ==> OPEN GATE POSITION
+  DXC Flow                              = 0.0                   ==> CLOSED GATE POSITION
+! ***************
 */
 ! Split arc C401B into Georgianna Sl. and DXC components
 define DXC_max {value 99999.*taf_cfs} ! over 1,600,000 cfs (plenty big)
+! Current assumption is to use same parameters from 15 cm interpolation for 30 cm.
+! Ideally, 30 cm DXC would have unique parameters. This will be tackled later on as improvement
+! 12/2023, NOsorio
+define georgslough_coef_a {select georg_coef_a from dxc_slr where slrswitch=int(simulateANNSLR)}
+define georgslough_coef_b {select georg_coef_b from dxc_slr where slrswitch=int(simulateANNSLR)}
+define D_SAC030_MOK014_coef_a {select dcc_coef_a from dxc_slr where slrswitch=int(simulateANNSLR)}
+define D_SAC030_MOK014_coef_b {select dcc_coef_b from dxc_slr where slrswitch=int(simulateANNSLR)}
 
 ! Georgiana Sl. component is always this equation
-goal GeorgSlough {C_SAC029B = 0.1415*C_SAC041 + 973.48}
+goal GeorgSlough {C_SAC029B = georgslough_coef_a*C_SAC041 + georgslough_coef_b}
 
 ! Number of days in each month that the DXC gate is open
 define WQCP_days_open   {select days_open from xchanneldays where month=month}
@@ -58,7 +90,7 @@ define DXC_estdv {alias DXC_est kind 'GATE-DAYS-OPEN' units 'NONE'}
 goal setDXC {DXC = DXC_est * int_SAC_below}
 
 ! Gate open and closure equations with the automatic Sac closure
-goal open_cond_flow { D_SAC030_MOK014 = 0.1846*SAC_threshold*int_SAC_below*fract_open - 0.1846*SAC_below*fract_open + int_SAC_below*(306.52)*fract_open }
+goal open_cond_flow { D_SAC030_MOK014 = D_SAC030_MOK014_coef_a*SAC_threshold*int_SAC_below*fract_open - D_SAC030_MOK014_coef_a*SAC_below*fract_open + int_SAC_below*(D_SAC030_MOK014_coef_b)*fract_open }
 
 !GOAL HELP_INTEGER {LHS C_SAC029A RHS 0.0 LHS>RHS PENALTY 0.000001}
 

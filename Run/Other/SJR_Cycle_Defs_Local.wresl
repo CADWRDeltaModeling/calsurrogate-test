@@ -25,11 +25,13 @@ goal totalD_CAA239_CVPRF     { D_CAA239_CVPRF = D_CAA239_CVPRF_PRJ }
 goal totalD_CAA239_CVPRF_prj { D_CAA239_CVPRF_prj = D_CAA239_CVPRF_PRF }
 
 ! fix or limit variables to allow the SOD system to function for CVP deliveries
-! in San Joaquin / Westside cycles. Allow Jones to pump up to capacity, set Banks
-! and SWP operations to function only for losses until the full system cycles.
+! in San Joaquin / Westside cycles. Allow Jones and Banks to pump up to capacity, 
 goal flexJones      {C_DMC000 < 4600.}
 !@zrc changed sign (+) to (-1) for all CAALOS
-goal limitBanks     {C_CAA003 =  -D_CAA005_CAALOS  !"<" was "=" todo dbo 8.4.15 !2017-07-31 (JAS): Changed this back to "=." Need to test.
+goal limitBanks {C_CAA003 < 10300.}
+! set Banks and SWP operations to function only for losses until the full system cycles.
+! Commented out because it is limiting Banks exports even in wettest years, NOsorio 11/2023
+/*goal limitBanks     {C_CAA003 =  -D_CAA005_CAALOS  !"<" was "=" todo dbo 8.4.15 !2017-07-31 (JAS): Changed this back to "=." Need to test.
                                - D_CAA006_CAALOS  
                                - D_CAA009_CAALOS  
                                - D_CAA012_CAALOS  
@@ -50,7 +52,7 @@ goal limitBanks     {C_CAA003 =  -D_CAA005_CAALOS  !"<" was "=" todo dbo 8.4.15 
                                - D_CAA172_CAALOS_SWP
                                + DG_71_PU1       !dbo8.4.15todo added dg terms for infeasibility !2017-07-31 (JAS): Leave in for now. Need to resolve.
                                + DG_71_PU2}      !dbo8.4.15todo added dg terms for infeasibility !2017-07-31 (JAS): Leave in for now. Need to resolve.
-                               
+*/                               
 
 !====
 ! CCWD flows

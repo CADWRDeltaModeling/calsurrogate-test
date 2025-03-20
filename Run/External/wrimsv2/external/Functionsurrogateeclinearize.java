@@ -128,7 +128,8 @@ public class Functionsurrogateeclinearize extends ExternalFunction{
 		double[][] dcc = new double[1][NHIST];
 		double[][] dcd = new double[1][NHIST];
 		double[][] sjr = new double[1][NHIST];
-		double[][] tide = new double[1][NHIST];
+		double[][] tide_energy = new double[1][NHIST];
+    	double[][] tide_filter = new double[1][NHIST];
 		double[][] smscg = new double[1][NHIST];
 
 		// Batching isn't very useful here, and thus hard to remember what this index
@@ -139,7 +140,8 @@ public class Functionsurrogateeclinearize extends ExternalFunction{
 		dcc[BATCHZERO][0] = (double) DXC_fut;
 		dcd[BATCHZERO][0] = (double) DICU_fut;
 		sjr[BATCHZERO][0] = (double) Qsjr_fut;
-		tide[BATCHZERO][0] = -999.;
+		tide_energy[BATCHZERO][0] = -999.;
+		tide_filter[BATCHZERO][0] = -999.;
 		smscg[BATCHZERO][0] = (double) SMSCG_fut;
 
 		for (int ihist = 1; ihist < NHIST; ihist++) {
@@ -148,12 +150,13 @@ public class Functionsurrogateeclinearize extends ExternalFunction{
 			dcc[BATCHZERO][ihist] = (double) DXC_prv[ihist-1];
 			dcd[BATCHZERO][ihist] = (double) DICU_prv[ihist-1];
 			sjr[BATCHZERO][ihist] = (double) Qsjr_prv[ihist-1];
-			tide[BATCHZERO][ihist] = 0.;
+			tide_energy[BATCHZERO][ihist] = 0.;
+			tide_filter[BATCHZERO][ihist] = 0.;
 			smscg[BATCHZERO][ihist] = (double) SMSCG_prv[ihist-1];
 		}
 
 		ArrayList<double[][]> monthlyInput = new ArrayList<double[][]>(
-				Arrays.asList(sac, exp, dcc, dcd, sjr, tide, smscg));
+				Arrays.asList(sac, exp, sjr, dcd, tide_energy, tide_filter, dcc, smscg));
 
 		float out = (float) ssm.lineGenImpl(monthlyInput, location, variable, ave_type, currMonth, currYear, Qsac_est, Qexp_est, ECTARGET);	
 		

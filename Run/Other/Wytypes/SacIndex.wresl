@@ -70,11 +70,11 @@ define i_Orovl_AprJul_dv{alias i_Orovl_AprJul kind 'index' units 'taf'}
 define i_Folsm_OctMar{
 	case JanMar{
 		condition month>=Jan .and. month<=mar
-		value (sum(i=Oct-month, -1, 1) UNIMP_Fols(i))+(sum(i=0, Mar-month, 1) I_Folsm_fm_med[Forecast2](i))
+		value (sum(i=Oct-month, -1, 1) UNIMP_FOLS(i))+(sum(i=0, Mar-month, 1) I_Folsm_fm_med[Forecast2](i))
 	}
 	case AprMay{
 		condition month>=Apr .and. month<=may
-		value (sum(i=Oct-month, mar-month, 1) UNIMP_Fols(i))
+		value (sum(i=Oct-month, mar-month, 1) UNIMP_FOLS(i))
 	}
 	case JunDec{
 		condition always
@@ -90,7 +90,7 @@ define i_Folsm_AprJul{
 	}
 	case MonthMay{
 		condition month==May
-		value UNIMP_Fols(-1) + (sum(i=0, Jul-month, 1) I_Folsm_fm_med[Forecast2](i))
+		value UNIMP_FOLS(-1) + (sum(i=0, Jul-month, 1) I_Folsm_fm_med[Forecast2](i))
 	}
 	case other{
 		condition always

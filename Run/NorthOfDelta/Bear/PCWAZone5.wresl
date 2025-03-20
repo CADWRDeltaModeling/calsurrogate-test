@@ -63,7 +63,7 @@ goal D_ABN010_24_NA2_Split {D_ABN010_24_NA2 = D_ABN010_24_NA2_PGE + D_ABN010_24_
 goal setD_ABN010_24_NA2_PGE {D_ABN010_24_NA2_PGE = D_STH002_ABN026}     ! PGE water comes from the South Canal
 goal RouteARPS_PCWAZ5 {D_ABN010_24_NA2_PCWA = C_ABT002}                                   ! MFP water to PCWA Zone 5 Ag comes through the American River Pump Station
 
-goal RouteARPS_PCWAZ1 {D_STH003_24_NA3_PCWA + D_STH003_WTPFSS_PCWA +  D_STH005_24_NA3_PCWA = D_ABT002_STH001} ! All of the MFP water conveyed to PCWA Lower Zone 1 must come from the ARPS
+goal RouteARPS_PCWAZ1 {D_STH005_24_NA3_PCWA + D_STH003_WTPFSS_PCWA + D_STH003_24_NA3_PCWA = D_ABT002_STH001} ! All of the MFP water conveyed to PCWA Lower Zone 1 must come from the ARPS
 
 !goal RouteARPS_Total {D_ABN010_24_NA2_PCWA +  D_STH003_24_NA3_PCWA + D_STH005_24_NA3_PCWA + D_STH003_WTPFSS_PCWA  = C_ABT002 + D_ABT002_STH001} !Color ARPS water
 

@@ -2,7 +2,7 @@
 ! Hongbing Yin 3-22-04, revised 7-20-04
 ! Aaron Miller recoded the minimum flows for oroville 10/29/09
 
-define S_Orovl_Sep {lower 29.6 upper 3558 kind 'STORAGE' units 'TAF'}
+define S_Orovl_Sep {lower 25.6 upper 3424.8 kind 'STORAGE' units 'TAF'} !20231218
 
 goal setS_Orovl_Sep{
 	lhs S_Orovl_Sep

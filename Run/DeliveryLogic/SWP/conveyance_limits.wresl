@@ -30,8 +30,40 @@ define max_ba_dv {alias max_ba kind 'alias' units 'cfs'}
 !(per 1981 "Operating procedure between DWR-OCO & USBR CVO for
 !scheduling and dispatching San Luis joint use facilitites")
 define max_da {select data from swp_limits where plant=2,month=month}
-goal max_da_swp {C_CAA087_SWP < 0.542*max_da}
-goal max_da_cvp {C_CAA087_CVP < 0.458*max_da}
+define swp_da_cap {value 0.542*max_da}
+define cvp_da_cap {value 0.458*max_da}
+
+!Available capacity is determined by comparing BASE cap with utilization in previous cycle.
+define avail_cvp_cap {
+	case cyc_cam2 {condition cyclenum==cn_GW_INITIAL value 0.} 
+	case otherwise {condition always value max((cvp_da_cap - c_caa087_cvp[-1]),0.)} 
+}
+define avail_swp_cap {
+	case cyc_cam2 {condition cyclenum==cn_GW_INITIAL value 0.} 
+	case otherwise {condition always value max((swp_da_cap - c_caa087_swp[-1]),0.)}
+}
+
+!The BASE capacity is prescribed according to the 1981 Operating Procedure.
+goal limit_swp_da_base {C_CAA087_SWP_BASECAP < swp_da_cap} 
+goal limit_cvp_da_base {C_CAA087_CVP_BASECAP < cvp_da_cap}
+
+!Borrowed capacity can only be used if the lending project has available capacity.
+goal limit_swp_da_borrow {C_CAA087_SWP_BORROWEDCAP < avail_cvp_cap} 
+goal limit_cvp_da_borrow {C_CAA087_CVP_BORROWEDCAP < avail_swp_cap} 
+
+!Each project's water has a BASE and BORROWED component.
+goal limit_swp_da {C_CAA087_SWP = C_CAA087_SWP_BASECAP + C_CAA087_SWP_BORROWEDCAP} 
+goal limit_cvp_da {C_CAA087_CVP = C_CAA087_CVP_BASECAP + C_CAA087_CVP_BORROWEDCAP} 
+
+!Total of both SWP and CVP must not exceed prescribed operational availability limits.
+goal limit_total_da {C_CAA087_SWP + C_CAA087_CVP < max_da} 
+
+! Output for debugging
+define swp_da_cap_ {alias swp_da_cap kind 'debug' units 'cfs'}
+define cvp_da_cap_ {alias cvp_da_cap kind 'debug' units 'cfs'}
+define avail_cvp_cap_ {alias avail_cvp_cap kind 'debug' units 'cfs'}
+define avail_swp_cap_ {alias avail_cvp_cap kind 'debug' units 'cfs'}
+
 !Buena Vist Pumping Plant
 define max_bv {select data from swp_limits where plant=4,month=month}
 goal max_bv2 {C_CAA245 < max_bv}

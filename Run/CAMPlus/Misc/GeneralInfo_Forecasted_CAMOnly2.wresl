@@ -79,16 +79,16 @@ define del_swp_SOD_Jun{case a{condition month>=Jul value (swp_TA_total(9-month) 
 !************************************************************************
 !delta consumptive use: perfect foresight from timeseries
 ! Now calculating DND dynamically based on CS3 input data
-define DND_SAC_North_ {timeseries 'DND_SAC_North' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_SAC_West_ {timeseries 'DND_SAC_West' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_SAC_South_ {timeseries 'DND_SAC_South' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_SJR_East_ {timeseries 'DND_SJR_East' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_SJR_West_ {timeseries 'DND_SJR_West' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_OMR_ {timeseries 'DND_OMR' kind 'DELTA-NET-DEPLETION' units 'TAF'}
-define DND_MOK_ {timeseries 'DND_MOK' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_SAC_North_ {timeseries 'DND_SAC_North' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_SAC_West_ {timeseries 'DND_SAC_West' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_SAC_South_ {timeseries 'DND_SAC_South' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_SJR_East_ {timeseries 'DND_SJR_East' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_SJR_West_ {timeseries 'DND_SJR_West' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_OMR_ {timeseries 'DND_OMR' kind 'DELTA-NET-DEPLETION' units 'TAF'}
+!define DND_MOK_ {timeseries 'DND_MOK' kind 'DELTA-NET-DEPLETION' units 'TAF'}
 
-define(fm) DCU_fm{value DND_SAC_North_($m) + DND_SAC_West_($m)  + DND_SAC_South_($m)  + DND_SJR_East_($m)  + DND_SJR_West_($m)  + DND_OMR_($m)  + DND_MOK_($m)}
-!define(fm) DCU_fm{value DND_SAC_North_FAM($m) + DND_SAC_West_FAM($m)  + DND_SAC_South_FAM($m)  + DND_SJR_East_FAM($m)  + DND_SJR_West_FAM($m)  + DND_OMR_FAM($m)  + DND_MOK_FAM($m)}
+!define(fm) DCU_fm{value DND_SAC_North_($m) + DND_SAC_West_($m)  + DND_SAC_South_($m)  + DND_SJR_East_($m)  + DND_SJR_West_($m)  + DND_OMR_($m)  + DND_MOK_($m)}
+define(fm) DCU_fm{value DND_SAC_North_FAM($m) + DND_SAC_West_FAM($m)  + DND_SAC_South_FAM($m)  + DND_SJR_East_FAM($m)  + DND_SJR_West_FAM($m)  + DND_OMR_FAM($m)  + DND_MOK_FAM($m)}
 
 ! contra costa demand:
 define(fm) CC_Demand_fm {select demand from CAM_cc_demand where month=mv($m)}

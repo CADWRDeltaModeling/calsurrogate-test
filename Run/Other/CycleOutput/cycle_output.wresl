@@ -359,9 +359,11 @@ define[local] del_D_ESB347_PLMDL_PMI {alias D_ESB347_PLMDL_PMI[delta] KIND 'DEBU
 define[local] del_D_ESB347_PLMDL_PCO {alias D_ESB347_PLMDL_PCO[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB355_LROCK_PMI {alias D_ESB355_LROCK_PMI[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB355_LROCK_PCO {alias D_ESB355_LROCK_PCO[delta] KIND 'DEBUG' UNITS 'CFS'}
+define[local] del_D_ESB355_LROCK_PIN {alias D_ESB355_LROCK_PIN[delta] KIND 'DEBUG' UNITS 'CFS'} ! New Article 21 demands 5/30/2024
 define[local] del_D_ESB361_ESBLOS_PLS {alias D_ESB361_ESBLOS_PLS[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB403_MOJVE_PMI {alias D_ESB403_MOJVE_PMI[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB403_MOJVE_PCO {alias D_ESB403_MOJVE_PCO[delta] KIND 'DEBUG' UNITS 'CFS'}
+define[local] del_D_ESB403_MOJVE_PIN {alias D_ESB403_MOJVE_PIN[delta] KIND 'DEBUG' UNITS 'CFS'} ! New Article 21 demands 5/30/2024
 define[local] del_D_ESB406_ESBLOS_PLS {alias D_ESB406_ESBLOS_PLS[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB407_CCHLA_PMI {alias D_ESB407_CCHLA_PMI[delta] KIND 'DEBUG' UNITS 'CFS'}
 define[local] del_D_ESB407_CCHLA_PCO {alias D_ESB407_CCHLA_PCO[delta] KIND 'DEBUG' UNITS 'CFS'}
@@ -560,9 +562,11 @@ define[local] trans_D_ESB347_PLMDL_PMI {alias D_ESB347_PLMDL_PMI[transfers_stage
 define[local] trans_D_ESB347_PLMDL_PCO {alias D_ESB347_PLMDL_PCO[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB355_LROCK_PMI {alias D_ESB355_LROCK_PMI[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB355_LROCK_PCO {alias D_ESB355_LROCK_PCO[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
+define[local] trans_D_ESB355_LROCK_PIN {alias D_ESB355_LROCK_PIN[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'} ! New Article 21 demands 5/30/2024
 define[local] trans_D_ESB361_ESBLOS_PLS {alias D_ESB361_ESBLOS_PLS[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB403_MOJVE_PMI {alias D_ESB403_MOJVE_PMI[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB403_MOJVE_PCO {alias D_ESB403_MOJVE_PCO[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
+define[local] trans_D_ESB403_MOJVE_PIN {alias D_ESB403_MOJVE_PIN[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'} ! New Article 21 demands 5/30/2024
 define[local] trans_D_ESB406_ESBLOS_PLS {alias D_ESB406_ESBLOS_PLS[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB407_CCHLA_PMI {alias D_ESB407_CCHLA_PMI[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}
 define[local] trans_D_ESB407_CCHLA_PCO {alias D_ESB407_CCHLA_PCO[transfers_stage1] KIND 'DEBUG' UNITS 'CFS'}

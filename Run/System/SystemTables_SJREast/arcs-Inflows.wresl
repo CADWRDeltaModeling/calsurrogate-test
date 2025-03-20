@@ -29,7 +29,7 @@ define I_HNSLY      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !HENSLE
 define I_MCLRE      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !LAKE MCCLURE, EXCHEQUER DAM
 !define I_LJC022     {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !INFLOW TO FARMINGTON FLOOD CONTROL BASIN !defined in EastSideStreams/arcs-Inflows
 !define I_MELON      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !NEW MELONES RESERVOIR, defined in Upper Stanislaus module
-define I_MLRTN      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !MILLERTON RESERVOIR
+define I_MLRTN_IMP      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !MILLERTON RESERVOIR
 !define I_NHGAN      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !NEW HOGAN RESERVOIR  !defined in EastSideStreams/arcs-Inflows
 define I_PEDRO      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !NEW DON PEDRO RESERVOIR
 define I_TULOC      {timeseries kind 'INFLOW' units 'TAF' convert 'CFS'} !TULLOCH RESERVOIR

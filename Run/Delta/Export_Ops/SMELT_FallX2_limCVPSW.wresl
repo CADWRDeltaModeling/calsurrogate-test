@@ -211,7 +211,7 @@ define CVPFallX2_SWinitDV {std kind 'output-taf' units 'taf'}
 goal CalcCVPFallX2_SWinitDV {
     lhs CVPFallX2_SWinitDV
     case AugSepOctWAN {
-        condition FallX2_DOinc > 0.
+        condition FallX2_DOinc > 0. .and. (S_SHSTA[monthlyweighted]+S_FOLSM[monthlyweighted]+S_TRNTY[monthlyweighted]-S_SHSTA[upstream]-S_FOLSM[upstream]-S_TRNTY[upstream] > 0.) ! For CC run, 11/2023
         rhs S_SHSTA[monthlyweighted]+S_FOLSM[monthlyweighted]+S_TRNTY[monthlyweighted]-S_SHSTA[upstream]-S_FOLSM[upstream]-S_TRNTY[upstream]}
     case otherwise {
         condition always

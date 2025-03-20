@@ -11,7 +11,7 @@ through September - perfect foresight used for water supply
 define I_MLRTN_thrusep {
     case MarthruSep {
         condition   month >= mar .and. month <= sep
-        sum(i=0,Sep-month,1) I_MLRTN(i)*cfs_taf(i) }
+        sum(i=0,Sep-month,1) I_MLRTN_IMP(i)*cfs_taf(i) }
     case otherwise  {
         condition   always
         value 0.0 } }

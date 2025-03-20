@@ -315,9 +315,12 @@ goal fixNODOSswpDS {
   lhs<rhs penalty 99999
 }
 */
+goal fixwts_yubasw {lhs wts_yubasw rhs wts_yubasw[TRANSFERS_STAGE1] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixwts_yubagw {lhs wts_yubagw rhs  wts_yubagw[TRANSFERS_STAGE1] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixYuba_Trans {lhs Yuba_Trans rhs Yuba_Trans[TRANSFERS_STAGE1] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
 
-goal fixSWPDS {SWPDS < SWPDS[TRANSFERS_STAGE1]}
-goal fixSHADS {SHADS < SHADS[TRANSFERS_STAGE1]}
+goal fixSWPDS {lhs SWPDS rhs SWPDS[TRANSFERS_STAGE1] lhs<rhs penalty 0. lhs>rhs penalty 99999.}
+goal fixSHADS {lhs SHADS rhs SHADS[TRANSFERS_STAGE1] lhs<rhs penalty 0. lhs>rhs penalty 99999.}
 goal fixFOLDS {
   lhs     FOLDS
   rhs     FOLDS[TRANSFERS_STAGE1]

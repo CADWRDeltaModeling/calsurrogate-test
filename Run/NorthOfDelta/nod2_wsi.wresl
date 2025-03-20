@@ -7,9 +7,9 @@ include 'american\HSt_base.wresl'
 !include 'american\CVP\FolsomFloodOps_SAC.wresl'
 include 'american\CVP\FolsomRuleCurve_SAC.wresl'
 include 'american\NimbusPower.wresl'
-include 'American\UpperAR_NF_ForecastRelease.wresl'
-include 'American\UpperAR_SF_ForecastRelease.wresl'
-include 'American\UpperAR_90pctForecast.wresl'
+!include 'American\UpperAR_NF_ForecastRelease.wresl'
+!include 'American\UpperAR_SF_ForecastRelease.wresl'
+!include 'American\UpperAR_90pctForecast.wresl'
 
 include 'Clear\ClearCk.wresl'
 

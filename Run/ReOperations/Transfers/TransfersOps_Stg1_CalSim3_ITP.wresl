@@ -15,7 +15,7 @@ goal setI_CAA207_WTS {I_CAA207_WTS = 0.}
 goal set_WTS_Yuba_Stg1 {WTS_Yuba_Stg1 = WTS_YubaSW + WTS_YubaGW}
 define C_YUB006_Delta {alias C_YUB006[Delta] kind 'flow-channel' units 'cfs'}
 
-goal set_I_OROVL_WTS {I_OROVL_WTS = I_OROVL_WTS[TRANSFERS_STAGE1] }
+goal set_I_OROVL_WTS {lhs I_OROVL_WTS rhs I_OROVL_WTS[TRANSFERS_STAGE1] lhs<rhs penalty 99999 lhs>rhs penalty 99999}
 goal set_I_SHSTA_WTS {I_SHSTA_WTS = 0.}
 
 goal route_WTS_Yuba_Stg1_swp {WTS_Yuba_Stg1_swp + C_FTR059_WTS_Stg1_swp + C_KSWCK_WTS_Stg1_swp = I_OROVL_WTS + C_CAA003_WTS_Stg1 + NDOI_ADD_WTS_stg1}

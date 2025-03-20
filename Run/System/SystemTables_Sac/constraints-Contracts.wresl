@@ -782,7 +782,7 @@ goal limitD_CSL005_25_NA {D_CSL005_25_NA < WRmon_CSL005_25_NA*taf_cfs* 1.0}
 define DLT_CSL005_25_NA {alias WRmon_CSL005_25_NA*taf_cfs* 1.0 kind 'DIVERSION-LIMIT' units 'CFS'}
 
 !Putah South Canal deliveries to the cities of Vallejo and Benicia
-goal limitD_PSC033_VJB000     {D_PSC033_VJB000 = CLmon_PSC033_VJB000_V*taf_cfs* ALLOC_SID + CLmon_PSC033_VJB000_B*taf_cfs* ALLOC_SID} !Force cities to take Putah South Canal water first
+goal limitD_PSC033_VJB000     {D_PSC033_VJB000 < CLmon_PSC033_VJB000_V*taf_cfs* ALLOC_SID + CLmon_PSC033_VJB000_B*taf_cfs* ALLOC_SID} ! Change back to inequality constraint due to infeasibility using updated urban demand, NOsorio, 10/2023 ! Force cities to take Putah South Canal water first
 define DLT_PSC033_VJB000    {alias CLmon_PSC033_VJB000_V*taf_cfs* ALLOC_SID + CLmon_PSC033_VJB000_B*taf_cfs* ALLOC_SID kind 'DIVERSION-LIMIT' units 'CFS'}
 
 goal limitD_WTPCMT_SUISN {D_WTPCMT_SUISN < CLmon_WTPCMT_SUISN*taf_cfs* ALLOC_SID}
@@ -820,12 +820,12 @@ goal setD_SAC296_02_SA_c2 {lhs D_SAC296_02_SA case latercycles {condition cyclen
 goal setD_SAC289_03_SA_c2 {lhs D_SAC289_03_SA case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC289_03_SA[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 goal setD_SAC178_08N_SA1_c2 {lhs D_SAC178_08N_SA1 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC178_08N_SA1[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 goal setD_SAC159_08N_SA1_c2 {lhs D_SAC159_08N_SA1 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC159_08N_SA1[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
-goal setD_GCC027_08N_SA2_c2 {lhs D_GCC027_08N_SA2 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_GCC027_08N_SA2[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
+goal setD_GCC027_08N_SA2_c2 {lhs D_GCC027_08N_SA2 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_GCC027_08N_SA2[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs penalty 99999}} ! Temp change for 95% LOC study, NOsorio 10/27/2023
 goal setD_SAC159_08S_SA1_c2 {lhs D_SAC159_08S_SA1 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC159_08S_SA1[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 
 goal setD_CBD041_08S_SA1_c2 {lhs D_CBD041_08S_SA1 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_CBD041_08S_SA1[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 
-goal setD_GCC056_08S_SA2_c2 {lhs D_GCC056_08S_SA2 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_GCC056_08S_SA2[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
+goal setD_GCC056_08S_SA2_c2 {lhs D_GCC056_08S_SA2 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_GCC056_08S_SA2[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs penalty 99999}} ! Temp change for 95% LOC study, NOsorio 10/27/2023
 goal setD_SAC121_08S_SA3_c2 {lhs D_SAC121_08S_SA3 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC121_08S_SA3[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 goal setD_SAC109_08S_SA3_c2 {lhs D_SAC109_08S_SA3 case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs D_SAC109_08S_SA3[GW_INITIAL] lhs > rhs penalty 0 lhs < rhs constrain}}
 

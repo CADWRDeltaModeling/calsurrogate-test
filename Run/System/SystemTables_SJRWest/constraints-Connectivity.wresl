@@ -205,8 +205,8 @@ goal continuitySLD002       {C_SLD027 - C_SLD002 = 0.}
 goal continuitySLUIS_F  {I_SLUIS*.4767 + D_CAA069_SLUIS_F - D_SLUIS_PCH000 - C_SLUIS_CVP - E_SLUIS_CVP 
                         = S_SLUIS_CVP*taf_cfs - S_SLUIS_CVP(-1)*taf_cfs } !  + RsdPos_SLUIS_F - RsdNeg_SLUIS_F}!San Luis Reservoir (CVP)
 
-goal continuitySLUIS_S  {I_SLUIS*.5233 + D_CAA069_SLUIS_S - C_SLUIS_SWP - E_SLUIS_SWP  
-                        = S_SLUIS_SWP*taf_cfs - S_SLUIS_SWP(-1)*taf_cfs } !  + RsdPos_SLUIS_S - RsdNeg_SLUIS_S}!San Luis Reservoir (SWP)
+goal continuitySLUIS_S  {I_SLUIS*.5233 + D_CAA069_SLUIS_S - C_SLUIS_SWP - E_SLUIS_SWP - WTS_deliv
+                        = S_SLUIS_SWP*taf_cfs - S_SLUIS_SWP(-1)*taf_cfs} !  + RsdPos_SLUIS_S - RsdNeg_SLUIS_S}!San Luis Reservoir (SWP)
 
 goal continuityPCH000   {D_PCH000_SCVWD + D_PCH000_SBCWD - D_SLUIS_PCH000				= 0.}
 

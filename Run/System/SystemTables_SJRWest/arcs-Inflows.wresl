@@ -56,7 +56,7 @@ define SR_72_SAL006 {std kind 'SURFACE-RUNOFF' units 'CFS'}
 define SR_72_SJR117 {std kind 'SURFACE-RUNOFF' units 'CFS'}            
 define SR_72_SJR106 {std kind 'SURFACE-RUNOFF' units 'CFS'}            
 define SR_72_SJR091 {std kind 'SURFACE-RUNOFF' units 'CFS'}            
-define SR_72_SLD027 {std kind 'SURFACE-RUNOFF' units 'CRS'}
+define SR_72_SLD027 {std kind 'SURFACE-RUNOFF' units 'CFS'}
 
 define SR_73_MSN004 {std kind 'SURFACE-RUNOFF' units 'CFS'}            
 define SR_73_SLD027 {std kind 'SURFACE-RUNOFF' units 'CFS'}

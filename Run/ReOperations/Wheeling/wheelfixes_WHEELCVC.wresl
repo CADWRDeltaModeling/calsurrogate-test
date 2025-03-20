@@ -324,9 +324,12 @@ goal fixNODOSswpDS {
   lhs<rhs penalty 99999
 }
 */
+goal fixwts_yubasw {lhs wts_yubasw rhs wts_yubasw[WHEELCVC] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixwts_yubagw {lhs wts_yubagw rhs  wts_yubagw[WHEELCVC] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
+goal fixYuba_Trans {lhs Yuba_Trans rhs Yuba_Trans[WHEELCVC] lhs>rhs penalty 99999 lhs<rhs penalty 99999}
 
-goal fixSWPDS {SWPDS < SWPDS[WHEELCVC]}
-goal fixSHADS {SHADS < SHADS[WHEELCVC]}
+goal fixSWPDS {lhs SWPDS rhs SWPDS[WHEELCVC] lhs<rhs penalty 0. lhs>rhs penalty 99999.}
+goal fixSHADS {lhs SHADS rhs SHADS[WHEELCVC] lhs<rhs penalty 0. lhs>rhs penalty 99999.}
 goal fixFOLDS {
   lhs     FOLDS
   rhs     FOLDS[WHEELCVC]

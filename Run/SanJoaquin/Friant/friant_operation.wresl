@@ -36,7 +36,7 @@ C_MLRTNa target is computed considering releases that will be made for minimum
 flows and deliveries.  So C_MLRTNa is above and beyond C_MLRTNm.
 */
 
-define est_RF_to_MC {value max(0.0, SIO(-1) + I_MLRTN *cfs_taf - curr_Fr_del - Friant_est_evap
+define est_RF_to_MC {value max(0.0, SIO(-1) + I_MLRTN_IMP *cfs_taf - curr_Fr_del - Friant_est_evap
             - (S_MLRTNlevel5 + S17level3 + mam_fc_credit  - Friant_fs_req) - Madera_add - FK_add)}
 
 define max_SM_to_MC {value max(0.,min(Fr_snow_rel, Madera_cap_head * cfs_taf - D_MLRTN_MDC_ini - Madera_add))}

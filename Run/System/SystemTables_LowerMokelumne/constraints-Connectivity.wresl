@@ -30,7 +30,7 @@ goal continuityCSM001       {C_CSM005 + C_DSC008 - C_CSM001 = 0.}!
 goal continuityDEE023       {I_DEE023 - C_DEE023 = 0.}
 goal continuityDEE020       {C_DEE023 + R_EDWWTP_DEE020 - C_DEE020 = 0.}
 
-goal continuityEDWWTP       {R_ELDID_NU3_EDWWTP - R_EDWWTP_DEE020 = 0. }
+goal continuityEDWWTP       {R_ELDID_NU3_EDWWTP - D_EDWWTP_ELDID_NU3 - R_EDWWTP_DEE020 = 0. }
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

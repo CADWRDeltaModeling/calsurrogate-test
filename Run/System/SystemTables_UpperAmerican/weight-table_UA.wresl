@@ -115,7 +115,7 @@ Objective obj_UpperAmerican = {
   [D_WTPWAL_GDPUD_NU,   25000],
   [D_WTPWAL_GDPUD_PU,   3],
   [D_NFA016_WTPWAL_CVP,  1000], !Fazio Supplies exchange with PCWA
-[D_EDWWTP_ELDID_NU3, 500],
+[D_EDWWTP_ELDID_NU3, 5500],
 ! --PCWA Middle Fork Project--
   [D_FOLSM_WTPSJP_WR,      5], !San Juan water rights water
   [D_FOLSM_WTPSJP_MFP,  2000], !San Juan Middle Fork Project water

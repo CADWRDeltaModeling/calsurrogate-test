@@ -46,8 +46,6 @@ define DN_ELDID_NU3    {std kind 'SW-DELIVERY-NET' units 'CFS'}
 define DG_ELDID_NU3    {std kind 'SW-DELIVERY-GROSS' units 'CFS'}
 define UD_ELDID_NU3    {timeseries kind 'URBAN-DEMAND' units 'TAF' convert 'CFS'}
 define SHRTG_ELDID_NU3 {std kind 'SHORTAGE' units 'CFS'}
-define RU_ELDID_NU3    {std kind 'REUSE' units 'CFS'}
-
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!! WBA 24 (PCWA)  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -36,6 +36,7 @@ define C_CCS009 {lower 0 upper 99999 kind 'CHANNEL' units 'CFS'}
 define C_BOWMN_PWR  {lower 0 upper 313 kind 'CHANNEL' units 'CFS'}
 define C_BOWMN_ADD  {lower 0 upper 99999 kind 'CHANNEL' units 'CFS'}
 goal setC_BOWMN     {C_BOWMN = C_BOWMN_PWR + C_BOWMN_ADD}
+goal setC_BOWMN_PWR	{C_BOWMN_PWR = C_CCS009_MIF + D_CCS010_BSC000}
 
 !Fordyce Creek 
 define C_FRDYC  {lower 0 upper 99999 kind 'CHANNEL' units 'CFS'} !Changed from 590.0

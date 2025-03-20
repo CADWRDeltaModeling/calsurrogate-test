@@ -335,6 +335,8 @@ define dem_D_WSB031_MWDSC_PIN  {timeseries kind 'demand-swp-in' units 'taf' conv
 define dem_D_SBA009_ACFC_PIN  {timeseries kind 'demand-swp-in' units 'taf' convert 'cfs'}
 define dem_D_SBA029_ACWD_PIN  {timeseries kind 'demand-swp-in' units 'taf' convert 'cfs'}
 define dem_D_SBA036_SCVWD_PIN  {timeseries kind 'demand-swp-in' units 'taf' convert 'cfs'}
+define dem_D_ESB355_LROCK_PIN {timeseries kind 'demand-swp-in' units 'taf' convert 'cfs'} !Added new Article 21 demands. JByers, 05/30/2024
+define dem_D_ESB403_MOJVE_PIN {timeseries kind 'demand-swp-in' units 'taf' convert 'cfs'} !Added new Article 21 demands. JByers, 05/30/2024
 
 ! Maximum Article 21 deliveries received for each contractor 2005-2018 based on SWPAO Historical Deliveries data
 ! Once contractor has received this amount, they will not be receiving any more Article 21 water despite monthly demand in SV DSS PIN timeseries
@@ -366,7 +368,7 @@ define dem_D_WSB031_MWDSC_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_
 define dem_D_ESB433_MWDSC_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 25 }
 define dem_D_ESB403_MOJVE_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 26 }
 define dem_D_BKR004_NBA009_NAPA_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 27 }
-define dem_D_CAA046_71_PA7_pag_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 28 }
+define dem_D_CAA046_71_PA7_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 28 }
 define dem_D_ESB347_PLMDL_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 29 }
 define dem_D_ESB414_BRDNO_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 30 }
 define dem_D_ESB415_GABRL_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 31 }
@@ -378,3 +380,45 @@ define dem_D_BKR004_NBA009_SCWA_PIN_ANN_MAX {select Art21AnnualMax from swp_art2
 define dem_D_CAA183_TULARE_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 37 }
 define dem_D_PYRMD_VNTRA_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 38 }
 define dem_D_CSTIC_VNTRA_PIN_ANN_MAX {select Art21AnnualMax from swp_art21_ann_max where contractor = 39 }
+
+!QAQC outputs
+define	dem_D_SBA009_ACFC_PIN_ANN_MAX_	{alias	dem_D_SBA009_ACFC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_SBA020_ACFC_PIN_ANN_MAX_	{alias	dem_D_SBA020_ACFC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_SBA029_ACWD_PIN_ANN_MAX_	{alias	dem_D_SBA029_ACWD_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB324_AVEK_PIN_ANN_MAX_	{alias	dem_D_ESB324_AVEK_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CSB009_CLRTA1_DDWD_PIN_ANN_MAX_	{alias	dem_D_CSB009_CLRTA1_DDWD_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_WSB032_CLRTA2_PIN_ANN_MAX_	{alias	dem_D_WSB032_CLRTA2_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_WTPCYC_16_PU_SWP_PIN_ANN_MAX_	{alias	dem_D_WTPCYC_16_PU_SWP_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB407_CCHLA_PIN_ANN_MAX_	{alias	dem_D_ESB407_CCHLA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D201_PIN_ANN_MAX_	{alias	dem_D201_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA181_KINGS_PIN_ANN_MAX_	{alias	dem_D_CAA181_KINGS_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_SVRWD_CSTLN_PIN_ANN_MAX_	{alias	dem_D_SVRWD_CSTLN_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB408_DESRT_PIN_ANN_MAX_	{alias	dem_D_ESB408_DESRT_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA184_DUDLEY_PIN_ANN_MAX_	{alias	dem_D_CAA184_DUDLEY_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA173_EMPIRE_PIN_ANN_MAX_	{alias	dem_D_CAA173_EMPIRE_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA194_KERNA_PIN_ANN_MAX_	{alias	dem_D_CAA194_KERNA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA194_KERN_PIN_ANN_MAX_	{alias	dem_D_CAA194_KERN_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA242_Kern_PIN_ANN_MAX_	{alias	dem_D_CAA242_Kern_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA279_Kern_PIN_ANN_MAX_	{alias	dem_D_CAA279_Kern_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CSB015_KERN_BMWD_PIN_ANN_MAX_	{alias	dem_D_CSB015_KERN_BMWD_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB355_LROCK_PIN_ANN_MAX_	{alias	dem_D_ESB355_LROCK_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_PRRIS_MWDSC_PIN_ANN_MAX_	{alias	dem_D_PRRIS_MWDSC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA194_KERNB_PIN_ANN_MAX_	{alias	dem_D_CAA194_KERNB_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB413_MWDSC_PIN_ANN_MAX_	{alias	dem_D_ESB413_MWDSC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_WSB031_MWDSC_PIN_ANN_MAX_	{alias	dem_D_WSB031_MWDSC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB433_MWDSC_PIN_ANN_MAX_	{alias	dem_D_ESB433_MWDSC_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB403_MOJVE_PIN_ANN_MAX_	{alias	dem_D_ESB403_MOJVE_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_BKR004_NBA009_NAPA_PIN_ANN_MAX_	{alias	dem_D_BKR004_NBA009_NAPA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA046_71_PA7_PIN_ANN_MAX_	{alias	dem_D_CAA046_71_PA7_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB347_PLMDL_PIN_ANN_MAX_	{alias	dem_D_ESB347_PLMDL_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB414_BRDNO_PIN_ANN_MAX_	{alias	dem_D_ESB414_BRDNO_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB415_GABRL_PIN_ANN_MAX_	{alias	dem_D_ESB415_GABRL_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_ESB420_GRGNO_PIN_ANN_MAX_	{alias	dem_D_ESB420_GRGNO_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CSB038_OBISPO_PIN_ANN_MAX_	{alias	dem_D_CSB038_OBISPO_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CSB103_BRBRA_PIN_ANN_MAX_	{alias	dem_D_CSB103_BRBRA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_SBA036_SCVWD_PIN_ANN_MAX_	{alias	dem_D_SBA036_SCVWD_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_BKR004_NBA009_SCWA_PIN_ANN_MAX_	{alias	dem_D_BKR004_NBA009_SCWA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CAA183_TULARE_PIN_ANN_MAX_	{alias	dem_D_CAA183_TULARE_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_PYRMD_VNTRA_PIN_ANN_MAX_	{alias	dem_D_PYRMD_VNTRA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+define	dem_D_CSTIC_VNTRA_PIN_ANN_MAX_	{alias	dem_D_CSTIC_VNTRA_PIN_ANN_MAX	kind	'debug'	units	'TAF'}
+

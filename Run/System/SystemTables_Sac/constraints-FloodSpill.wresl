@@ -564,6 +564,9 @@ define C_BSL004_NCF     {lower 0 upper 150000 kind 'CHANNEL' units 'CFS'}
 define C_BSL004_Flood	{std kind 'SPILL' units 'CFS'}
 goal   Flood_BSL004  	{C_BSL004_NCF + C_BSL004_Flood = C_BSL004 }
 
+goal setC_BSL001a_Flood_c2 {lhs C_BSL001a_Flood case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs C_BSL001a_Flood[GW_INITIAL] lhs < rhs penalty 0 lhs > rhs constrain}} ! Done in 95% LOC study to prevent "spills" to try to meet downstream demands, NOsorio 12/2023
+goal setC_BSL001b_Flood_c2 {lhs C_BSL001b_Flood case latercycles {condition cyclenum > cn_GW_INITIAL+0.1 rhs C_BSL001b_Flood[GW_INITIAL] lhs < rhs penalty 0 lhs > rhs constrain}} ! Done in 95% LOC study to prevent "spills" to try to meet downstream demands, NOsorio 12/2023
+
 !====
 !!! Glenn-Colusa Canal
 !========

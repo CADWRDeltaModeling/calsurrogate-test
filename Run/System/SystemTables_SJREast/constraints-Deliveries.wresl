@@ -43,6 +43,8 @@ goal meetAW_60S_PA2       {AW_60S_PA2 + RP_60S_PA2 = DN_60S_PA2 + GP_60S_PA2 + R
 !==============================
 ! 60S_NU1 - City of Stockton via SEWD - M&I 
 !============================== 
+goal setDG_60S_NU1a       {DG_60S_NU1 = D_WTPWDH_60S_NU1 + D_WTPDWS_60S_NU1}
+goal setDG_60S_NU1b       {DG_60S_NU1 = D_WTPWDH_60S_NU1 + D_SJR028_WTPDWS + D_MOK035_WTPDWS}
 goal setDG_60S_NU1       {DG_60S_NU1 = D_WTPWDH_60S_NU1 + D_WTPDWS_60S_NU1}
 goal setDN_60S_NU1       {DN_60S_NU1 = DG_60S_NU1 - DL_60S_NU1}
 goal meetGPmin_60S_NU1   {GP_60S_NU1 > min(UD_60S_NU1,GPmin_60S_NU1)}

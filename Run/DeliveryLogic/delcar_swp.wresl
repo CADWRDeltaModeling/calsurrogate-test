@@ -68,7 +68,7 @@ define nds_swpdel_adjdv {alias nds_swpdel_adj kind 'swp-delivery' units 'TAF'}
 
 ! Dynamically sum up all of the months in the water year for the YUBA LYRA SW Transfers SV timeseries
 define YUBA_TRANS_SW_TAF_ {std kind 'LYRA-ANNUAL-TRANSFER' units 'TAF'}
-define YUBA_TRANS_SW_TAF {case beginWY {condition month == OCT value (sum(i=0,11,1)YUBA_TRANS(i)*cfs_taf(i))}
+define YUBA_TRANS_SW_TAF {case beginWY {condition month == OCT value 60.}!(sum(i=0,11,1)YUBA_TRANS(i)*cfs_taf(i))}
 					case otherwise {condition always value YUBA_TRANS_SW_TAF_(-1)}}
 goal set_YUBA_TRANS_SW_TAF_{YUBA_TRANS_SW_TAF_ = YUBA_TRANS_SW_TAF}
 
@@ -88,8 +88,9 @@ define SWP_Targ_LYRA_dv {alias SWP_Targ_LYRA kind 'swp-delivery' units 'TAF'}
 define SWP_Targ_Phase8 {select SWP_Phase8 from WTS_Stage1_Targets where year=transfersyear} !Phase 8 no longer modeled, but stub is left in for potential future WTS ops.
 define SWP_Targ {value SWP_Targ_LYRA + SWP_Targ_Phase8}
 
-define swp_allocation_0 {value wsidi_swpdel + SWP_Targ*(1.-SaltCostFact_stg1)}     ! Added 100% of Stage1 Transfers target
-define swp_alloc_0_io {value max(wsidi_swpdel + min(SIO_SWP(-1),max_return_swp2), wsidi_swpdel_io) + SWP_Targ*(1.-SaltCostFact_stg1)}     ! Added 100% of Stage1 Transfers target
+!Removing transfers from allocation -TF Stantec 102523
+define swp_allocation_0 {value wsidi_swpdel /* + SWP_Targ*(1.-SaltCostFact_stg1)*/}     ! Added 100% of Stage1 Transfers target
+define swp_alloc_0_io {value max(wsidi_swpdel + min(SIO_SWP(-1),max_return_swp2), wsidi_swpdel_io) /* + SWP_Targ*(1.-SaltCostFact_stg1)*/}     ! Added 100% of Stage1 Transfers target
 
 !need to adjust deltar to include implicit storage in san luis for article 56 carryover
 !define deltar_adjust {select carryover from wsi_deltar_adjust given deltar=del_swp_trial1 use linear}
@@ -276,25 +277,36 @@ define deltar_expmax_io {
 ! No factors are needed in Extreme Yr cases.
 ! 400 TAF threshold was used because recent extreme year 2014 SWP SL storage peaked below 400 TAF (~387 TAF Mar-Apr 2014)
 ! Additionally, the historical SWP SL minimums from 1969-2020 from March to May are 340, 387, 338 TAF respectively
+
+! Added consec years case because of step function issues when San Luis is slightly below or above the 400 TAF threshold.
+! This consec years serves as a backstop to prevent huge swings in extreme single dry years like 1977, 2014, and 2021
+! while still using generalizable logic using some calibration factors (factor_drymin). NOsorio, 02/2024
+
 define deltar_drymin {
-   case Mar_ExtremeYrs {
-        condition month == MAR .and. S_SLUIS_SWP(-1) < 400.
-    value     S_SLUIS_SWP(-1)}
+!   case Mar_ExtremeYrs {
+!        condition month == MAR .and. (wyt_sac_(prevMay) >= 4 .and. wyt_sac == 5)
+!    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug_DryMin - S_SLUIS_SWP_DP)}
   case March {
     condition month == MAR
-    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug_drymin - S_SLUIS_SWP_DP)}
-   case April_ExtremeYrs {
+    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug - S_SLUIS_SWP_DP)}
+   case April_lowSL {
         condition month == APR .and. S_SLUIS_SWP(-1) < 400.
-    value     S_SLUIS_SWP(-1)}
+    value    S_SLUIS_SWP(-1)}
+   case April_ConsecExtremeYrs {
+        condition month == APR .and. (wyt_sac_(prevMay) >= 4 .and. wyt_sac == 5)
+    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug_DryMin - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
    case April {
         condition month == APR
-    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug_drymin - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
-   case May_ExtremeYrs {
+    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_AprAug - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
+   case May_lowSL {
         condition month == MAY .and. S_SLUIS_SWP(-1) < 400.
-    value     S_SLUIS_SWP(-1)}
+    value    S_SLUIS_SWP(-1)}
+   case May_ConsecExtremeYrs {
+        condition month == MAY .and. (wyt_sac_(prevMay) >= 4 .and. wyt_sac == 5)
+    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_MayAug_DryMin - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
   case May {
     condition month == MAY
-    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_MayAug_drymin - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
+    value     max(S_SLUIS_SWP_DP, S_SLUIS_SWP(-1)/factSWP_MayAug - S_SLUIS_SWP_DP- Aug_Alt2BSWPExpCut)}
   case otherwise {
     condition  always
     value      0}
@@ -384,9 +396,12 @@ define swp_alloc {
     case start {
         condition  wateryear==BgnWY .and. month==oct
         value      max_tableA*0.5}
-    case JanToAprCritCap {                                          ! Prevents critical years from over allocating and helps balance 1976-1977
-        condition  month >= JAN .and. month <= APR .and. wyt_sac >= 4 .and. swp_allocation_3 > 2400
-        value      2400. }
+!    case JanToAprCritCap {                                          ! Prevents critical years from over allocating and helps balance 1976-1977
+!        condition  month >= JAN .and. month <= APR .and. wyt_sac >= 4 .and. swp_allocation_3 > 2400
+!        value      2400. }
+    case JanToAprCritCap2 {                                          ! Prevents critical years from over allocating and helps balance 1976-1977
+        condition  month >= JAN .and. month <= APR .and. (wyt_sac_(prevMay) == 1 .and. wyt_sac >= 5) .and. (swp_allocation_3 > 1150)
+        value      swp_allocation_3*(0.8) }
     case JanToApr {                                         ! reductions allowed
         condition  month >= JAN .and. month <= APR
         value      swp_allocation_3 }
@@ -399,9 +414,12 @@ define swp_alloc_io {
     case start {
         condition  wateryear==BgnWY .and. month==oct
         value      max_tableA*0.5}
-    case JanToAprCritCap {                                         ! Prevents critical years from over allocating and helps balance 1976-1977
-        condition  month >= JAN .and. month <= APR .and. wyt_sac >= 4 .and. swp_alloc_3_io > 2400.
-        value      2400. }
+!    case JanToAprCritCap {                                         ! Prevents critical years from over allocating and helps balance 1976-1977
+!        condition  month >= JAN .and. month <= APR .and. wyt_sac >= 4 .and. swp_alloc_3_io > 2400.
+!        value      2400. }
+    case JanToAprCritCap2 {                                          ! Prevents critical years from over allocating and helps balance 1976-1977
+        condition  month >= JAN .and. month <= APR .and. (wyt_sac_(prevMay) == 1 .and. wyt_sac >= 5) .and. (swp_alloc_3_io > 1150)
+        value      swp_alloc_3_io*(0.8) }
     case JanToApr {                                         ! reductions allowed
         condition  month >= JAN .and. month <= APR
         value      swp_alloc_3_io }

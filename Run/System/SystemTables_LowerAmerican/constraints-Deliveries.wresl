@@ -43,7 +43,7 @@ goal setDG_ELDID_NU3  {DG_ELDID_NU3= D_WTPEDH_ELDID_NU3+ D_EDWWTP_ELDID_NU3 + D_
 ! net surface delivery = surface diversion - conveyance losses
 goal setDN_ELDID_NU3  {DN_ELDID_NU3 = DG_ELDID_NU3 - DL_ELDID_NU3}
 ! Total Applied Water = net surface delivery + groundwater pumping
-goal setELDID_NU3     {UD_ELDID_NU3 = DN_ELDID_NU3 /*+ GP_ELDID_NU3*/ + RU_ELDID_NU3 + SHRTG_ELDID_NU3 }
+goal setELDID_NU3     {UD_ELDID_NU3 = DN_ELDID_NU3 /*+ GP_ELDID_NU3*/ + SHRTG_ELDID_NU3 }
 
 ! gross surface water diversions
 !goal setDG_ELDID_NA3  {DG_ELDID_NA3= D_FOLSM_ELDID_NA3}

@@ -12,7 +12,7 @@ define D_FRMDW_FMT002_capacity {
 	case Otherwise 	{condition always value 400.}
 }	
 goal setD_FRMDW_FMT002_capacity	{D_FRMDW_FMT002 < D_FRMDW_FMT002_capacity}
-define D_FRMDW_FMT002_capacity_dv	{alias D_FRMDW_FMT002_capacity kind 'CHANNEL' UNITS 'CFS}'}
+define D_FRMDW_FMT002_capacity_dv	{alias D_FRMDW_FMT002_capacity kind 'CHANNEL' UNITS 'CFS'}
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

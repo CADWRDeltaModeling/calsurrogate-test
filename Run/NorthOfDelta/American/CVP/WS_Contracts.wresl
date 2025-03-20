@@ -133,6 +133,9 @@ define WRann_FOLSM_WTPEDH {
 define CLann_FOLSM_WTPEDH {value 7.550 + 7.50} !TAF; CVP contract amount with annual allocation, INCLUDING Fazio
 define CLmon_FOLSM_WTPEDH {value max(0.0, CLann_FOLSM_WTPEDH * UD_ELDID_NU3*cfs_taf / SumUD_ELDID_NU3_sv) } 
 define CL_FOLSM_WTPEDH    {alias CLmon_FOLSM_WTPEDH kind 'DIVERSION-LIMIT' units 'TAF'}
+define lim_EDWWTP_ELDID_NU3 {alias 3.5*UD_ELDID_NU3*cfs_taf / SumUD_ELDID_NU3_sv kind 'Flow Limit' units 'TAF'}  ! waste water reuse of 3.5 taf per year. - Puneet 
+goal limD_EDWWTP_ELDID_NU3 {D_EDWWTP_ELDID_NU3 < lim_EDWWTP_ELDID_NU3*taf_cfs}  !Code needed to limit waste water reuse
+
 
 !---------------------------------------
 !Define Water Forum limits
@@ -1640,7 +1643,7 @@ goal limit4_D_SAC062_WTPSAC  {D_SAC062_WTPSAC < (1-WFConfYear)*CityofSacDemand_S
                                                 + WFConfYear*CityofSacDemand_ConfYear - WFConfYear*WFmon_AMR007_WTPFBN*taf_cfs
                                                 + WTPSAC_WholesaleAdjmnt}                                                
                                                                                                
-goal limit5_WF_AMR007_WTPFBN {D_AMR007_WTPFBN < (1-WFConfYear)*WFMaxDivRate + WFmon_AMR007_WTPFBN*taf_cfs*WFConfYear}
+goal limit5_WF_AMR007_WTPFBN { D_AMR007_WTPFBN < min(WFMaxDivRate, WFmon_AMR007_WTPFBN*taf_cfs) }
 
 !---------------------------------------
 !Output for debugging purposes

@@ -30,7 +30,7 @@ define SG_TRLCK665_DLL {alias SG_TRLCK665_RES kind 'RECHARGE' units 'CFS'}
 define SG_TRLCK666_DLL {alias SG_TRLCK666_RES kind 'RECHARGE' units 'CFS'}
 define SG_TRLCK667_DLL {alias SG_TRLCK667_RES kind 'RECHARGE' units 'CFS'}
 
-define svSG_WDWRD  {value SG_WDWRD598_RES}
+define svSG_WDWRD  {value SG_WDWRD598_RES/2.}
 goal setNegSG_WDWRD {lhs SG_WDWRD case negative {condition svSG_WDWRD < 0 rhs svSG_WDWRD lhs>rhs penalty SGPHIGH}}
 goal setPosSG_WDWRD {lhs SG_WDWRD case negative {condition svSG_WDWRD < 0 rhs 0 lhs<rhs penalty 0} case postive {condition always rhs svSG_WDWRD }}
 

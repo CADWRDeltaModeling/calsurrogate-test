@@ -19,6 +19,8 @@ define PrevYrYubaGW {
 goal setPrevYrYubaGWdv {PrevYrYubaGWdv = PrevYrYubaGW }
 !
 !Track SW transfers for following refill operations
+!Yuba Refill Operations are tracked within dynamic tranfer calculations
+/*
 define cum_Yuba_Trans {std kind 'CUM-LYRA-SW-Transfer' units 'TAF'}
 goal set_cum_Yuba_Trans {
     lhs cum_Yuba_Trans
@@ -30,8 +32,9 @@ goal set_cum_Yuba_Trans {
         condition   always
         rhs         cum_Yuba_Trans(-1) + Yuba_Trans*cfs_taf
     }
-}
+}*/
 define YubaSWdv       {std kind 'WTS-Acquisition' units 'taf'}
+/*
 define PrevYrYubaSWdv {std kind 'Acquisition' units 'taf'}
 define PrevYrYubaSW {
       case FirstYr {
@@ -45,3 +48,4 @@ define PrevYrYubaSW {
             value PrevYrYubaSWdv(-1) }
 }
 goal setPrevYrYubaSWdv {PrevYrYubaSWdv = PrevYrYubaSW }
+*/

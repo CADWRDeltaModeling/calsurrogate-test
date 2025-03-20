@@ -11,18 +11,24 @@
 define S_OROVL_Sep_hi {std kind 'Penalty' units 'TAF'}
 define S_OROVL_Sep_lo {std kind 'Penalty' units 'TAF'} 
 define S_OROVLSeptarget {std kind 'Storage' units 'TAF'}
-goal setS_OROVLSep {
+/*goal setS_OROVLSep {
   lhs S_OROVLSeptarget
   /*case a {
     condition S_OROVL(PrevSep) < 1600.
     rhs 1600.}
   case b {
     condition always
-    rhs 1600. + 0.5*SWP_Delivery/4191.061*(S_OROVL(PrevSep)-1600.)}   */
+    rhs 1600. + 0.5*SWP_Delivery/4191.061*(S_OROVL(PrevSep)-1600.)}   
 	case a {
 	condition always
-    rhs 1600.+carryover_ITP }
-}
+    rhs 1600.+carryover_ITP
+}*/
+
+goal setS_OROVLSep {lhs S_OROVLSeptarget rhs 1600.+carryover_ITP  lhs>rhs  penalty 99999  lhs<rhs  penalty 99999 }
+
+
+
+
 goal(fm) S_OROVL_EOS_Sep {
   lhs S_OROVL($m)
   /*case a {

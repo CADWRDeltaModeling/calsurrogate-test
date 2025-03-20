@@ -105,6 +105,7 @@ define GoodyearUnimpaired {value (I_NFY029)*cfs_taf}
 
 define BaseCarryover {value 234.0}
 define Triggervalue  {value 0.0} /*{value 166.0}*/
+/*
 define Index_Accorddv   {std kind 'INDEX' units 'TAF'}
 define YrType_Accorddv  {std kind 'INDEX' units 'NONE'}
 
@@ -466,7 +467,12 @@ define Index_D1644 {
         }
   
  goal set_YrType_D1644 {YrType_D1644dv=YrType_D1644}
- 
+  */
+If simulateYubTransfer == 1. {
+	define YrType_Accord {value YrType_Accord_LYRA[LowerYuba]}}
+elseif simulateYubTransfer ==0. {
+	define YrType_Accord {value YrType_Accord[LowerYuba]}}
+ define YrType_D1644 {value YrType_D1644[LowerYuba]}
 !******************************************************************************   
 ! 1.0 LYRA SW transfers acquisitions
 !   LYRA Transferable SW timeseries is pre-processed by running Lower Yuba module standalone with and without LYRA reoperation
@@ -476,7 +482,7 @@ define Index_D1644 {
 define AprSepLYRA_SW {
     case AprSep {
         condition month>MAR
-        sum(i=7-month,12-month,1) Yuba_Trans(i)*cfs_taf(i) + .002}
+        value 60. }!sum(i=7-month,12-month,1) Yuba_Trans(i)*cfs_taf(i) + .002}
     case otherwise {
         condition always
         value 1. }
@@ -484,14 +490,14 @@ define AprSepLYRA_SW {
 define MonthlyLYRA_SW {
     case AprSep {
         condition month>MAR
-        value Yuba_Trans*cfs_taf}
+        value 10.}!Yuba_Trans*cfs_taf}
     case otherwise {
         condition always
         value 0. }
 }
 
 define YubaSW_Max {value AprSepLYRA_SW}
- 
+
 !******************************************************************************      
 ! 2.0 LYRA GW transfers acquisitions
 !   Under the LYRA SCHEDULE 6 YEAR PUMPING COMMITMENT, participating Member Units would agree to

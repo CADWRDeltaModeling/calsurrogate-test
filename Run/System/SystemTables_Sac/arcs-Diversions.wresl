@@ -645,7 +645,9 @@ define D_YUB011_15N_NA2 {std kind 'DIVERSION' units 'CFS'}
 define D_YUB011_15S_NA2 {std kind 'DIVERSION' units 'CFS'}
 define D_YUB003_15N_NU  {std kind 'DIVERSION' units 'CFS'}
 
-define Yuba_Trans {timeseries kind 'flow-inflow' units 'cfs'} ! LYRA Component 1 SW Transferable Water
+If simulateYubTransfer==0. {
+define Yuba_Trans_dv {timeseries kind 'transfer' units 'cfs'} 
+define Yuba_Trans {alias Yuba_Trans_dv kind 'flow-inflow' units 'cfs'}}
 ! LYRA SW Transferable Water. Timeseries is pre-processed by running Lower Yuba module standalone with and without LYRA
 ! Remove in pre-Transfer cycles. C_YUB002 includes this amount. Prevent LYRA water from circulating within system w/o transfer logic
 define C_YUB002_LYRA {std kind 'FLOW-TRANSFERABLE' units 'CFS'} 

@@ -268,7 +268,7 @@ goal   setD_SYC003_SYCLOS_NID {D_SYC003_SYCLOS_NID = 0.125*C_SYC002_NID} ! NID l
 define C_SYC020_PGE          {std kind 'CHANNEL' units 'CFS'}
 define C_SYC020_NID          {std kind 'CHANNEL' units 'CFS'}
 goal   C_SYC020_split        {C_SYC020 = C_SYC020_NID + C_SYC020_PGE}
-!goal   Deer_Cr_PH_PGE	     {C_SYC020_PGE = 0.0} !Assume NID does not purchase water at Deer Creek Powerhouse
+goal   Deer_Cr_PH_PGE	     {C_SYC020_PGE = 0.0} !Assume NID does not purchase water at Deer Creek Powerhouse
 
 goal limitC_SYC020_NID {LHS C_SYC020_NID 		
 			case MOct	{

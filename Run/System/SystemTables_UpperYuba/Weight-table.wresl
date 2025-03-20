@@ -61,10 +61,10 @@ and Bear River watershed above Camp Far West Reservoir
 !! Instream flow requirements !!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 [C_JKSMD_MIF,  70000],  ! Middle Fork Yuba River below Jackson Meadows Reservoir
-[C_MFY044_MIF, 70000],  ! Middle Fork Yuba River below Milton Diversion Dam
+[C_MFY044_MIF,100000],  ! Middle Fork Yuba River below Milton Diversion Dam
 [C_FRNCH_MIF, 150000],	! Canyon Creek below French (Faucherie and Sawmill)
 
-[C_CCS009_MIF, 20000],  ! Canyon Creek below Bowman-Spaulding Canal Diversion
+[C_CCS009_MIF,100000],  ! Canyon Creek below Bowman-Spaulding Canal Diversion
 [C_LCBRF_MIF, 100000],  ! Downstream Lakes of tributaries along Bowman-Spaulding Canal Diversion: Texas, Fall and Trap Creeks
 
 [C_FRDYC_MIF,  70000],  ! Fordyce Creek below Fordyce Lake
