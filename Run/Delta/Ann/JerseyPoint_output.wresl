@@ -59,6 +59,7 @@ define JP_ReqSac {lower unbounded upper unbounded kind 'FLOW' units 'cfs'}
 goal set_JP_ReqSac {
   lhs JP_ReqSac
   case NoSalinityControlPossible{
+  	
     condition abs(JP_m_sv) <= 0.001 .and. int(JP_b_sv) == 0
     rhs 0.}
   case NegSlope{

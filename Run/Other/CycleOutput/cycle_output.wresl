@@ -267,21 +267,21 @@ DEFINE[LOCAL] D_CAA069_SLUIS_S_DELTA {ALIAS D_CAA069_SLUIS_S[DELTA] KIND 'DEBUG'
 define[local] JP_MAXEXPORT_DELTA {alias JP_MAXEXPORT[DELTA] kind 'FLOW' units 'CFS'}
 define[local] EM_MAXEXPORT_DELTA {alias EM_MAXEXPORT[DELTA] kind 'FLOW' units 'CFS'}
 define[local] CO_MAXEXPORT_DELTA {alias CO_MAXEXPORT[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MAXEXPORT_1_DELTA {alias RS_MAXEXPORT_1[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MAXEXPORT_2_DELTA {alias RS_MAXEXPORT_2[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MAXEXPORT_3_DELTA {alias RS_MAXEXPORT_3[DELTA] kind 'FLOW' units 'CFS'}
+define[local] RS_MAXEXPORT_DELTA {alias RS_MAXEXPORT[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_MAXEXPORT_2_DELTA {alias RS_MAXEXPORT_2[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_MAXEXPORT_3_DELTA {alias RS_MAXEXPORT_3[DELTA] kind 'FLOW' units 'CFS'}
 define[local] JP_REQSAC_DELTA {alias JP_REQSAC[DELTA] kind 'FLOW' units 'CFS'}
 define[local] EM_REQSAC_DELTA {alias EM_REQSAC[DELTA] kind 'FLOW' units 'CFS'}
 define[local] CO_REQSAC_DELTA {alias CO_REQSAC[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_REQSAC1_DELTA {alias RS_REQSAC1[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_REQSAC2_DELTA {alias RS_REQSAC2[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_REQSAC3_DELTA {alias RS_REQSAC3[DELTA] kind 'FLOW' units 'CFS'}
+define[local] RS_REQSAC_DELTA {alias RS_REQSAC[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_REQSAC2_DELTA {alias RS_REQSAC2[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_REQSAC3_DELTA {alias RS_REQSAC3[DELTA] kind 'FLOW' units 'CFS'}
 define[local] JP_MRDO_DELTA {alias JP_MRDO[DELTA] kind 'FLOW' units 'CFS'}
 define[local] EM_MRDO_DELTA {alias EM_MRDO[DELTA] kind 'FLOW' units 'CFS'}
 define[local] CO_MRDO_DELTA {alias CO_MRDO[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MRDO_1_DELTA {alias RS_MRDO_1[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MRDO_2_DELTA {alias RS_MRDO_2[DELTA] kind 'FLOW' units 'CFS'}
-define[local] RS_MRDO_3_DELTA {alias RS_MRDO_3[DELTA] kind 'FLOW' units 'CFS'}
+define[local] RS_MRDO_DELTA {alias RS_MRDO[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_MRDO_2_DELTA {alias RS_MRDO_2[DELTA] kind 'FLOW' units 'CFS'}
+!define[local] RS_MRDO_3_DELTA {alias RS_MRDO_3[DELTA] kind 'FLOW' units 'CFS'}
 define[local] C_SACTOT_ANN_DELTA {alias C_SACTOT_ANN[DELTA] kind 'FLOW-ANN' units 'CFS'}
 
 

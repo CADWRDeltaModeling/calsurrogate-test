@@ -1357,7 +1357,23 @@ define JP_MRDO_CYCDEL {alias JP_MRDO[DELTA] kind 'NDD-QAQC' units 'cfs'}
 define JP_MRDO_CYCTRANS {alias JP_MRDO[TRANSFERS_STAGE1] kind 'NDD-QAQC' units 'cfs'}
 define JP_MRDO_CYCCVC {alias JP_MRDO[WHEELCVC] kind 'NDD-QAQC' units 'cfs'}
 define JP_MRDO_CYCJPOD {alias JP_MRDO[WHEELJPOD] kind 'NDD-QAQC' units 'cfs'}
-define RS_MRDO_1_CYCGWINIT {alias RS_MRDO_1[GW_INITIAL] kind 'NDD-QAQC' units 'cfs'}
+
+define RS_MRDO_CYCGWINIT {alias RS_MRDO[GW_INITIAL] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCGW1 {alias RS_MRDO[GW_FIRST] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCGW2 {alias RS_MRDO[GW_SECOND] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCGW3 {alias RS_MRDO[GW_THIRD] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCGW4 {alias RS_MRDO[GW_FOURTH] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCPRE {alias RS_MRDO[PRESETUP] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCSET {alias RS_MRDO[SETUP] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCMON {alias RS_MRDO[MONTHLYWEIGHTED] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCUP {alias RS_MRDO[UPSTREAM] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCDELS {alias RS_MRDO[DELTA_SRPLS] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCDEL {alias RS_MRDO[DELTA] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCTRANS {alias RS_MRDO[TRANSFERS_STAGE1] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCCVC {alias RS_MRDO[WHEELCVC] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_CYCJPOD {alias RS_MRDO[WHEELJPOD] kind 'NDD-QAQC' units 'cfs'}
+
+/*define RS_MRDO_1_CYCGWINIT {alias RS_MRDO_1[GW_INITIAL] kind 'NDD-QAQC' units 'cfs'}
 define RS_MRDO_1_CYCGW1 {alias RS_MRDO_1[GW_FIRST] kind 'NDD-QAQC' units 'cfs'}
 define RS_MRDO_1_CYCGW2 {alias RS_MRDO_1[GW_SECOND] kind 'NDD-QAQC' units 'cfs'}
 define RS_MRDO_1_CYCGW3 {alias RS_MRDO_1[GW_THIRD] kind 'NDD-QAQC' units 'cfs'}
@@ -1398,7 +1414,7 @@ define RS_MRDO_3_CYCDELS {alias RS_MRDO_3[DELTA_SRPLS] kind 'NDD-QAQC' units 'cf
 define RS_MRDO_3_CYCDEL {alias RS_MRDO_3[DELTA] kind 'NDD-QAQC' units 'cfs'}
 define RS_MRDO_3_CYCTRANS {alias RS_MRDO_3[TRANSFERS_STAGE1] kind 'NDD-QAQC' units 'cfs'}
 define RS_MRDO_3_CYCCVC {alias RS_MRDO_3[WHEELCVC] kind 'NDD-QAQC' units 'cfs'}
-define RS_MRDO_3_CYCJPOD {alias RS_MRDO_3[WHEELJPOD] kind 'NDD-QAQC' units 'cfs'}
+define RS_MRDO_3_CYCJPOD {alias RS_MRDO_3[WHEELJPOD] kind 'NDD-QAQC' units 'cfs'}*/
 define EIEXPCTRL_CYCGWINIT {alias EIEXPCTRL[GW_INITIAL] kind 'NDD-QAQC' units 'cfs'}
 define EIEXPCTRL_CYCGW1 {alias EIEXPCTRL[GW_FIRST] kind 'NDD-QAQC' units 'cfs'}
 define EIEXPCTRL_CYCGW2 {alias EIEXPCTRL[GW_SECOND] kind 'NDD-QAQC' units 'cfs'}

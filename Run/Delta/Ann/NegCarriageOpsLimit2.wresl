@@ -48,7 +48,7 @@ define EM_Salinity_control_dv {alias EM_Salinity_control kind 'CONTROL' units 'C
 
 define RS1_Salinity_control {
 	case control {
-	condition (NDOI_ADD_CVP[-1] + NDOI_ADD_SWP[-1] < 0.1) .and. (abs(RS_MRDO_1[-1] - (NDOI_MIN[-1] + NDOI_ADD_ANN[-1])) < 0.5)
+	condition (NDOI_ADD_CVP[-1] + NDOI_ADD_SWP[-1] < 0.1) .and. (abs(RS_MRDO[-1] - (NDOI_MIN[-1] + NDOI_ADD_ANN[-1])) < 0.5)
 		value 1. }
 	case otherwise {
 	condition always 

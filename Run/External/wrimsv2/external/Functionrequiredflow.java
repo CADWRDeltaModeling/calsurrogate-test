@@ -106,7 +106,7 @@ public class Functionrequiredflow extends ExternalFunction{
                                     sacLoBound, sacHiBound, location, ave_type, month, year);
 
 		// push the result on the Stack
-		stack.push(new Double(result));
+		stack.push(Double.valueOf(result));
 		
 		long t2 = Calendar.getInstance().getTimeInMillis();
 		cpuTime=cpuTime+(int) (t2-t1);

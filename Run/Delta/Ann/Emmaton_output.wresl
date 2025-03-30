@@ -37,16 +37,9 @@ goal setEMmrdo {
   case NegSlope{
     condition EM_m_sv <= 0.0
     rhs 0.}
-  /*case HighCost{
-    condition EM_Sac_ZeroExp_sv2 >= ANNcap
-    rhs 0.}*/
-  /*case NegCarriage{
-    condition abs(EM_m_sv) >= 1.0
-    rhs 999999.}*/
   case Normal {
     condition always
-    rhs ((1-EM_m_sv)/EM_m_sv)*ExportActualTD /*- ((1-EM_m_sv)/EM_m_sv)*C_CAA003_wts_stg1 - ((1-EM_m_sv)/EM_m_sv)*C_CAA003_cvcrels
-    - ((1-EM_m_sv)/EM_m_sv)*C_CAA003_whlrels*/ - EM_b_sv/EM_m_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
+    rhs ((1-EM_m_sv)/EM_m_sv)*ExportActualTD - EM_b_sv/EM_m_sv + DeltaInflowforNDOI - C_SACTOT_ANN - DeltaExportforNDOI + C_CAA003_TD + C_DMC000_TD
 						   + DeltaAccretionforNDOI - DeltaDepletionforNDOI}
  }
 

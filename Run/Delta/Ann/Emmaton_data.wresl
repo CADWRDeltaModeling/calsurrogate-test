@@ -133,15 +133,18 @@ define EM_a2_sv {
 
 define EM_b_sv {
 	case noControl{
-  		condition EM_a0_sv>=999999.
+  		condition EM_a0_sv>=999990.
   		value 999999.
 	}
 	case noExpSensitivity{
-		condition abs(EM_a2_sv) < 0.000001
+		! Dealing with division by zero issue
+		condition abs(EM_a2_sv) < 0.00001
 		value 0.
 	}
 	case negSensitivity{
-		condition EM_a2_sv < -0.000001
+		! For negative sensitivity of a2 the inequality will flip signs so
+		! we need to add - sign. 
+		condition EM_a2_sv < -0.00001
 		value -EM_a0_sv/EM_a2_sv
 	}	
 	case control{

@@ -56,6 +56,7 @@ define VI {value 9}
 define CV {value 10}
 define CC {value 11}
 define CI {value 12}
+define X2 {value 30}
 
 define slope {value 1}
 define intercept {value 2}
