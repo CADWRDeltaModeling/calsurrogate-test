@@ -110,7 +110,7 @@ goal RS_MaxExport_1_NegCarriage {
   lhs     RS_MaxExport
    case NegCW {
     condition RS_m_1_sv >= 1.0 .and. RS1_Salinity_control> 0.5 .and. S_SHSTA(-1)<ShastaNCPLow-500.
-    rhs     RS_MaxExport_1[-1]
+    rhs     RS_MaxExport[-1]
     lhs>rhs penalty 99999
     lhs<rhs penalty 0}
 
