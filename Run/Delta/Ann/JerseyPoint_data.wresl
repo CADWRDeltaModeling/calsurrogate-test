@@ -185,11 +185,11 @@ define JP_m_sv {
     condition  JP_b_sv >= 999990.
     value 0.}
    case negExpSensitivity{
-    condition JP_a2_sv < -0.0001 .and. month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    condition JP_a2_sv < -0.0001 .and. (month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep)
 	Value JP_a1_sv/JP_a2_sv
 	}    
    case lowExpSensitivity{
-    condition JP_a2_sv < 0.0001 .and. month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep
+    condition JP_a2_sv < 0.0001 .and. (month >=Oct .and. month <=Jan .or. month >=APR .and. month <=Sep)
 	Value 1.
 	}    
   case control{
