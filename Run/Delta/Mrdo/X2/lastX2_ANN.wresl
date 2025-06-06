@@ -6,17 +6,28 @@
 ! prepare inputs for X2 calculation
 
 !define NDO {alias NDOI_MIN + NDOI_ADD KIND 'FLOW-NDO' UNITS 'CFS'}  ! total of mrdo and surplus
-define NDO {std kind 'FLOW-NDO' units 'CFS'}
-goal setNDO {NDO = NDOI_MIN - C_SAC041_WQ + NDOI_ADD}
+define NDO {std kind 'FLOW-NDO' units 'CFS'}goal setNDO {NDO = NDOI_MIN - C_SAC041_WQ + NDOI_ADD}
 
 ! ******************************************************************************************
-! Get last month's X2 position using ANN
+
+
+
+! calculate previous month's value of X2 using the TF ANN
+define x2_last {
+      value  surrogateX2(NDO(-2:-5),NDO(-1),
+                         SMSCG_OP(-2:-5),SMSCG_OP(-1),
+                         30, 
+                         int(monthly_ave), calmonth_prev, calyear_prev,0.) 
+}
+
+define x2_prv  {std kind 'X2-POSITION-PREV' units 'KM'}
+goal setX2Monprv {X2_prv=X2_last}
+
+
+
+! Get last month's X2 position using legacy ANN
 ! calculate previous month's value of X2
-
-define X2_prv {std kind 'X2-POSITION-PREV' units 'KM'}
-
-define X2_last {
-
+define X2_last_matlab {
   case lastWaterYear {
     condition  month == Oct
       value  ANN_X2(
@@ -33,8 +44,13 @@ define X2_last {
                int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
                int(monthly_ave),(month-1),wateryear)}
 }
+define X2_prv_matlab {std kind 'X2-POSITION-PREV' units 'KM'}
+goal X2lastperiodmlab {X2_prv_matlab=X2_last_matlab}
 
-goal X2lastperiod {X2_prv=X2_last}      ! output purposes only
+
+
+
+
 
 ! ******************************************************************************************
 ! Get last month's X2 position as modified by NODOS using ANN

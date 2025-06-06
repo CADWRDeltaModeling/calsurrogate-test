@@ -5,45 +5,13 @@
 ! position as a function of last month's position and current month's Net Delta outflow
 include[local] '..\..\Ann\AnnCommon3.wresl'
 
+!***** Eliminated code hardwiring which days would be at what X2 - eli
 
-! calculate previous month's value of X2. This is not specific
-define X2_Month_sv {
-      value  surrogateX2(NDO(-1:-5),
-                         SMSCG_OP(-1:-5),
-                         30, 
-                         int(monthly_ave), calmonth_prev, calyear_prev,0.) 
-}
-
-define X2_Month {lower -999999 upper 999999 kind 'X2-POSITION-PREV' units 'KM'}
-goal setX2Monprv {X2_Month = X2_Month_sv}
-
-
-
-! ******************************************************************************************
-! Set the begin and end day for the standard -- Roe always met first
-define begday_roe {
-     case StandardOn {
-          condition      daysX2_roe_mod > 0.5
-          value    1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define endday_roe {
-     case StandardOn {
-          condition      daysX2_roe_mod > 0.5
-          value    begday_roe + daysX2_roe_mod - 1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define begday_roedv {alias begday_roe kind 'debug' units 'none'}
-define endday_roedv {alias endday_roe kind 'debug' units 'none'}
 
 ! Now compute the Delta outflow required to meet the Roe standard
 define DO_req_X2roe_init {
      case StandardOn {
-          condition     daysX2_chs_mod > 0.5
+          condition     daysX2_roe_mod > 0.5
           value max(0.,requiredFlowX2(km_roe, daysX2_roe_mod, 
           	          NDO(-1:-4), -9999., 
 		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
@@ -55,6 +23,7 @@ define DO_req_X2roe_init {
   	value 0.0}
 }
 
+! Store the above value as the flow needed in absense of a cap. It will be adjusted for the cap later
 define DO_req_X2roe_nocap {
      case StandardOn {
           condition     daysX2_roe_mod > 0.5
@@ -68,48 +37,19 @@ define DO_req_X2roe {value min(flowcap_roe, DO_req_X2roe_nocap)}
 
 
 ! calculate and report previous ndays value of x2 west of station
-define X2_roe_nday_sv {
-      value  surrogateX2(NDO(-1:-5),
-                         SMSCG_OP(-1:-5),
+define X2_roe_nday_prev_sv {
+      value  surrogateX2(NDO(-2:-5),NDO(-1),
+                         SMSCG_OP(-2:-5),SMSCG_OP(-1),
                          30, 
                          99, calmonth_prev, calyear_prev, km_roe) ! 99 = COUNTBELOW, km_roe is threshold
 }
 
-define X2_roe_nday {lower -999999 upper 999999 kind 'X2-POSITION-PREV' units 'KM'}
-goal setX2NDayroe {X2_roe_nday = X2_roe_nday_sv}
 
-define X2_std_roe_modnday {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
-goal setX2NDayStdroe {X2_std_roe_modnday = daysX2_roe_mod}
+define X2_roe_nday_prev {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
+goal setX2NDayStdroe {X2_roe_nday_prev = X2_roe_nday_prev_sv}
 
 
 
-
-
-
-
-
-
-
-! ******************************************************************************************
-! Set the begin and end day for the standard -- Chipps always met second
-define begday_chs {
-     case StandardOn {
-          condition      daysX2_chs_mod > 0.5
-          value    endday_roe + 1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define endday_chs {
-     case StandardOn {
-          condition      daysX2_chs_mod > 0.5
-          value    begday_chs + daysX2_chs_mod - 1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define begday_chsdv {alias begday_chs kind 'debug' units 'none'}
-define endday_chsdv {alias endday_chs kind 'debug' units 'none'}
 
 ! Now compute the Delta outflow required to meet the Chipps standard
 define DO_req_X2chs_init {
@@ -139,69 +79,20 @@ define DO_req_X2chs_nocap_dv {alias DO_req_X2chs_init kind 'FLOW' units 'CFS'}
 define DO_req_X2chs {value min(flowcap_chs, DO_req_X2chs_nocap)}
 
 
-
-
-
 ! calculate previous ndays value of x2 west of station
-define X2_NDaychs_sv {
-      value  surrogateX2(NDO(-1:-5),
-                         SMSCG_OP(-1:-5),
+define X2_chs_nday_prev_sv {
+      value  surrogateX2(NDO(-2:-5),NDO(-1),
+                         SMSCG_OP(-2:-5),SMSCG_OP(-1),
                          30, 
                          99, calmonth_prev, calyear_prev, km_chs) ! 99 = COUNTBELOW, km_chs is threshold
 }
 
-define X2_chs_nday {lower -999999 upper 999999 kind 'X2-POSITION-PREV' units 'KM'}
-goal setX2NDaychs {X2_chs_nday = X2_NDaychs_sv}
-
-define X2_std_chs_modnday {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
-goal setX2NDayStdchs {X2_std_chs_modnday = daysX2_chs_mod}
+define X2_chs_nday_prev {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
+goal setX2NDaychs {X2_chs_nday_prev = X2_chs_nday_prev_sv}
 
 
-! ******************************************************************************************
-! Set the begin and end day for the standard -- Confluence always met last
-define begday_bkg {
-     case background {
-          condition daysX2_bkg_mod > 0.5
-          value    1. }
-     case None {
-          condition always
-          value    0. }
-}
-define endday_bkg {
-     case background {
-          condition daysX2_bkg_mod > 0.5
-          value    begday_bkg + daysX2_bkg_mod - 1. }
-     case None {
-          condition always
-          value    0. }
-}
-define begday_cnf {
-     case StandardNone {
-          condition      daysX2_cnf < 0.5
-          value    0. }
-     case PA_SmeltAug {
-          condition      daysX2_cnf > 0.5 .and. month == AUG
-          value    endday_bkg + 1. }
-     case StandardOn {
-          condition      daysX2_cnf_mod > 0.5
-          value    endday_chs + 1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define endday_cnf {
-     case StandardNone {
-          condition      daysX2_cnf < 0.5
-          value    0. }
-     case StandardOn {
-          condition      daysX2_cnf_mod > 0.5
-          value   begday_cnf + daysX2_cnf_mod - 1. }
-     case StandardOff {
-          condition      always
-          value    0. }
-}
-define begday_cnfdv {alias begday_cnf kind 'debug' units 'none'}
-define endday_cnfdv {alias endday_cnf kind 'debug' units 'none'}
+
+
 
 ! Now compute the Delta outflow required to meet the Confluence standard
 define km_cnf_mod {
@@ -212,28 +103,57 @@ define km_cnf_mod {
           condition  daysX2_cnf_mod > 0.5 .and. month==AUG .and. wyt_Sac<=2
           value km_Aug }
      case PA_SmeltSept {
-          condition  daysX2_cnf_mod > 0.5 .and. month==SEP .and. wyt_Sac<=2
+          condition  daysX2_cnf_mod > 0.5 .and. month==SEP .and. wyt_Sac<=2 
           value km_PA }
      case PA_SmeltOct {
-          condition      daysX2_cnf_mod > 0.5 .and. month==OCT .and. wyt_Sac<=2
+          condition      daysX2_cnf_mod > 0.5 .and. month==OCT .and. wyt_Sac<=2 
           value km_PA}
-     case StandardOff {
+     case PA_FlowMin {   ! This is a magic number flow minimum imposed for conditions when there is no regulation
+     	  condition daysX2_cnf < 0.5
+          value -0.5}
+     case StandardOff {  ! A further fallback was in the original code. Unclear why this would be reached -ea 
           condition      always
           value          120.0  }
 }
 
+define km_cnf_mod_ {alias km_cnf_mod kind 'X2_KM' units 'KM'}
+
 define DO_req_X2cnf_init {
-     case StandardOn {
-          condition     km_cnf_mod > 0.5
-          value max(0.,requiredFlowX2(km_cnf_mod, daysX2_chs_mod, 
+	 ! August is transitional, not a standard. The goal is to enter September near the Confluence km
+	 ! The daysX2_cnf_mod was previously set to 14 representing partial compliance and it may have gotten tacked
+	 ! onto the end of the month (?) 
+	 ! In that spirit, here we re-interpret the 14 as the length of the 
+	 ! average at the end of the month over which we want to meet the km_cnf_mod goal
+	 case PA_SmeltAug {
+	 	condition month==AUG .and. wyt_Sac<=3.1 .and.  km_cnf_mod > 0.5  .and. km_cnf_mod < 110.
+	 	value max(0.,requiredFlowX2(km_cnf_mod, daysX2_cnf_mod, 
           	          NDO(-1:-4), -9999., 
 		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
-		              3000., 30000., 30, 77,    ! */ x2 station code = 30 nth_lowest agg code = 77 
+		              3000., 30000., 30, 9,    ! */ x2 station code = 30 last 7 average is code 9
 		              calmonth, calyear))
 		         }
+	 case PA_SmeltSepOct {
+	    ! The PA Fall X2 is in terms of monthly averaged, the "ndays" should be daysin but being under
+	    ! for every day is much more severe than complying with an average. 
+	 	condition range(month,SEP,OCT) .and. wyt_Sac<=3.1 .and. km_cnf_mod > 0.5 .and. km_cnf_mod < 110.
+	 	value max(0.,requiredFlowX2(km_cnf_mod, daysX2_cnf_mod, 
+          	          NDO(-1:-4), -9999., 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              3000., 30000., 30, monthly_ave,    ! */ x2 station code = 30 nth_lowest agg code = 77 
+		              calmonth, calyear))
+		         }
+	 case StandardOn{
+	    ! The usual spring case using ndays
+          condition     km_cnf_mod > 0.5  .and. km_cnf_mod < 110.
+          value max(0.,requiredFlowX2(km_cnf_mod, daysX2_cnf_mod, 
+          	          NDO(-1:-4), -9999., 
+		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
+		              3000., 30000., 30, monthly_ave,    ! */ x2 station code = 30 nth_lowest agg code = 77 
+		              calmonth, calyear))
+		              }
      case SpecFlowStd {
          condition       daysX2_cnf < 0.5
-         value           flowmin_specX2 }
+         value           flowmin_specX2 }        ! Replacement flow periods (e.g. spring) when no standard
      case StandardOff {
          condition       always
          value           0.0  }   }
@@ -259,23 +179,58 @@ define DO_req_X2cnf {
 }
 
 
-
-! report previous ndays value of x2 west of station
-define X2_cnf_nday_sv {
-      value  surrogateX2(NDO(-1:-5),
-                         SMSCG_OP(-1:-5),
-                         30, 
-                         99, calmonth_prev, calyear_prev, km_cnf) ! 99 = COUNTBELOW, km_cnf is threshold
+! diagnostic: projected ndays based on previous months and estimates from this cycle
+define NDO_nominal{
+  case controlfirstcycle{
+    condition cyclenum == cn_GW_INITIAL
+    value NDO(-1)
+  }
+  case control{
+  	condition always
+  	value NDO[-1]
+  }
 }
 
-define X2_cnf_nday {lower -999999 upper 999999 kind 'X2-POSITION-PREV' units 'KM'}
-goal setX2NDaycnf {X2_cnf_nday = X2_cnf_nday_sv}
+define X2_cnf_nday_proj_sv {
+	  case StandardOn {
+      condition km_cnf_mod > 0.5  .and. km_cnf_mod < 110.
+      value  surrogateX2(NDO(-1:-4),NDO_nominal,
+                         SMSCG_OP(-1:-4),SMSCG_OPSV,
+                         30, 
+                         99, calmonth, calyear, km_cnf_mod) ! 99 = COUNTBELOW, km_cnf is threshold
+      }
+      case StandardOff {
+      	condition always
+      	value 0.
+      }
+}
 
-define X2_std_cnf_modnday {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
-goal setX2NDayStdcnf {X2_std_cnf_modnday = daysX2_cnf_mod}
+
+define X2_cnf_nday_proj {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
+goal setX2NDaycnfproj {X2_cnf_nday_proj = X2_cnf_nday_proj_sv}
 
 
 
 
+define km_cnf_prev_sv {
+	value km_cnf_mod_(-1)
+}
 
+! report previous ndays value of x2 west of station
+define X2_cnf_nday_prev_sv {
+	case StandardWasOn{
+		condition km_cnf_prev_sv > 0.5 .and. km_cnf_prev_sv < 110.
+        value  surrogateX2(NDO(-2:-5),NDO(-1),
+                         SMSCG_OP(-2:-5),SMSCG_OP(-1),
+                         30, 
+                         99, calmonth_prev, calyear_prev, km_cnf_prev_sv) ! 99 = COUNTBELOW, km_cnf is threshold
 
+    }
+    case StandardWasOff{
+    	condition always
+    	value 0.
+    }
+}
+
+define X2_cnf_nday_prev {lower -999999 upper 999999 kind 'X2-NDAY' units 'DAYS'}
+goal setX2NDaycnf {X2_cnf_nday_prev = X2_cnf_nday_prev_sv}

@@ -10,17 +10,17 @@
 ! External function 'getFinalMRDO' takes as input the Delta Outflow required (cfs), beginning
 ! day, and ending day for each standard.  Also takes the year, month, and days in month.
 ! getFinalMrdo.obj must be located in External directory.
-define MRDO_final {value max( DO_req_X2roe, DO_req_X2chs, DO_req_X2cnf)}
+define MRDO_final {value max( DO_req_X2roe, DO_req_X2chs, DO_req_X2cnf,DO_req_flow)}
 define MRDO_finaldv {alias MRDO_final KIND 'FLOW-REQ-MRDO' UNITS 'CFS'}
 
 ! with uncapped X2
-define MRDO_X2nocap {value max( DO_req_X2roe_nocap,DO_req_X2chs_nocap,DO_req_X2cnf_nocap)} 
+define MRDO_X2nocap {value max( DO_req_X2roe_nocap,DO_req_X2chs_nocap,DO_req_X2cnf_nocap,DO_req_flow)} 
 
 !define MRDO_X2nocapdv {std KIND 'FLOW-REQ-MRDO' UNITS 'CFS'}  ! moved to ANNCommon
 goal saveMRDO_X2nocap {MRDO_X2nocapdv = MRDO_X2nocap }
 
 ! without X2
-define MRDO_X2off {value 0.} 
+define MRDO_X2off {value DO_req_flow} 
 define MRDO_X2offdv {alias MRDO_X2off KIND 'FLOW-REQ-MRDO' UNITS 'CFS'}
 
 ! with X2 only

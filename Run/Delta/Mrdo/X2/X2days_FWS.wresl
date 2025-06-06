@@ -131,11 +131,13 @@ define daysX2_cnf {
           condition      month == AUG .and. wyt_SAC <= 2  ! Aug ramped so it is in range of SEP target
           value          14.    }
      case Sep_FWS {
+     	  ! This ndays condition will be replaced by a monthly average, which is the time basis for Fall X2
           condition      month == SEP .and. wyt_SAC <= 2  ! Smelt Habitat test for Wet through BN years
-          value           daysin } 
+          value          daysin } 
      case Oct_FWS {
+     	  ! This ndays condition will be replaced by a monthly average
           condition      month == OCT .and. wyt_SAC <= 2  ! Smelt Habitat test for Wet through BN years
-          value           daysin } 
+          value          daysin } 
      case Nov_FWS {
           condition      month == NOV !.and. wyt_SAC <= 2  
           value          0. }  
@@ -147,7 +149,8 @@ define daysX2_cnf {
 define daysX2_roe {
      case FebtoJun {
           condition      month >= FEB .and. month <= JUN
-          value min( daysX2_roeTB, daysX2_chs) }
+          value min( daysX2_roeTB, daysX2_chs)  ! ea: Why? TUCP
+          }
      case StandardOff {
           condition      always
           value          0.    }
@@ -184,34 +187,38 @@ define daysX2_chs_mod {
           value          daysX2_chs  }
      case RoeOn {
           condition      always
-          value          daysX2_chs - daysX2_roe  }
+          value          daysX2_chs  }
 }
+! Todo what is this? 
 define daysX2_bkg_mod {
     case PA_SmeltAug {
-          condition      daysX2_cnf > 0.5 .and. month == AUG .and. wyt_Sac<=2
-          value          daysin - daysX2_cnf    }
+          condition      daysX2_cnf > 0.5 .and. month == AUG .and. wyt_Sac<=3 !ea was 2
+          value          daysin }
     case zero {                                                      
           condition      always                                       
           value          0.   }                                       
 }
+
+! Is the PA-smeltAug daysin - daysX2_bkg_mod in first case daysX2_bkg_mod relevant
 define daysX2_cnf_mod {
     case PA_SmeltAug {
-          condition      daysX2_cnf > 0.5 .and. month == AUG .and. wyt_Sac<=2
-          value          daysin - daysX2_bkg_mod }
+          condition      daysX2_cnf > 0.5 .and. month == AUG .and. wyt_Sac<=3 ! ea was 2
+          value          14 }   ! was daysin  - daysX2_bkg_mod then daysin
     case CnfTrigOutofSeason {
           condition      month <= JAN .or. month >= JUL       ! If outside D1641 standard X2 season don't do this adjustment
           value          daysX2_cnf    }
     case SpecialStd {
         condition       daysX2_cnf > 0.5
-        value           daysin - daysX2_chs_mod - daysX2_roe_mod  }     ! days here make up the balance
+        value           daysin }                                           ! days here make up the balance
     case StandardOff {                                                      ! for the period unless the original
         condition       always                                              ! days at cnf are zero.  in this case
         value           0.   }                                              ! there is no standard!!
 }
-define modroeday {alias daysX2_roe_mod kind 'debug' units 'none'}
-define modchsday {alias daysX2_chs_mod kind 'debug' units 'none'}
-define modcnfday {alias daysX2_cnf_mod kind 'debug' units 'none'}
-define modbkgday {alias daysX2_bkg_mod kind 'debug' units 'none'}
+
+define x2_std_roe_nday {alias daysX2_roe_mod kind 'X2-NDAY' units 'DAYS'}
+define x2_std_chs_nday {alias daysX2_chs_mod kind 'X2-NDAY' units 'DAYS'}
+define x2_std_cnf_nday {alias daysX2_cnf_mod kind 'X2-NDAY' units 'DAYS'}
+define x2_modbkg_nday {alias daysX2_bkg_mod kind 'X2-NDAY' units 'DAYS'}
 
 
 ! ******************************************************************************************

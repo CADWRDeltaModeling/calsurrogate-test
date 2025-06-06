@@ -59,7 +59,7 @@ define daysX2_cnf {
 define daysX2_roe {
      case FebtoJun {
           condition      month >= FEB .and. month <= JUN
-          value min( daysX2_roeTB, daysX2_chs) }
+          value daysX2_roeTB }  ! ea was min( daysX2_roeTB, daysX2_chs) 
      case StandardOff {
           condition      always
           value          0.    }
@@ -69,9 +69,9 @@ define daysX2_roe {
 ! ******************************************************************************************
 ! Modify the days at each location depending on whether the trigger for Roe has been tripped
 ! If   X2last > trigger then,
-!              roe_days=0, chs_days=orig, cnf_days=daysinperiod - chs_days
+!              roe_days=0, chs_days=orig, cnf_days=daysinperiod
 ! If   X2last < trigger then,
-!              roe_days=orig, chs_days=orig-roe_days, cnf_days=daysin period-chs_days-roe_days
+!              roe_days=orig, chs_days=orig, cnf_days=daysin period-chs_days-roe_days
 !
 ! NOTE: THE DAY MODIFICATION ASSUMES THAT CHS_DAYS >= ROE_DAYS.  IE.  WHEN YOU MEET ROE YOU
 ! AUTOMATICALLY MEET CHIPPS. BE SURE TABLE 'X2DAYS' IS SET PROPERLY.
@@ -85,24 +85,25 @@ define daysX2_roe_mod {
           value          daysX2_roe  }
 }
 define daysX2_chs_mod {
-     case RoeOff {
-          condition      x2_last > trigger_x2roe
-          value          daysX2_chs  }
      case RoeOn {
           condition      always
-          value          daysX2_chs - daysX2_roe  }
+          value          daysX2_chs  }
 }
-define daysX2_bkg_mod {value 0.}                                       
+! What is this?
+define daysX2_bkg_mod {value 0.}      
+
+! Why would daysX2_cnf > 0.5 be mentioned if we are just going to set to daysin?
 define daysX2_cnf_mod {
     case SpecialStd {
         condition       daysX2_cnf > 0.5
-        value           daysin - daysX2_chs_mod - daysX2_roe_mod  }     ! days here make up the balance
+        value           daysin  }                                           ! days here make up the balance
     case StandardOff {                                                      ! for the period unless the original
         condition       always                                              ! days at cnf are zero.  in this case
         value           0.   }                                              ! there is no standard!!
 }
-define modroeday {alias daysX2_roe_mod kind 'debug' units 'none'}
-define modchsday {alias daysX2_chs_mod kind 'debug' units 'none'}
-define modcnfday {alias daysX2_cnf_mod kind 'debug' units 'none'}
+define x2_std_roe_nday {alias daysX2_roe_mod kind 'X2-NDAY' units 'DAYS'}
+define x2_std_chs_nday {alias daysX2_chs_mod kind 'X2-NDAY' units 'DAYS'}
+define x2_std_cnf_nday {alias daysX2_cnf_mod kind 'X2-NDAY' units 'DAYS'}
+
 
 ! ******************************************************************************************

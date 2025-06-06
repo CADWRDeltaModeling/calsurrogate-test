@@ -49,8 +49,10 @@ public class Functionsurrogatex2 extends ExternalFunction{
 		Object param9 = stack.pop();  //ave_type
 		//Object param8 = stack.pop(); 
 		Object param7 = stack.pop();  //location
-		Object param6 = stack.pop();  // smscg
-		Object param1 = stack.pop();  // ndoi
+		Object param6 = stack.pop();  // smscg_fut
+		Object param5 = stack.pop();  // smcg_prev
+		Object param4 = stack.pop();  // ndoi_fut
+		Object param1 = stack.pop();  // ndoi-prev
 
 		//cast params to correct types:
 		double aggParam = ((Number) param12).doubleValue();
@@ -59,17 +61,21 @@ public class Functionsurrogatex2 extends ExternalFunction{
 		int ave_type = ((Number) param9).intValue();
 		//int variable = ((Number) param8).intValue();
 		int location = ((Number) param7).intValue();
-		Number[] smscg_Arr = (Number[])param6;
-		int size_smscg=smscg_Arr.length;
+		double smscg_fut = ((Number) param6).doubleValue();		
+		Number[] smscg_Arr = (Number[])param5;
+		int size_smscg=smscg_Arr.length+1;
 		double[] smscg=new double[size_smscg];
-		for (int i=0; i<size_smscg; i++){
-			smscg[i]=smscg_Arr[i].doubleValue();
+		smscg[0] = smscg_fut;
+		for (int i=1; i<size_smscg; i++){
+			smscg[i]=smscg_Arr[i-1].doubleValue();
 		}
+		double ndoi_fut = ((Number) param4).doubleValue();
 		Number[] ndoi_Arr = (Number[])param1;
-		int size_ndoi=ndoi_Arr.length;
+		int size_ndoi=ndoi_Arr.length+1;
 		double[] ndoi=new double[size_ndoi];
-		for (int i=0; i<size_ndoi; i++){
-			ndoi[i]=ndoi_Arr[i].doubleValue();
+		ndoi[0]=ndoi_fut;
+		for (int i=1; i<size_ndoi; i++){
+			ndoi[i]=ndoi_Arr[i-1].doubleValue();
 		}
         // location might be omitted? It is X2
 		float result = surrogatex2(ndoi, smscg, location, ave_type, month, year, aggParam);
