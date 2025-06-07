@@ -37,46 +37,42 @@ define NMFSMaxExDCCest_ {alias NMFSMaxExpDCCest kind 'Export-Limit' units 'cfs'}
 define NMFSMaxExDCCest5_ {alias NMFSMaxExpDCCest5 kind 'Export-Limit' units 'cfs'} !for output only
 define NMFSMaxExDCCest10_ {alias NMFSMaxExpDCCest10 kind 'Export-Limit' units 'cfs'} !for output only
 
-
+! ea todo: need to put this in a place that wont cause redefinition errors
+define BI2 {value 15}
 ! check Rock Slough salinity conditions if the DXC was closed this month
 define RS_estEC_noDXC {
-    value AnnEC(C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),C_SAC041[GW_FOURTH],
-           EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),EXP_TD[GW_FOURTH],
-           C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),C_SJR070[GW_FOURTH],
-           DXC(-4),DXC(-3),DXC(-2),DXC(-1),NMFSdaysopentarg,
-           net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),net_DICU[GW_FOURTH],
-           sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),sac_oth[GW_FOURTH],
-           exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),exp_oth[GW_FOURTH],
-           SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),SMSCG_OP[GW_FOURTH],
-           int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),daysin,
-           int(2),int(monthly_ave),month,wateryear)}  ! 2 is for RS
+    value surrogateEC(Sac_tot(-1:-4),Sac_tot[GW_FOURTH],
+                      EXP_TD(-1:-4),EXP_tot[GW_FOURTH],
+                      DXC(-1:-4),NMFSdaysopentarg,          
+                      net_DICU(-1:-4),net_DICU[GW_FOURTH], 
+                      C_SJR070(-1:-4),C_SJR070[GW_FOURTH],
+                      SMSCG_OP(-1:-4),SMSCG_OP[GW_FOURTH],
+                      int(BI2), int(monthly_ave),calmonth, calyear)
+                      }	
 
 define RSestECnoDXCmE {
-    value AnnEC(C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),C_SAC041[GW_FOURTH],
-           EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),NMFSMaxExpDCCest,
-           C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),C_SJR070[GW_FOURTH],
-           DXC(-4),DXC(-3),DXC(-2),DXC(-1),NMFSdaysopentarg,
-           net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),net_DICU[GW_FOURTH],
-           sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),sac_oth[GW_FOURTH],
-           exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),exp_oth[GW_FOURTH],
-           SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),SMSCG_OP[GW_FOURTH],
-           int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),daysin,
-           int(2),int(monthly_ave),month,wateryear)}  ! 2 is for RS
+	    value surrogateEC(Sac_tot(-1:-4),Sac_tot[GW_FOURTH],
+                      EXP_TD(-1:-4),NMFSMaxExpDCCest + exp_oth[GW_FOURTH],  ! check the exp_oth is correct
+                      DXC(-1:-4),NMFSdaysopentarg,          
+                      net_DICU(-1:-4),net_DICU[GW_FOURTH], 
+                      C_SJR070(-1:-4),C_SJR070[GW_FOURTH],
+                      SMSCG_OP(-1:-4),SMSCG_OP[GW_FOURTH],
+                      int(BI2), int(monthly_ave),calmonth, calyear)
+                      }	
+	
 
 !Rock Slough salinity estimate in December or January if the gate is opened for 5 days and exports are held to 1500 cfs during those 5 days.
 define RSestECDXC5mE {
 	case DecJan {
 		condition	range(month,dec,jan)	
-    	value AnnEC(C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),C_SAC041[GW_FOURTH],
-           EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),NMFSMaxExpDCCest5,
-           C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),C_SJR070[GW_FOURTH],
-           DXC(-4),DXC(-3),DXC(-2),DXC(-1),5,
-           net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),net_DICU[GW_FOURTH],
-           sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),sac_oth[GW_FOURTH],
-           exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),exp_oth[GW_FOURTH],
-           SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),SMSCG_OP[GW_FOURTH],
-           int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),daysin,
-           int(2),int(monthly_ave),month,wateryear)}  ! 2 is for RS
+	    value surrogateEC(Sac_tot(-1:-4),Sac_tot[GW_FOURTH],
+                      EXP_TD(-1:-4),NMFSMaxExpDCCest5 + exp_oth[GW_FOURTH],  ! check the exp_oth is correct
+                      DXC(-1:-4),5,          
+                      net_DICU(-1:-4),net_DICU[GW_FOURTH], 
+                      C_SJR070(-1:-4),C_SJR070[GW_FOURTH],
+                      SMSCG_OP(-1:-4),SMSCG_OP[GW_FOURTH],
+                      int(BI2), int(monthly_ave),calmonth, calyear)
+                      }			
 	case otherwise {
 		condition always
 		value		0.

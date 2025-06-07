@@ -37,32 +37,18 @@ For summer, (for ITP/BiOp)
 ! calculate last 7-day average MTZ EC from previous month
 define MTZ {value 21} ! ANN input location Martinez
 
+
 define MTZ_EC_7day_sv {
-  case lastWaterYear {
-    condition  month == Oct
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(MTZ),int(ave_last_7days),12,(wateryear-1))}
-  case others {
-    condition always
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(MTZ),int(ave_last_7days),(month-1),wateryear)}
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
+               int(MTZ),int(ave_last_7days), calmonth_prev, calyear_prev)
 }
+
+
 define MTZ_EC_7day {std kind 'SALINITY' units 'UMHOS/CM'}
 goal setMTZ_EC_7day {MTZ_EC_7day = MTZ_EC_7day_sv}
 
@@ -71,32 +57,17 @@ goal setMTZ_EC_7day {MTZ_EC_7day = MTZ_EC_7day_sv}
 define BD {value 20} ! ANN input location Beldon
 
 define BD_EC_Month_sv {
-  case lastWaterYear {
-    condition  month == Oct
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(BD),int(monthly_ave),12,(wateryear-1))}
-
-  case others {
-    condition always
-      value  AnnEC(C_SAC041(-5),C_SAC041(-4),C_SAC041(-3),C_SAC041(-2),C_SAC041(-1),
-               EXP_TD(-5),EXP_TD(-4),EXP_TD(-3),EXP_TD(-2),EXP_TD(-1),
-               C_SJR070(-5),C_SJR070(-4),C_SJR070(-3),C_SJR070(-2),C_SJR070(-1),
-               DXC(-5),DXC(-4),DXC(-3),DXC(-2),DXC(-1),
-               net_DICU(-5),net_DICU(-4),net_DICU(-3),net_DICU(-2),net_DICU(-1),
-               sac_oth(-5),sac_oth(-4),sac_oth(-3),sac_oth(-2),sac_oth(-1),
-               exp_oth(-5),exp_oth(-4),exp_oth(-3),exp_oth(-2),exp_oth(-1),
-               SMSCG_OP(-5),SMSCG_OP(-4),SMSCG_OP(-3),SMSCG_OP(-2),SMSCG_OP(-1),
-               int(daysindv(-5)),int(daysindv(-4)),int(daysindv(-3)),int(daysindv(-2)),int(daysindv(-1)),
-               int(BD),int(monthly_ave),(month-1),wateryear)}
-}
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
+               int(BD),
+               int(monthly_ave), 
+               calmonth_prev, calyear_prev) 
+}	
+	
 
 define BD_EC_Month {std kind 'SALINITY' units 'UMHOS/CM'}
 goal setBD_EC_MON {BD_EC_Month = BD_EC_Month_sv}

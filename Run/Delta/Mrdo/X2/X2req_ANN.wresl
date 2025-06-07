@@ -129,7 +129,7 @@ define DO_req_X2cnf_init {
 	 	value max(0.,requiredFlowX2(km_cnf_mod, daysX2_cnf_mod, 
           	          NDO(-1:-4), -9999., 
 		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
-		              3000., 30000., 30, 9,    ! */ x2 station code = 30 last 7 average is code 9
+		              3000., 30000., 30, ave_last_7days,    ! */ x2 station code = 30 
 		              calmonth, calyear))
 		         }
 	 case PA_SmeltSepOct {
@@ -139,7 +139,7 @@ define DO_req_X2cnf_init {
 	 	value max(0.,requiredFlowX2(km_cnf_mod, daysX2_cnf_mod, 
           	          NDO(-1:-4), -9999., 
 		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
-		              3000., 30000., 30, monthly_ave,    ! */ x2 station code = 30 nth_lowest agg code = 77 
+		              3000., 30000., 30, monthly_ave,    ! */ x2 station code = 30 
 		              calmonth, calyear))
 		         }
 	 case StandardOn{

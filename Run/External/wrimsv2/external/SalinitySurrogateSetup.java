@@ -17,7 +17,28 @@ import wrimsv2.config.ConfigUtils;
 import calsim.surrogate.*;
 
 
-/* Current codes in SalinitySurrogateManager and in CalSim. These have to be manually coordinated
+
+/*  ANNCommon2.wresl
+define JP {value 1}
+define RS {value 2}
+define EM {value 3}
+define AN {value 4}
+define CO {value 5}
+define CH {value 6}
+define LV {value 7}
+define MR {value 8}
+define VI {value 9}
+define CV {value 10}
+define CC {value 11}
+define CI {value 12}
+define BI {value 15
+define BL {value 20}
+define MRZ {value 21}
+define X2 {value 30}
+*/
+
+/* Current codes in SalinitySurrogateManager and in CalSim which I got from the fortran code. 
+ * These have to be manually coordinated
 	public final int JER_CALSIM = 1; // Jersey Point
 	public final int RSL_CALSIM = 2; // Rock Slough
 	public final int EMM_CALSIM = 3; // Emmaton
@@ -30,6 +51,7 @@ import calsim.surrogate.*;
 	public final int TRP_CALSIM = 10; // CVP Tracy Intake
 	public final int CCF_CALSIM = 11;
 	public final int CCI_CALSIM = 12;
+	
 	public final int BDL_CALSIM = 20; // Beldons Landing
 	public final int MRZ_CALSIM = 21;
 	public final int X2_CALSIM =  30; // X2
@@ -62,12 +84,13 @@ public class SalinitySurrogateSetup {
 		outputIndexMap.put(SalinitySurrogateManager.JER_CALSIM, 11);
 		outputIndexMap.put(SalinitySurrogateManager.RSL_CALSIM, 16);
 		outputIndexMap.put(SalinitySurrogateManager.MRZ_CALSIM, 12);
-		outputIndexMap.put(SalinitySurrogateManager.MAL_CALSIM, 2);
-		//outputIndexMap.put(SalinitySurrogateManager.RSL_CALSIM, 6);
+		outputIndexMap.put(SalinitySurrogateManager.MAL_CALSIM, 3);
+		outputIndexMap.put(SalinitySurrogateManager.BAC_CALSIM, 15);
 		outputIndexMap.put(SalinitySurrogateManager.EMM_CALSIM, 8);
 		outputIndexMap.put(SalinitySurrogateManager.ANH_CALSIM, 10);
 		outputIndexMap.put(SalinitySurrogateManager.CLL_CALSIM, 7);
 		outputIndexMap.put(SalinitySurrogateManager.BDL_CALSIM, 5);
+    	outputIndexMap.put(SalinitySurrogateManager.MRZ_CALSIM,  1);
 		outputIndexMap.put(SalinitySurrogateManager.X2_CALSIM,  30);
 	}
 

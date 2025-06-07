@@ -21,12 +21,12 @@ month       ECstandard
 ! calculate previous month's value of salinity
 ! calculate previous month's value of salinity
 define CO_EC_Month_sv {
-      value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_Tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
                int(CO), int(monthly_ave), calmonth_prev, calyear_prev)
 }
 
@@ -35,12 +35,12 @@ goal setCOMonprv {CO_EC_Month = CO_EC_Month_sv}
 
 !get 14-day EC for 1 month earlier
 /*define CO_EC_Max14Day_sv {
-      value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_ot(-1),
+               EXP_tot(-2:-5),Exp_Tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
                int(CO),int(monthly_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
 }
 define CO_EC_Max14Day {std kind 'SALINITY' units 'UMHOS/CM'}

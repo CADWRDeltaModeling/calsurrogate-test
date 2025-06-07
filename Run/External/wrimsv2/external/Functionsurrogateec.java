@@ -43,17 +43,23 @@ public class Functionsurrogateec extends ExternalFunction{
 		long t1 = Calendar.getInstance().getTimeInMillis();
 		
 		//values in reverse order:
-		Object param11 = stack.pop();
-		Object param10 = stack.pop();
-		Object param9 = stack.pop();
+		Object param11 = stack.pop();  // year
+		Object param10 = stack.pop();  // mon
+		Object param9 = stack.pop();   // ave_type
 		//Object param8 = stack.pop();
-		Object param7 = stack.pop();
-		Object param6 = stack.pop();
-		Object param5 = stack.pop();
-		Object param4 = stack.pop();
-		Object param3 = stack.pop();
-		Object param2 = stack.pop();
-		Object param1 = stack.pop();
+		Object param7 = stack.pop();   // location
+		Object param6 = stack.pop();   // smscg current
+		Object param6b = stack.pop();   // smscg arr
+		Object param5 = stack.pop();   // sjr current
+		Object param5b = stack.pop();   // sjr arr
+		Object param4 = stack.pop();   // CD current
+		Object param4b = stack.pop();   // channel depletion arr
+		Object param3 = stack.pop();   // dcc curr
+		Object param3b = stack.pop();   // dcc arr
+		Object param2 = stack.pop();   // export current
+		Object param2b = stack.pop();  // export arr history
+		Object param1 = stack.pop();   // sac current
+		Object param1b = stack.pop();  // sac arr history
 
 		//cast params to correct types:
 		int year = ((Number) param11).intValue();
@@ -61,41 +67,60 @@ public class Functionsurrogateec extends ExternalFunction{
 		int ave_type = ((Number) param9).intValue();
 		//int variable = ((Number) param8).intValue();
 		int location = ((Number) param7).intValue();
-		Number[] smscg_Arr = (Number[])param6;
-		int size_smscg=smscg_Arr.length;
+		
+		double smscg_current = ((Number) param6).doubleValue();				
+		Number[] smscg_Arr = (Number[])param6b;
+		int size_smscg=smscg_Arr.length+1;
 		double[] smscg=new double[size_smscg];
-		for (int i=0; i<size_smscg; i++){
-			smscg[i]=smscg_Arr[i].doubleValue();
+		smscg[0] = smscg_current;
+		for (int i=1; i<size_smscg; i++){
+			smscg[i]=smscg_Arr[i-1].doubleValue();
 		}
-		Number[] sjr_Arr = (Number[])param5;
-		int size_sjr=sjr_Arr.length;
+		
+		double sjr_current = ((Number) param5).doubleValue();		
+		Number[] sjr_Arr = (Number[])param5b;
+		int size_sjr=sjr_Arr.length+1;
 		double[] sjr=new double[size_sjr];
-		for (int i=0; i<size_sjr; i++){
-			sjr[i]=sjr_Arr[i].doubleValue();
+		sjr[0] = sjr_current;
+		for (int i=1; i<size_sjr; i++){
+			sjr[i]=sjr_Arr[i-1].doubleValue();
 		}
-		Number[] net_dcd_Arr = (Number[])param4;
-		int size_net_dcd=net_dcd_Arr.length;
+		
+		double cd_current = ((Number) param4).doubleValue();		
+		Number[] net_dcd_Arr = (Number[])param4b;
+		int size_net_dcd=net_dcd_Arr.length + 1;
 		double[] net_dcd=new double[size_net_dcd];
-		for (int i=0; i<size_net_dcd; i++){
-			net_dcd[i]=net_dcd_Arr[i].doubleValue();
+		net_dcd[0] = cd_current;
+		for (int i=1; i<size_net_dcd; i++){
+			net_dcd[i]=net_dcd_Arr[i-1].doubleValue();
 		}
-		Number[] dcc_Arr = (Number[])param3;
-		int size_dcc=dcc_Arr.length;
+		
+		double dcc_current = ((Number) param3).doubleValue();
+		Number[] dcc_Arr = (Number[])param3b;
+		int size_dcc=dcc_Arr.length+1;
 		double[] dcc=new double[size_dcc];
-		for (int i=0; i<size_dcc; i++){
-			dcc[i]=dcc_Arr[i].doubleValue();
+		dcc[0] = dcc_current;
+		for (int i=1; i<size_dcc; i++){
+			dcc[i]=dcc_Arr[i-1].doubleValue();
 		}
-		Number[] exp_Arr = (Number[])param2;
-		int size_exp=exp_Arr.length;
+		
+		double exp_current = ((Number) param2).doubleValue();
+		Number[] exp_Arr = (Number[])param2b;
+		int size_exp=exp_Arr.length + 1;
 		double[] exp=new double[size_exp];
-		for (int i=0; i<size_exp; i++){
-			exp[i]=exp_Arr[i].doubleValue();
+		exp[0] = exp_current;
+		
+		for (int i=1; i<size_exp; i++){
+			exp[i]=exp_Arr[i-1].doubleValue();
 		}
-		Number[] sac_Arr = (Number[])param1;
-		int size_sac=sac_Arr.length;
+		
+		double sac_current = ((Number) param1).doubleValue();
+		Number[] sac_Arr = (Number[])param1b;
+		int size_sac=sac_Arr.length+1;
 		double[] sac=new double[size_sac];
-		for (int i=0; i<size_sac; i++){
-			sac[i]=sac_Arr[i].doubleValue();
+		sac[0] = sac_current;
+		for (int i=1; i<size_sac; i++){
+			sac[i]=sac_Arr[i-1].doubleValue();
 		}
 
 		float result = surrogateec(sac, exp, dcc, net_dcd, sjr, smscg, location, ave_type, month, year);

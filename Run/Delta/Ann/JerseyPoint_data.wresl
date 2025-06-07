@@ -24,12 +24,12 @@ Modified values are in salinity_std_jpt_new.table.
 
 ! calculate previous month's value of salinity
 define JP_EC_Month_sv {
-        value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
+        value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
                int(JP), int(monthly_ave), calmonth_prev, calyear_prev)
 }
 
@@ -41,12 +41,12 @@ goal setJPMonprv {JP_EC_Month = JP_EC_Month_sv}
 !get 14-day ANN_EC for 1 month earlier
 
 define JP_EC_Max14Day_sv {
-      value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
                int(JP),int(monthly_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
 }
 

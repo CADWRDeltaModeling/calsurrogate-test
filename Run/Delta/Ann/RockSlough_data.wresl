@@ -4,13 +4,13 @@
 
 ! calculate previous month's value of salinity
 define RS_EC_Month_sv {
-      value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
-               int(RS), int(monthly_ave), calmonth_prev, calyear_prev)
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
+               int(BI), int(monthly_ave), calmonth_prev, calyear_prev)
 }
 
 define RS_EC_Month {lower -999999 upper 999999 kind 'SALINITY' units 'UMHOS/CM'}
@@ -20,13 +20,13 @@ goal setRSMonprv {RS_EC_Month = RS_EC_Month_sv}
 !**************************************************************************************************
 !get 14-day EC for 1 month earlier
 define RS_EC_Max14Day_sv {
-      value  surrogateEC(Sac_Tot(-1:-5),
-               EXP_tot(-1:-5),
-               DXC(-1:-5),
-               net_DICU(-1:-5),
-               C_SJR070(-1:-5),
-               SMSCG_OP(-1:-5),
-               int(RS),int(monthly_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
+      value  surrogateEC(Sac_Tot(-2:-5),Sac_tot(-1),
+               EXP_tot(-2:-5),Exp_tot(-1),
+               DXC(-2:-5),DXC(-1),
+               net_DICU(-2:-5),net_DICU(-1),
+               C_SJR070(-2:-5),C_SJR070(-1),
+               SMSCG_OP(-2:-5),SMSCG_OP(-1),
+               int(BI),int(monthly_ave), calmonth_prev, calyear_prev)  !int(max_14day_running_ave)
 }
 
 define RS_EC_Max14Day {std kind 'SALINITY' units 'UMHOS/CM'}
@@ -113,7 +113,7 @@ define RS_a0_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    RS_EC_std_sv, int(RS), 0, int(ann_type), calmonth, calyear)}
+                    RS_EC_std_sv, int(BI), 0, int(ann_type), calmonth, calyear)}
 }
 
 define RS_a1_sv {
@@ -129,7 +129,7 @@ define RS_a1_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    RS_EC_std_sv, int(RS), 1, int(ann_type), calmonth, calyear)}
+                    RS_EC_std_sv, int(BI), 1, int(ann_type), calmonth, calyear)}
   case other{
     condition  always
     value -1.}
@@ -148,7 +148,7 @@ define RS_a2_sv {
                     DXC(-1:-4), DXC_est,
                     net_DICU(-1:-4), net_delta_cu,
                     SMSCG_OP(-1:-4), SMSCG_OPSV,
-                    RS_EC_std_sv, int(RS), 2, int(ann_type), calmonth, calyear)}
+                    RS_EC_std_sv, int(BI), 2, int(ann_type), calmonth, calyear)}
   case other {
     condition  always
     value 1.}
@@ -230,7 +230,7 @@ define  RS_Sac_ZeroExp_sv2 {
 		              C_SJR070(-1:-4), SJR_ann_est, 
 		              DXC(-1:-4), DXC_est, net_DICU(-1:-4), net_delta_cu, 
 		              SMSCG_OP(-1:-4), SMSCG_OPSV, 
-		              5000., 24000., int(RS), int(ann_type), calmonth, calyear))
+		              5000., 24000., int(BI), int(ann_type), calmonth, calyear))
 		     }
 }
 define RS_Sac_ZeroExp {lower unbounded upper unbounded kind 'FLOW' units 'CFS'}
