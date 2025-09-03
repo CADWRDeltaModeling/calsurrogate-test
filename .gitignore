@@ -12,7 +12,7 @@ DSS/output/*
 !*.stub
 
 # include as stub
-DSS/input/*
+DSS/input/DCR2023*
 !*.stub
 
 # Files #
